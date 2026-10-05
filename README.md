@@ -19,4 +19,3 @@ Then open http://localhost:5173
 - Phone number and trust address (footer)
 - WhatsApp group invite links (`data-wa-group` links)
 - YouTube video IDs for the video section
-- Official photo of Jagadguru Mahaswamiji (`.guru-photo`)

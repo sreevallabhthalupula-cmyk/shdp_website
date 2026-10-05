@@ -438,8 +438,14 @@ html[lang="te"] .prog-btn .name { font-family: var(--font-te); font-weight: 600;
    ========================================================== */
 .guidance { background: var(--green-950); color: var(--on-dark); position: relative; overflow: hidden; }
 .guidance .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(36px, 6vw, 96px); align-items: center; }
-.guru-photo { aspect-ratio: 4 / 5; border-radius: 999px 999px var(--radius) var(--radius); overflow: hidden; border: 1px solid rgba(226, 183, 100, 0.45); padding: 10px; }
-.guru-photo .ph { width: 100%; height: 100%; border-radius: 999px 999px 8px 8px; }
+.guru-photo {
+  margin: 0; justify-self: center; width: min(100%, 440px);
+  border-radius: 999px 999px var(--radius) var(--radius);
+  border: 1px solid rgba(226, 183, 100, 0.45); padding: 12px;
+  box-shadow: 0 0 120px -20px rgba(233, 133, 44, 0.35);
+}
+/* image ratio matches the cropped arch photo exactly (460 x 616), so nothing is cut */
+.guru-photo img { width: 100%; height: auto; aspect-ratio: 460 / 616; object-fit: cover; border-radius: 999px 999px 8px 8px; background: #2f6b3a; }
 .guidance h2 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #fbf6e8; margin-top: 14px; }
 .guidance .peetam { color: var(--gold-300); margin-top: 10px; font-family: var(--font-display); font-size: 1.125rem; }
 html[lang="te"] .guidance .peetam { font-family: var(--font-te); }
