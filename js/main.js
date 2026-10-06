@@ -82,10 +82,30 @@
 
   /* ---------- placeholder WhatsApp links ---------- */
   safe("whatsapp placeholders", () => {
-    $$("[data-wa-group]").forEach(a => {
-      if (a.getAttribute("href") === "#") {
-        a.addEventListener("click", e => { e.preventDefault(); toast("WhatsApp group links coming soon"); });
-      }
+    // checked at click time, so links filled in later from data/site.json just work
+    $$("[data-wa-group]").forEach(a => a.addEventListener("click", e => {
+      if (a.getAttribute("href") === "#") { e.preventDefault(); toast("WhatsApp group links coming soon"); }
+    }));
+  });
+
+  /* ---------- site configuration (data/site.json) ----------
+     [data-site-href="path.in.json"] sets href, [data-site-text="path"] sets text.
+     null / missing values leave the existing HTML (placeholder) untouched. */
+  safe("site config", () => {
+    if (!window.SHDP_DATA) return;
+    const get = (obj, path) => path.split(".").reduce((o, k) => (o == null ? o : o[k]), obj);
+    SHDP_DATA.getSite().then(site => {
+      if (!site) return;
+      $$("[data-site-href]").forEach(el => safe("site href", () => {
+        const v = get(site, el.dataset.siteHref);
+        if (typeof v !== "string" || !v.trim()) return;
+        el.setAttribute("href", (el.dataset.sitePrefix || "") + v.trim());
+        if (/^https?:/i.test(v)) { el.target = "_blank"; el.rel = "noopener"; }
+      }));
+      $$("[data-site-text]").forEach(el => safe("site text", () => {
+        const v = get(site, el.dataset.siteText);
+        if (typeof v === "string" && v.trim()) { el.textContent = v.trim(); el.classList.remove("todo"); }
+      }));
     });
   });
 
@@ -278,10 +298,50 @@
   });
 
   /* ---------- shloka: share link + downloadable status card ---------- */
-  const textOf = sel => { const el = $(sel); return el ? el.textContent.replace(/\s+/g, " ").trim() : ""; };
+  const textOf = sel => { const el = $(sel); return el && !el.hidden ? el.textContent.replace(/\s+/g, " ").trim() : ""; };
   function shareText() {
-    return `${textOf("#shloka-text")}\n${textOf("#shloka-translit")}\n\n${textOf("#shloka-meaning")}\n\nSri Haritha Dharma Parishad`;
+    const head = [textOf("#shloka-text"), textOf("#shloka-translit")].filter(Boolean).join("\n");
+    return [head, textOf("#shloka-meaning"), textOf("#shloka-source"), "Sri Haritha Dharma Parishad"].filter(Boolean).join("\n\n");
   }
+
+  /* ---------- quote of the day (data/quotes.json) ----------
+     The shloka already in the HTML is the built-in fallback, used until (or if never)
+     the JSON loads. Share link and status card always read what is displayed. */
+  let currentQuote = null;
+  safe("quote fallback", () => {
+    currentQuote = {
+      id: "built-in",
+      shloka: { sa: textOf("#shloka-text") || null },
+      transliteration: textOf("#shloka-translit") || null,
+      meaning: { en: textOf("#shloka-meaning") || null, te: (window.SHDP_TE || {})["shloka.meaning"] || null },
+      source: null
+    };
+  });
+  // bilingual field -> text for the current language, falling back to English
+  const pickLang = f => (f == null ? null : typeof f === "string" ? f : (f[lang] || f.en || f.te || null));
+  function renderQuote() {
+    const q = currentQuote, st = $("#shloka-text");
+    if (!q || !st) return;
+    const s = q.shloka || {};
+    const useTe = lang === "te" && s.te, useEn = lang === "en" && s.en;
+    st.textContent = useTe ? s.te : useEn ? s.en : (s.sa || s.te || s.en || "");
+    st.lang = useTe ? "te" : useEn ? "en" : s.sa ? "sa" : s.te ? "te" : "en";
+    const setText = (sel, v) => { const el = $(sel); if (!el) return; el.textContent = v || ""; el.hidden = !v; };
+    setText("#shloka-translit", q.transliteration);
+    setText("#shloka-meaning", pickLang(q.meaning));
+    setText("#shloka-source", pickLang(q.source));
+    updateShareLink();
+  }
+  safe("quote of the day", () => {
+    if (!window.SHDP_DATA) return;
+    SHDP_DATA.getQuotes().then(quotes => {
+      if (!quotes) return; // load failure is already logged by the data layer
+      const q = SHDP_DATA.pickQuote(quotes, SHDP_DATA.todayISO());
+      if (!q) { console.warn("[shdp] quotes.json has no published quote for today; showing the built-in shloka."); return; }
+      currentQuote = q;
+      safe("render quote", renderQuote);
+    });
+  });
   // Built eagerly (and on language change) so long-press / open-in-new-tab also work
   function updateShareLink() {
     const a = $("#share-shloka");
@@ -343,7 +403,7 @@
     g.fillText(lang === "te" ? "నేటి శ్లోకం" : "SHLOKA OF THE DAY", W / 2, 300);
 
     // shloka: wrapped and vertically centred inside the halo circle, shrinking for long verses
-    const shloka = fitLines(g, textOf("#shloka-text"), s => `${s}px 'Tiro Devanagari Sanskrit'`, [112, 100, 88, 76, 66, 58], 640, 4);
+    const shloka = fitLines(g, textOf("#shloka-text"), s => `${s}px 'Tiro Devanagari Sanskrit', 'Noto Sans Telugu', Mukta`, [112, 100, 88, 76, 66, 58], 640, 4);
     const shLh = shloka.size * 1.25;
     g.fillStyle = "#fbf6e8"; g.textBaseline = "middle";
     shloka.lines.forEach((ln, i) => g.fillText(ln, W / 2, cy + (i - (shloka.lines.length - 1) / 2) * shLh));
@@ -413,7 +473,7 @@
     $$(".lang-toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === next)));
     safe("programmes (lang)", () => { renderProgList(); renderProgPanel(); });
     sizeTrack();
-    updateShareLink();
+    safe("render quote (lang)", renderQuote); // also refreshes the share link
     try { localStorage.setItem("shdp-lang", next); } catch (_) {}
     if (window.ScrollTrigger) ScrollTrigger.refresh();
   }

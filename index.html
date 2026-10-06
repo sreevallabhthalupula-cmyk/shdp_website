@@ -75,9 +75,9 @@
       <span class="motto" lang="sa">संस्कृतेः रक्षा · राष्ट्रस्य सेवा</span>
       <!-- TODO: Facebook links below are a search URL placeholder; replace with the official page URL (also in footer) -->
       <nav class="socials" aria-label="Social media">
-        <a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon"><use href="#i-youtube"/></svg></a>
-        <a href="https://www.instagram.com/sriharithadharmaparishad" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
-        <a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
+        <a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" data-site-href="social.youtube.url" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon"><use href="#i-youtube"/></svg></a>
+        <a href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
+        <a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" data-site-href="social.facebook.url" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
       </nav>
     </div>
   </div>
@@ -165,7 +165,8 @@
     <div data-reveal>
       <p class="shloka-text" lang="sa" id="shloka-text">विद्या विनयेन शोभते</p>
       <p class="shloka-translit" id="shloka-translit">Vidyā vinayena śobhate</p>
-      <p class="shloka-meaning" id="shloka-meaning" data-i18n="shloka.meaning">Learning shines through humility. What we learn should show in how we act.</p>
+      <p class="shloka-meaning" id="shloka-meaning">Learning shines through humility. What we learn should show in how we act.</p>
+      <p class="shloka-source" id="shloka-source" hidden></p>
     </div>
     <div class="shloka-actions" data-reveal>
       <a class="btn btn-green" id="share-shloka" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="shloka.share">Share on WhatsApp</span></a>
@@ -402,25 +403,25 @@
         <p class="eyebrow" data-i18n="videos.eyebrow">Pravachanalu</p>
         <h2 class="section-title" id="videos-title" data-i18n="videos.title">Find the teaching that answers your question</h2>
       </div>
-      <a class="btn btn-green" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.sub">Subscribe on YouTube</span></a>
+      <a class="btn btn-green" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1" data-site-href="links.youtube_subscribe" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.sub">Subscribe on YouTube</span></a>
     </div>
     <div class="video-grid">
       <!-- REPLACE hrefs + thumbnails with real YouTube video IDs (thumbnail: https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg) -->
-      <a class="video is-lead" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" target="_blank" rel="noopener" data-reveal>
+      <a class="video is-lead" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
         <div class="thumb"><img src="assets/img/guruji-portrait.webp" alt="" loading="lazy" style="object-position:50% 30%"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">12:04</span></div>
         <h3>Gita Chapter 2: why act without attachment</h3>
         <p class="theme">Bhagavad Gita</p>
       </a>
       <div class="video-side">
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" target="_blank" rel="noopener" data-reveal>
+        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
           <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">4:10</span></div>
           <div><h3>Why we light a deepam: the science</h3><p class="theme">Traditions explained</p></div>
         </a>
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" target="_blank" rel="noopener" data-reveal>
+        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
           <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">28:30</span></div>
           <div><h3>Mana Dharmam: students ask</h3><p class="theme">Youth &amp; doubts</p></div>
         </a>
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" target="_blank" rel="noopener" data-reveal>
+        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
           <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">45:12</span></div>
           <div><h3>Sundara Kanda, part 3</h3><p class="theme">Ramayana series</p></div>
         </a>
@@ -459,11 +460,11 @@
       <p data-i18n="join.panelb">Daily shloka, class reminders and event links. Moderated groups, no forwards.</p>
       <!-- REPLACE: each href with the real WhatsApp group invite link -->
       <ul class="groups">
-        <li><a href="#" data-wa-group><span><b data-i18n="join.g1">Parents &amp; Bala Chaitanya</b><small data-i18n="join.g1b">Sunday class links for children</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
-        <li><a href="#" data-wa-group><span><b data-i18n="join.g2">Youth</b><small data-i18n="join.g2b">Students and young professionals</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
-        <li><a href="#" data-wa-group><span><b data-i18n="join.g3">Hyderabad seva</b><small data-i18n="join.g3b">Goshala drives and local events</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.parents.url"><span><b data-i18n="join.g1">Parents &amp; Bala Chaitanya</b><small data-i18n="join.g1b">Sunday class links for children</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.youth.url"><span><b data-i18n="join.g2">Youth</b><small data-i18n="join.g2b">Students and young professionals</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.hyderabad_seva.url"><span><b data-i18n="join.g3">Hyderabad seva</b><small data-i18n="join.g3b">Goshala drives and local events</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
       </ul>
-      <a class="btn btn-gold" href="#" data-wa-group><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="join.volunteer">Volunteer with us</span></a>
+      <a class="btn btn-gold" href="#" data-wa-group data-site-href="whatsapp.volunteer_url"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="join.volunteer">Volunteer with us</span></a>
       <p class="give-note" data-i18n-html="join.give">Prefer to give? Bank details and UPI QR are on the <a href="#join">Support page</a>. No gateway, no processing fee.</p>
     </aside>
   </div>
@@ -492,17 +493,17 @@
       <div>
         <h4 data-i18n="footer.follow">Follow</h4>
         <ul>
-          <li><a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" target="_blank" rel="noopener">YouTube</a></li>
-          <li><a href="https://www.instagram.com/sriharithadharmaparishad" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" data-site-href="social.youtube.url" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" data-site-href="social.facebook.url" target="_blank" rel="noopener">Facebook</a></li>
         </ul>
       </div>
       <div>
         <h4 data-i18n="footer.contact">Contact</h4>
         <ul>
-          <li><a href="mailto:sriharithadharmaparishad@gmail.com">sriharithadharmaparishad@gmail.com</a></li>
-          <li><span class="todo">[ Phone number ]</span></li>
-          <li><span class="todo">[ Trust address, Hyderabad ]</span></li>
+          <li><a href="mailto:sriharithadharmaparishad@gmail.com" data-site-href="contact.email" data-site-prefix="mailto:" data-site-text="contact.email">sriharithadharmaparishad@gmail.com</a></li>
+          <li><span class="todo" data-site-text="contact.phone">[ Phone number ]</span></li>
+          <li><span class="todo" data-site-text="contact.address">[ Trust address, Hyderabad ]</span></li>
         </ul>
       </div>
     </div>
@@ -513,13 +514,14 @@
   </div>
 </footer>
 
-<a class="fab" href="#join" aria-label="Chat with us on WhatsApp" data-wa-group><svg class="icon"><use href="#i-whatsapp"/></svg></a>
+<a class="fab" href="#join" aria-label="Chat with us on WhatsApp" data-wa-group data-site-href="whatsapp.community_url"><svg class="icon"><use href="#i-whatsapp"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="js/i18n.js" defer></script>
+<script src="js/data.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

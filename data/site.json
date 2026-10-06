@@ -1,0 +1,44 @@
+{
+  "_comment": "Central site configuration. null = not provided yet (keep the HTML placeholder). Never put passwords, tokens or API keys here: this file is public.",
+  "organization": {
+    "name": { "en": "Sri Haritha Dharma Parishad", "te": "శ్రీ హరిత ధర్మ పరిషత్" },
+    "short_name": "SHDP",
+    "motto": { "sa": "संस्कृतेः रक्षा · राष्ट्रस्य सेवा" },
+    "city": { "en": "Hyderabad", "te": "హైదరాబాద్" },
+    "founded_year": 2001,
+    "registration": null
+  },
+  "contact": {
+    "email": "sriharithadharmaparishad@gmail.com",
+    "phone": null,
+    "address": null
+  },
+  "social": {
+    "youtube": {
+      "handle": "@GVRamakrishnaMurthyOfficial",
+      "url": "https://www.youtube.com/@GVRamakrishnaMurthyOfficial",
+      "channel_id": null
+    },
+    "instagram": {
+      "handle": "sriharithadharmaparishad",
+      "url": "https://www.instagram.com/sriharithadharmaparishad"
+    },
+    "facebook": {
+      "url": null
+    }
+  },
+  "whatsapp": {
+    "community_url": null,
+    "volunteer_url": null,
+    "groups": {
+      "parents": { "label": { "en": "Parents & Bala Chaitanya", "te": "తల్లిదండ్రులు & బాల చైతన్య" }, "url": null },
+      "youth": { "label": { "en": "Youth", "te": "యువత" }, "url": null },
+      "hyderabad_seva": { "label": { "en": "Hyderabad seva", "te": "హైదరాబాద్ సేవ" }, "url": null }
+    }
+  },
+  "links": {
+    "youtube_videos": "https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos",
+    "youtube_subscribe": "https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1",
+    "production_url": null
+  }
+}

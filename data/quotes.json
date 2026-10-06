@@ -1,0 +1,21 @@
+{
+  "_comment": "Quote of the day. A quote whose date (YYYY-MM-DD, India time) matches today is shown; otherwise a published undated or past-dated quote is chosen deterministically by date. status: published | draft. Use null for anything not yet known.",
+  "quotes": [
+    {
+      "id": "vidya-vinayena-shobhate",
+      "date": null,
+      "status": "published",
+      "shloka": {
+        "sa": "विद्या विनयेन शोभते",
+        "en": null,
+        "te": null
+      },
+      "transliteration": "Vidyā vinayena śobhate",
+      "meaning": {
+        "en": "Learning shines through humility. What we learn should show in how we act.",
+        "te": "విద్య వినయంతోనే ప్రకాశిస్తుంది. నేర్చుకున్నది మన నడవడికలో కనిపించాలి."
+      },
+      "source": null
+    }
+  ]
+}
