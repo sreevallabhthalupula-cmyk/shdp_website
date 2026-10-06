@@ -7,9 +7,18 @@
   <meta name="description" content="Sri Haritha Dharma Parishad (SHDP), Hyderabad: 25 years of Bhagavad Gita classes, Pravachanalu, Bala Chaitanya Deepika and Goshala seva under the guidance of Dr. G.V. Ramakrishna Murthy.">
   <meta name="theme-color" content="#0b2014">
   <link rel="icon" href="assets/img/logo.jpg">
+  <!-- TODO(production domain): social previews (WhatsApp, Facebook) need ABSOLUTE URLs.
+       Once the domain is known, set og:url / canonical and prefix og:image, e.g.
+       https://YOUR-DOMAIN/assets/img/guruji-hero.webp  (see README "Before launch"). -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sri Haritha Dharma Parishad">
   <meta property="og:title" content="Sri Haritha Dharma Parishad">
   <meta property="og:description" content="Dharma, explained scientifically, for every generation.">
   <meta property="og:image" content="assets/img/guruji-hero.webp">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1500">
+  <meta property="og:image:alt" content="Dr. G.V. Ramakrishna Murthy, founding mentor of Sri Haritha Dharma Parishad">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +72,7 @@
   <div class="topline">
     <div class="wrap">
       <span class="motto" lang="sa">संस्कृतेः रक्षा · राष्ट्रस्य सेवा</span>
+      <!-- TODO: Facebook links below are a search URL placeholder; replace with the official page URL (also in footer) -->
       <nav class="socials" aria-label="Social media">
         <a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon"><use href="#i-youtube"/></svg></a>
         <a href="https://www.instagram.com/sriharithadharmaparishad" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
@@ -94,7 +104,7 @@
   </div>
 </header>
 
-<div class="drawer" id="drawer" aria-hidden="true">
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
   <div class="drawer-head">
     <span class="brand"><img src="assets/img/logo.jpg" alt="" width="44" height="44"><span class="brand-name">SHDP</span></span>
     <button class="menu-btn" type="button" data-close aria-label="Close menu" style="display:inline-flex"><svg class="icon"><use href="#i-x"/></svg></button>
@@ -285,13 +295,15 @@
 
     <div class="tv-strip" aria-label="Television programmes">
       <div class="tv-track">
-        <span>ETV Life <small>Mana Dharmam</small></span>
-        <span>HMTV <small>Gitaamrutham</small></span>
-        <span>Pooja TV <small>Bhagavatha Kathalu</small></span>
-        <span>BIG TV Bhakthi <small>Gita &amp; Ramayana Pravachanalu</small></span>
-        <span>TV5 Hindu Dharmam <small>Sanatana Dharma Deeparadhana</small></span>
-        <span>Bhakthi TV <small>Karthika Masam Visheshalu</small></span>
-        <span>Hindu Dharmam <small>Vishnu Sahasranama Kathalu</small></span>
+        <div class="tv-group">
+          <span>ETV Life <small>Mana Dharmam</small></span>
+          <span>HMTV <small>Gitaamrutham</small></span>
+          <span>Pooja TV <small>Bhagavatha Kathalu</small></span>
+          <span>BIG TV Bhakthi <small>Gita &amp; Ramayana Pravachanalu</small></span>
+          <span>TV5 Hindu Dharmam <small>Sanatana Dharma Deeparadhana</small></span>
+          <span>Bhakthi TV <small>Karthika Masam Visheshalu</small></span>
+          <span>Hindu Dharmam <small>Vishnu Sahasranama Kathalu</small></span>
+        </div>
       </div>
     </div>
   </div>

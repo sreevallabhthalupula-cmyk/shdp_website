@@ -17,5 +17,11 @@ Then open http://localhost:5173
 
 ## Still to fill in
 - Phone number and trust address (footer)
-- WhatsApp group invite links (`data-wa-group` links)
+- WhatsApp group invite links (`data-wa-group` links and the floating button)
 - YouTube video IDs for the video section
+- Official Facebook page URL (header and footer currently use a search URL placeholder)
+
+## Before launch
+- Production domain: social previews need absolute URLs. In `index.html`, set `og:image` to
+  `https://YOUR-DOMAIN/assets/img/guruji-hero.webp` and add
+  `<meta property="og:url" content="https://YOUR-DOMAIN/">` and `<link rel="canonical" href="https://YOUR-DOMAIN/">`.
