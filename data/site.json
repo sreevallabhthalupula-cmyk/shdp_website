@@ -1,17 +1,24 @@
 {
-  "_comment": "Central site configuration. null = not provided yet (keep the HTML placeholder). Never put passwords, tokens or API keys here: this file is public.",
+  "_comment": "Central site configuration. null = not provided yet: the related button or line is hidden. Never put passwords, tokens or API keys here: this file is public.",
   "organization": {
     "name": { "en": "Sri Haritha Dharma Parishad", "te": "శ్రీ హరిత ధర్మ పరిషత్" },
     "short_name": "SHDP",
+    "description": {
+      "en": "A registered trust carrying Dharma to the next generation through discourse, youth mentorship and seva. Hyderabad, since 2001.",
+      "te": "ప్రవచనం, యువ మార్గదర్శనం, సేవ ద్వారా ధర్మాన్ని తదుపరి తరానికి అందించే రిజిస్టర్డ్ ట్రస్ట్. హైదరాబాద్, 2001 నుండి."
+    },
     "motto": { "sa": "संस्कृतेः रक्षा · राष्ट्रस्य सेवा" },
     "city": { "en": "Hyderabad", "te": "హైదరాబాద్" },
     "founded_year": 2001,
-    "registration": null
+    "registration": null,
+    "logo": "assets/img/logo.jpg"
   },
   "contact": {
     "email": "sriharithadharmaparishad@gmail.com",
     "phone": null,
-    "address": null
+    "whatsapp_number": null,
+    "address": null,
+    "maps_url": null
   },
   "social": {
     "youtube": {
@@ -21,7 +28,8 @@
     },
     "instagram": {
       "handle": "sriharithadharmaparishad",
-      "url": "https://www.instagram.com/sriharithadharmaparishad"
+      "url": "https://www.instagram.com/sriharithadharmaparishad",
+      "embed_posts": []
     },
     "facebook": {
       "url": null
@@ -29,16 +37,25 @@
   },
   "whatsapp": {
     "community_url": null,
-    "volunteer_url": null,
     "groups": {
       "parents": { "label": { "en": "Parents & Bala Chaitanya", "te": "తల్లిదండ్రులు & బాల చైతన్య" }, "url": null },
       "youth": { "label": { "en": "Youth", "te": "యువత" }, "url": null },
       "hyderabad_seva": { "label": { "en": "Hyderabad seva", "te": "హైదరాబాద్ సేవ" }, "url": null }
     }
   },
+  "join": {
+    "volunteer_url": null,
+    "google_form_url": null,
+    "donation_details_url": null
+  },
+  "registration": {
+    "default_url": null,
+    "default_whatsapp_url": null
+  },
   "links": {
     "youtube_videos": "https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos",
     "youtube_subscribe": "https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1",
-    "production_url": null
+    "website_url": "https://effortless-otter-f49e77.netlify.app/",
+    "custom_domain": null
   }
 }

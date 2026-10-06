@@ -1,31 +1,19 @@
+/* SHDP page shell: drawer, header, FAB, marquee, quote of the day + status card,
+   site configuration (contact / join), language switching, nav highlighting,
+   Three.js hero, GSAP motion, service worker. Content sections live in their own
+   modules (events.js, programmes.js, timeline.js, media.js, books.js, search.js). */
 (() => {
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const $ = (s, el = document) => el.querySelector(s);
-  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  let lang = "en";
-
-  // Run each module in isolation so one missing element or error can't stop the rest.
-  function safe(name, fn) {
-    try { return fn(); } catch (err) { console.error(`[shdp] ${name} failed:`, err); }
-  }
-
-  /* ---------- toast ---------- */
-  const toastEl = $("#toast");
-  let toastTimer;
-  function toast(msg) {
-    if (!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add("is-on");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove("is-on"), 2800);
-  }
+  const S = window.SHDP;
+  if (!S) { console.error("[shdp] core.js did not load"); document.documentElement.classList.remove("motion-ok"); return; }
+  const { $, $$, safe, esc, t, pick, reduceMotion, toast } = S;
+  const lang = () => S.lang;
 
   /* ---------- mobile drawer ---------- */
   const drawer = $("#drawer");
   const openBtn = $(".nav .menu-btn");
   let prevOverflow = "";
   const isDrawerOpen = () => !!drawer && drawer.classList.contains("is-open");
-  const drawerFocusables = () => drawer ? $$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', drawer) : [];
+  const drawerFocusables = () => drawer ? $$('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])', drawer).filter(el => !el.closest("[hidden]")) : [];
 
   function setDrawer(open) {
     if (!drawer || open === isDrawerOpen()) return;
@@ -52,7 +40,7 @@
     if (openBtn) openBtn.addEventListener("click", () => setDrawer(true));
     const closeBtn = $("[data-close]", drawer);
     if (closeBtn) closeBtn.addEventListener("click", () => setDrawer(false));
-    $$("a", drawer).forEach(a => a.addEventListener("click", () => setDrawer(false)));
+    drawer.addEventListener("click", e => { if (e.target.closest("a, [data-search-open]")) setDrawer(false); });
     document.addEventListener("keydown", e => {
       if (!isDrawerOpen()) return;
       if (e.key === "Escape") { setDrawer(false); return; }
@@ -80,34 +68,99 @@
     }, { passive: true });
   });
 
-  /* ---------- placeholder WhatsApp links ---------- */
-  safe("whatsapp placeholders", () => {
-    // checked at click time, so links filled in later from data/site.json just work
-    $$("[data-wa-group]").forEach(a => a.addEventListener("click", e => {
-      if (a.getAttribute("href") === "#") { e.preventDefault(); toast("WhatsApp group links coming soon"); }
-    }));
+  /* ---------- nav: mark the section in view (aria-current) ---------- */
+  safe("nav current", () => {
+    const links = $$('.nav-links a[href^="#"], .drawer a[href^="#"]');
+    const ids = [...new Set(links.map(a => a.getAttribute("href").slice(1)))];
+    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+    if (!sections.length || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        links.forEach(a => (a.getAttribute("href") === "#" + e.target.id ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")));
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(s => io.observe(s));
   });
 
-  /* ---------- site configuration (data/site.json) ----------
-     [data-site-href="path.in.json"] sets href, [data-site-text="path"] sets text.
-     null / missing values leave the existing HTML (placeholder) untouched. */
-  safe("site config", () => {
-    if (!window.SHDP_DATA) return;
-    const get = (obj, path) => path.split(".").reduce((o, k) => (o == null ? o : o[k]), obj);
-    SHDP_DATA.getSite().then(site => {
-      if (!site) return;
-      $$("[data-site-href]").forEach(el => safe("site href", () => {
-        const v = get(site, el.dataset.siteHref);
-        if (typeof v !== "string" || !v.trim()) return;
-        el.setAttribute("href", (el.dataset.sitePrefix || "") + v.trim());
-        if (/^https?:/i.test(v)) { el.target = "_blank"; el.rel = "noopener"; }
-      }));
-      $$("[data-site-text]").forEach(el => safe("site text", () => {
-        const v = get(site, el.dataset.siteText);
-        if (typeof v === "string" && v.trim()) { el.textContent = v.trim(); el.classList.remove("todo"); }
-      }));
+  /* ---------- site configuration: contact, social, join (data/site.json) ----------
+     [data-site-href="path"]  sets href (+ data-site-prefix); hidden when the value is missing
+                              if the element is marked data-site-optional.
+     [data-site-text="path"]  sets text.
+     [data-site-show="path"]  element stays hidden unless the value exists. */
+  function applySite(site) {
+    const get = p => S.getPath(site, p);
+    $$("[data-site-href]").forEach(el => safe("site href", () => {
+      const raw = get(el.dataset.siteHref);
+      const url = typeof raw === "string" && raw.trim() ? S.safeUrl((el.dataset.sitePrefix || "") + raw.trim()) : null;
+      if (url) {
+        el.setAttribute("href", url);
+        if (S.isExternal(url)) { el.target = "_blank"; el.rel = "noopener"; }
+        el.hidden = false;
+      } else if (el.hasAttribute("data-site-optional")) {
+        el.hidden = true;
+      }
+    }));
+    $$("[data-site-text]").forEach(el => safe("site text", () => {
+      const v = get(el.dataset.siteText);
+      const s = v && typeof v === "object" ? pick(v) : v;
+      if (typeof s === "string" && s.trim()) el.textContent = s.trim();
+    }));
+    $$("[data-site-show]").forEach(el => { const v = get(el.dataset.siteShow); el.hidden = !(v && (typeof v !== "object" || pick(v))); });
+
+    // phone -> tel:, address -> Google Maps
+    const phone = get("contact.phone");
+    $$("[data-contact-phone]").forEach(a => { if (typeof phone === "string" && phone.trim()) { a.href = "tel:" + phone.replace(/[^\d+]/g, ""); a.textContent = phone.trim(); } });
+    const addr = pick(get("contact.address"));
+    const maps = S.safeUrl(get("contact.maps_url")) || (addr ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(addr) : null);
+    $$("[data-contact-address]").forEach(a => { if (addr && maps) { a.href = maps; a.textContent = addr; a.target = "_blank"; a.rel = "noopener"; } });
+
+    // WhatsApp groups: show only groups with real invite links; otherwise a clear fallback
+    const groups = get("whatsapp.groups") || {};
+    let anyGroup = false;
+    $$("[data-wa-group-id]").forEach(li => {
+      const url = S.safeUrl(groups[li.dataset.waGroupId] && groups[li.dataset.waGroupId].url);
+      const a = $("a", li);
+      if (url && a) { a.href = url; a.target = "_blank"; a.rel = "noopener"; li.hidden = false; anyGroup = true; }
+      else li.hidden = true;
     });
-  });
+    const groupsList = $("#wa-groups"), groupsFallback = $("#wa-groups-fallback");
+    if (groupsList) groupsList.hidden = !anyGroup;
+    if (groupsFallback) groupsFallback.hidden = anyGroup;
+
+    // FAB: WhatsApp community if configured, else the Join section
+    const fab = $(".fab"), community = S.safeUrl(get("whatsapp.community_url"));
+    if (fab && community) { fab.href = community; fab.target = "_blank"; fab.rel = "noopener"; }
+
+    updateJoinLinks(site);
+  }
+
+  // Volunteer / seva / donation actions: real form or link first, then a prefilled email
+  function mailto(subject, body) {
+    const email = S.site && S.getPath(S.site, "contact.email");
+    return typeof email === "string" && email.includes("@") ? `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}` : null;
+  }
+  function updateJoinLinks(site) {
+    if (!site) return;
+    const get = p => S.getPath(site, p);
+    const vol = $("#volunteer-link");
+    if (vol) {
+      const url = S.safeUrl(get("join.volunteer_url")) || S.safeUrl(get("join.google_form_url")) ||
+        mailto(t("join.mailSubject", "Volunteer / seva enquiry"), t("join.mailBody", "Namaskaram,\n\nI would like to help with seva.\n\nName:\nCity / area:\nHow I can help (teaching, annadana, goshala, media):\nWhen I am free:\n"));
+      if (url) { vol.href = url; vol.hidden = false; if (S.isExternal(url)) { vol.target = "_blank"; vol.rel = "noopener"; } } else vol.hidden = true;
+    }
+    const join = $("#join-email-link");
+    if (join) {
+      const url = mailto(t("join.groupSubject", "Please add me to a WhatsApp group"), t("join.groupBody", "Namaskaram,\n\nPlease add me to an SHDP WhatsApp group.\n\nName:\nWhatsApp number:\nGroup (parents / youth / Hyderabad seva):\n"));
+      if (url) { join.href = url; join.hidden = false; } else join.hidden = true;
+    }
+    const give = $("#give-link");
+    if (give) {
+      const url = S.safeUrl(get("join.donation_details_url")) || mailto(t("join.giveSubject", "Supporting SHDP"), t("join.giveBody", "Namaskaram,\n\nI would like to support the Parishad. Please share the bank / UPI details.\n"));
+      if (url) { give.href = url; give.hidden = false; } else give.hidden = true;
+    }
+  }
+  S.siteReady.then(site => { if (site) safe("site config", () => applySite(site)); });
 
   /* ---------- floating WhatsApp button: tuck away where it would duplicate or cover CTAs ---------- */
   safe("fab", () => {
@@ -119,20 +172,9 @@
       entries.forEach(e => e.isIntersecting ? showing.add(e.target) : showing.delete(e.target));
       fab.classList.toggle("is-tucked", showing.size > 0);
     });
-    targets.forEach(t => io.observe(t));
+    targets.forEach(x => io.observe(x));
   });
 
-  /* ---------- next Sunday date for Bala Chaitanya ---------- */
-  safe("next sunday", () => {
-    const day = $("[data-next-sunday-day]"), mon = $("[data-next-sunday-mon]"), dow = $("[data-next-sunday-dow]");
-    if (!day) return;
-    const d = new Date();
-    const add = (7 - d.getDay()) % 7;
-    d.setDate(d.getDate() + add);
-    day.textContent = d.getDate();
-    if (mon) mon.textContent = d.toLocaleString("en-IN", { month: "short" });
-    if (dow) dow.textContent = add === 0 ? "Today" : "Sun";
-  });
   safe("year", () => { const y = $("#year"); if (y) y.textContent = new Date().getFullYear(); });
 
   /* ---------- TV marquee: clone the group so the loop is seamless ---------- */
@@ -159,154 +201,20 @@
     }
     build();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
-    let t;
-    window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(build, 200); });
+    let tm;
+    window.addEventListener("resize", () => { clearTimeout(tm); tm = setTimeout(build, 200); });
   });
-
-  /* ---------- programmes ---------- */
-  const programmes = [
-    {
-      name: "Pravachanalu", te: "ప్రవచనాలు",
-      when: "Weekly", whenTe: "వారానికి",
-      img: "assets/img/prog-pravachanalu.jpg", pos: "50% 70%",
-      body: "Scripture discourses on the Vedas, Puranas and Itihasas: Ramayana, Mahabharata, Bhagavad Gita and Srimad Bhagavatam, explained with logic and everyday examples.",
-      bodyTe: "వేదాలు, పురాణాలు, ఇతిహాసాలపై ప్రవచనాలు: రామాయణం, మహాభారతం, భగవద్గీత, శ్రీమద్భాగవతం, తర్కంతో, నిత్య జీవిత ఉదాహరణలతో.",
-      meta: [["For", "All ages"], ["Where", "In person + YouTube"], ["Fee", "Free"]]
-    },
-    {
-      name: "Bala Chaitanya Deepika", te: "బాల చైతన్య దీపిక",
-      when: "Every Sunday, 10 AM", whenTe: "ప్రతి ఆదివారం, ఉదయం 10",
-      img: "assets/img/prog-bala.jpg", pos: "50% 60%",
-      body: "A live, interactive Zoom programme where children ask their doubts and grow spiritually and mentally, mentored directly by Guruji.",
-      bodyTe: "పిల్లలు తమ సందేహాలు అడిగి, ఆధ్యాత్మికంగా, మానసికంగా ఎదిగే ప్రత్యక్ష జూమ్ కార్యక్రమం, గురువుగారి మార్గదర్శనంలో.",
-      meta: [["For", "Children 8 to 16"], ["Where", "Zoom"], ["Fee", "Free"]]
-    },
-    {
-      name: "Dharma Chaitanya Vedika", te: "ధర్మ చైతన్య వేదిక",
-      when: "Mon to Sat, since 2019", whenTe: "సోమ నుండి శని, 2019 నుండి",
-      img: "assets/img/prog-bhajan.jpg", pos: "50% 82%",
-      body: "Daily online classes on ancient literature for homemakers and seekers across India, in morning and evening batches.",
-      bodyTe: "దేశవ్యాప్తంగా గృహిణులు, జిజ్ఞాసువుల కోసం ప్రాచీన సాహిత్యంపై రోజువారీ ఆన్‌లైన్ తరగతులు, ఉదయం, సాయంత్రం బ్యాచ్‌లలో.",
-      meta: [["For", "Homemakers, seekers"], ["Where", "Online"], ["Fee", "Free"]]
-    },
-    {
-      name: "Bhagavad Gita classes", te: "భగవద్గీత తరగతులు",
-      when: "Since 2005", whenTe: "2005 నుండి",
-      img: "assets/img/ashram-vision.jpg", pos: "78% 45%",
-      body: "Started for children at Bhakta Sanjeevani Devalayam, NFC, expanded to elders at the Ayyappa Swamy Temple, ECIL, and now run weekly online by Guruji's disciples.",
-      bodyTe: "NFC భక్త సంజీవని దేవాలయంలో పిల్లల కోసం ప్రారంభమై, ECIL అయ్యప్ప స్వామి ఆలయంలో పెద్దలకు విస్తరించి, ఇప్పుడు గురువుగారి శిష్యులచే వారానికొకసారి ఆన్‌లైన్‌లో.",
-      meta: [["For", "Children & elders"], ["Where", "Online"], ["Fee", "Free"]]
-    },
-    {
-      name: "Yoga & Surya Namaskaras", te: "యోగ & సూర్య నమస్కారాలు",
-      when: "Since 2006", whenTe: "2006 నుండి",
-      img: "assets/img/prog-yoga.jpg", pos: "50% 70%",
-      body: "Dawn sessions of Ashtanga Yoga, Surya Namaskaras and Pranayama across Dr. A.S. Rao Nagar and ECIL, with a mass gathering every 21 June.",
-      bodyTe: "డా. ఎ.ఎస్. రావు నగర్, ECILలో తెల్లవారుజామున అష్టాంగ యోగ, సూర్య నమస్కారాలు, ప్రాణాయామం; ప్రతి జూన్ 21న సామూహిక యోగా.",
-      meta: [["For", "Everyone"], ["Where", "Hyderabad"], ["Fee", "Free"]]
-    },
-    {
-      name: "Goshala & cow protection", te: "గోశాల & గో సంరక్షణ",
-      when: "Ongoing seva", whenTe: "నిరంతర సేవ",
-      img: "assets/img/prog-goshala.jpg", pos: "50% 50%",
-      body: "Rythu Bazar drives collect surplus vegetables to feed cows across Hyderabad, and Gopashtami campaigns share Gomatha's ecological importance.",
-      bodyTe: "రైతు బజార్ల నుండి మిగులు కూరగాయలు సేకరించి హైదరాబాద్‌లో గోవులకు ఆహారం; గోపాష్టమి నాడు గోమాత పర్యావరణ ప్రాముఖ్యతపై అవగాహన.",
-      meta: [["For", "Volunteers"], ["Where", "Hyderabad"], ["Join", "WhatsApp"]]
-    }
-  ];
-  const metaTe = { "For": "ఎవరికి", "Where": "ఎక్కడ", "Fee": "రుసుము", "Join": "చేరడం" };
-
-  const progList = $("#prog-list");
-  const progMedia = $("#prog-media");
-  const progPanel = $("#prog-panel");
-  const progStage = $(".prog-stage");
-  let progIndex = 0;
-
-  function renderProgList() {
-    if (!progList) return;
-    progList.innerHTML = programmes.map((p, i) => `
-      <li class="prog-item" role="presentation">
-        <button class="prog-btn" role="tab" id="prog-tab-${i}" aria-selected="${i === progIndex}" aria-controls="prog-panel" tabindex="${i === progIndex ? 0 : -1}" data-i="${i}">
-          <span><span class="name">${lang === "te" ? p.te : p.name}</span><span class="when">${lang === "te" ? p.whenTe : p.when}</span></span>
-          <svg class="icon"><use href="#i-arrow"/></svg>
-        </button>
-      </li>`).join("");
-  }
-  function renderProgPanel() {
-    if (!progPanel) return;
-    const p = programmes[progIndex];
-    if (progMedia) $$("img", progMedia).forEach((img, i) => img.classList.toggle("is-out", i !== progIndex));
-    progPanel.setAttribute("aria-labelledby", `prog-tab-${progIndex}`);
-    progPanel.innerHTML = `
-      <h3>${lang === "te" ? p.te : p.name}</h3>
-      <p>${lang === "te" ? p.bodyTe : p.body}</p>
-      <dl>${p.meta.map(([k, v]) => `<div><dt>${lang === "te" ? metaTe[k] : k}</dt><dd>${v}</dd></div>`).join("")}</dl>`;
-    if (!reduceMotion && window.gsap) gsap.from(progPanel.children, { y: 14, opacity: 0, duration: 0.5, stagger: 0.06, ease: "expo.out" });
-  }
-  function selectProg(i, focus) {
-    if (i === progIndex || !progList) return;
-    progIndex = (i + programmes.length) % programmes.length;
-    $$(".prog-btn", progList).forEach((b, j) => { b.setAttribute("aria-selected", j === progIndex); b.tabIndex = j === progIndex ? 0 : -1; });
-    if (focus) $$(".prog-btn", progList)[progIndex].focus();
-    renderProgPanel();
-  }
-  // On the single-column layout the stage sits above the list: bring it into view after a tap
-  function revealProgStage() {
-    if (!progStage || !window.matchMedia("(max-width: 960px)").matches) return;
-    const r = progStage.getBoundingClientRect();
-    if (r.top < 90 || r.top > window.innerHeight * 0.6) {
-      progStage.scrollIntoView({ block: "start", behavior: reduceMotion ? "auto" : "smooth" });
-    }
-  }
-
-  safe("programmes", () => {
-    if (!progList || !progPanel) return;
-    if (progMedia) programmes.forEach((p, i) => {
-      const img = new Image();
-      img.src = p.img; img.alt = ""; img.loading = "lazy";
-      img.style.objectPosition = p.pos;
-      if (i !== 0) img.classList.add("is-out");
-      progMedia.appendChild(img);
-    });
-    progList.addEventListener("click", e => {
-      const b = e.target.closest(".prog-btn");
-      if (!b) return;
-      selectProg(+b.dataset.i);
-      revealProgStage();
-    });
-    progList.addEventListener("mouseover", e => {
-      const b = e.target.closest(".prog-btn");
-      if (b && window.matchMedia("(hover: hover) and (min-width: 961px)").matches) selectProg(+b.dataset.i);
-    });
-    progList.addEventListener("keydown", e => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); selectProg(progIndex + 1, true); }
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); selectProg(progIndex - 1, true); }
-    });
-    renderProgList();
-    renderProgPanel();
-  });
-
-  /* ---------- timeline arrows + track length ---------- */
-  const timeline = $("#timeline");
-  const sizeTrack = () => { if (timeline) timeline.style.setProperty("--track-w", timeline.scrollWidth + "px"); };
-  safe("timeline", () => {
-    if (!timeline) return;
-    sizeTrack(); window.addEventListener("resize", sizeTrack);
-    $$("[data-scroll]").forEach(b => b.addEventListener("click", () => {
-      timeline.scrollBy({ left: +b.dataset.scroll * (timeline.clientWidth * 0.8), behavior: reduceMotion ? "auto" : "smooth" });
-    }));
-  });
-
-  /* ---------- shloka: share link + downloadable status card ---------- */
-  const textOf = sel => { const el = $(sel); return el && !el.hidden ? el.textContent.replace(/\s+/g, " ").trim() : ""; };
-  function shareText() {
-    const head = [textOf("#shloka-text"), textOf("#shloka-translit")].filter(Boolean).join("\n");
-    return [head, textOf("#shloka-meaning"), textOf("#shloka-source"), "Sri Haritha Dharma Parishad"].filter(Boolean).join("\n\n");
-  }
 
   /* ---------- quote of the day (data/quotes.json) ----------
      The shloka already in the HTML is the built-in fallback, used until (or if never)
-     the JSON loads. Share link and status card always read what is displayed. */
+     the JSON loads. Share link, copy and status card always read what is displayed. */
+  const textOf = sel => { const el = $(sel); return el && !el.hidden ? el.textContent.replace(/\s+/g, " ").trim() : ""; };
+  const quoteText = () => {
+    const head = [textOf("#shloka-text"), textOf("#shloka-translit")].filter(Boolean).join("\n");
+    return [head, textOf("#shloka-meaning"), textOf("#shloka-source")].filter(Boolean).join("\n\n");
+  };
+  const shareText = () => quoteText() + "\n\nSri Haritha Dharma Parishad";
+
   let currentQuote = null;
   safe("quote fallback", () => {
     currentQuote = {
@@ -317,20 +225,23 @@
       source: null
     };
   });
-  // bilingual field -> text for the current language, falling back to English
-  const pickLang = f => (f == null ? null : typeof f === "string" ? f : (f[lang] || f.en || f.te || null));
   function renderQuote() {
     const q = currentQuote, st = $("#shloka-text");
     if (!q || !st) return;
     const s = q.shloka || {};
-    const useTe = lang === "te" && s.te, useEn = lang === "en" && s.en;
+    const useTe = lang() === "te" && s.te, useEn = lang() === "en" && s.en;
     st.textContent = useTe ? s.te : useEn ? s.en : (s.sa || s.te || s.en || "");
     st.lang = useTe ? "te" : useEn ? "en" : s.sa ? "sa" : s.te ? "te" : "en";
     const setText = (sel, v) => { const el = $(sel); if (!el) return; el.textContent = v || ""; el.hidden = !v; };
     setText("#shloka-translit", q.transliteration);
-    setText("#shloka-meaning", pickLang(q.meaning));
-    setText("#shloka-source", pickLang(q.source));
+    setText("#shloka-meaning", pick(q.meaning));
+    setText("#shloka-source", pick(q.source) ? "— " + pick(q.source) : null);
     updateShareLink();
+  }
+  // Built eagerly (and on language change) so long-press / open-in-new-tab also work
+  function updateShareLink() {
+    const a = $("#share-shloka");
+    if (a) a.href = "https://wa.me/?text=" + encodeURIComponent(shareText());
   }
   safe("quote of the day", () => {
     if (!window.SHDP_DATA) return;
@@ -342,11 +253,13 @@
       safe("render quote", renderQuote);
     });
   });
-  // Built eagerly (and on language change) so long-press / open-in-new-tab also work
-  function updateShareLink() {
-    const a = $("#share-shloka");
-    if (a) a.href = "https://wa.me/?text=" + encodeURIComponent(shareText());
-  }
+  // show a specific published quote (used by search)
+  S.quote = {
+    show(id) {
+      if (!window.SHDP_DATA) return;
+      SHDP_DATA.getQuotes().then(qs => { const q = (qs || []).find(x => x && x.id === id && x.status === "published"); if (q) { currentQuote = q; renderQuote(); } });
+    }
+  };
 
   // Split text into lines that fit maxW. Words wider than a line are broken by grapheme
   // (Intl.Segmenter keeps Devanagari/Telugu conjuncts intact).
@@ -382,7 +295,7 @@
     return { lines, size };
   }
 
-  async function downloadCard() {
+  async function drawCard() {
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     const W = 1080, H = 1920, c = document.createElement("canvas");
     c.width = W; c.height = H;
@@ -399,8 +312,8 @@
     g.beginPath(); g.arc(W / 2, cy, 380, 0, Math.PI * 2); g.stroke();
     g.beginPath(); g.arc(W / 2, cy, 400, 0, Math.PI * 2); g.stroke();
     g.textAlign = "center";
-    g.fillStyle = "#e2b764"; g.font = "600 34px Mukta";
-    g.fillText(lang === "te" ? "నేటి శ్లోకం" : "SHLOKA OF THE DAY", W / 2, 300);
+    g.fillStyle = "#e2b764"; g.font = "600 34px Mukta, 'Noto Sans Telugu'";
+    g.fillText(lang() === "te" ? "నేటి శ్లోకం" : "SHLOKA OF THE DAY", W / 2, 300);
 
     // shloka: wrapped and vertically centred inside the halo circle, shrinking for long verses
     const shloka = fitLines(g, textOf("#shloka-text"), s => `${s}px 'Tiro Devanagari Sanskrit', 'Noto Sans Telugu', Mukta`, [112, 100, 88, 76, 66, 58], 640, 4);
@@ -409,11 +322,11 @@
     shloka.lines.forEach((ln, i) => g.fillText(ln, W / 2, cy + (i - (shloka.lines.length - 1) / 2) * shLh));
     g.textBaseline = "alphabetic";
 
-    // transliteration + meaning share the band between the circle and the logo.
+    // transliteration + meaning (+ source) share the band between the circle and the logo.
     // Short texts keep the original positions/sizes; longer ones scale down together to fit.
-    const trText = textOf("#shloka-translit"), meText = textOf("#shloka-meaning");
-    const meBase = lang === "te" ? 46 : 48;
-    const meaningFont = s => lang === "te" ? `${s}px 'Noto Sans Telugu'` : `${s}px Mukta`;
+    const trText = textOf("#shloka-translit"), meText = [textOf("#shloka-meaning"), textOf("#shloka-source")].filter(Boolean).join(" ");
+    const meBase = lang() === "te" ? 46 : 48;
+    const meaningFont = s => lang() === "te" ? `${s}px 'Noto Sans Telugu', Mukta` : `${s}px Mukta, 'Noto Sans Telugu'`;
     const bandTop = cy + 460, preferredTop = cy + 520, bandBottom = H - 400; // first / last baselines
     let tr, me, trSize, meSize, span;
     for (const k of [1, 0.9, 0.8, 0.72, 0.65, 0.58]) {
@@ -439,28 +352,51 @@
     g.fillText("Sri Haritha Dharma Parishad", W / 2, H - 160);
     g.fillStyle = "#e2b764"; g.font = "36px 'Tiro Devanagari Sanskrit'";
     g.fillText("संस्कृतेः रक्षा · राष्ट्रस्य सेवा", W / 2, H - 100);
+    return c;
+  }
+
+  // Phones that can share files get the native share sheet (WhatsApp status, save image);
+  // everything else downloads the PNG.
+  async function cardAction() {
+    const c = await drawCard();
+    const name = "shdp-shloka-of-the-day.png";
+    const blob = await new Promise(res => { try { c.toBlob(res, "image/png"); } catch (_) { res(null); } });
+    if (blob && window.File && navigator.canShare) {
+      try {
+        const file = new File([blob], name, { type: "image/png" });
+        if (navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: t("shloka.label", "Shloka of the day") }); return; }
+      } catch (err) { if (err && err.name === "AbortError") return; }
+    }
     try {
       const a = document.createElement("a");
-      a.download = "shdp-shloka-of-the-day.png";
-      a.href = c.toDataURL("image/png");
+      a.download = name;
+      a.href = blob ? URL.createObjectURL(blob) : c.toDataURL("image/png");
       a.click();
-      toast(lang === "te" ? "కార్డ్ డౌన్‌లోడ్ అయింది" : "Status card downloaded");
+      if (blob) setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      toast(t("toast.cardDownloaded", "Status card downloaded"));
     } catch (_) {
-      toast("Open the site from a web server to download the card");
+      toast(t("toast.cardFailed", "Open the site from a web server to download the card"));
     }
   }
 
   safe("shloka", () => {
     updateShareLink();
-    const btn = $("#download-card");
-    if (btn) btn.addEventListener("click", () => { downloadCard().catch(err => console.error("[shdp] status card failed:", err)); });
+    const dl = $("#download-card");
+    if (dl) dl.addEventListener("click", () => { cardAction().catch(err => console.error("[shdp] status card failed:", err)); });
+    const nat = $("#share-shloka-native");
+    if (nat) nat.addEventListener("click", () => { if (S.share) S.share.share({ title: t("shloka.label", "Shloka of the day"), text: shareText(), url: "#shloka" }, nat); });
+    const cp = $("#copy-shloka");
+    if (cp) cp.addEventListener("click", () => {
+      const done = ok => toast(ok ? t("toast.textCopied", "Shloka copied") : t("toast.copyFailed", "Couldn't copy. Please select the text instead."));
+      if (S.share) S.share.copy(shareText()).then(done); else done(false);
+    });
   });
 
   /* ---------- language toggle ---------- */
   const TE = window.SHDP_TE || {};
   const enText = new Map();
   function setLang(next) {
-    lang = next;
+    next = next === "te" ? "te" : "en";
     document.documentElement.lang = next;
     $$("[data-i18n]").forEach(el => {
       const v = next === "te" ? TE[el.dataset.i18n] : enText.get(el);
@@ -470,10 +406,21 @@
       const v = next === "te" ? TE[el.dataset.i18nHtml] : enText.get(el);
       if (v) el.innerHTML = v;
     });
+    $$("[data-i18n-attr]").forEach(el => {
+      // data-i18n-attr="aria-label:key;placeholder:key2"
+      el.dataset.i18nAttr.split(";").forEach(pair => {
+        const [attr, key] = pair.split(":").map(s => s && s.trim());
+        if (!attr || !key) return;
+        const store = "en_" + attr.replace(/-/g, "_");
+        if (!(store in el.dataset)) el.dataset[store] = el.getAttribute(attr) || "";
+        const v = next === "te" ? TE[key] : el.dataset[store];
+        if (v) el.setAttribute(attr, v);
+      });
+    });
     $$(".lang-toggle button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === next)));
-    safe("programmes (lang)", () => { renderProgList(); renderProgPanel(); });
-    sizeTrack();
+    S.setLangState(next);            // modules re-render their own content
     safe("render quote (lang)", renderQuote); // also refreshes the share link
+    if (S.site) safe("join links (lang)", () => updateJoinLinks(S.site));
     try { localStorage.setItem("shdp-lang", next); } catch (_) {}
     if (window.ScrollTrigger) ScrollTrigger.refresh();
   }
@@ -481,7 +428,9 @@
     $$("[data-i18n]").forEach(el => enText.set(el, el.textContent));
     $$("[data-i18n-html]").forEach(el => enText.set(el, el.innerHTML));
     $$(".lang-toggle button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
-    try { if (localStorage.getItem("shdp-lang") === "te") setLang("te"); } catch (_) {}
+    let saved = null;
+    try { saved = localStorage.getItem("shdp-lang"); } catch (_) {}
+    if (saved === "te") setLang("te");
   });
 
   /* ---------- Three.js: rising diya embers + a slow sacred ring ---------- */
@@ -489,10 +438,13 @@
     const canvas = $("#hero-canvas");
     const archEl = $("[data-hero-visual] .arch");
     if (!window.THREE || !canvas || !archEl) return;
+    const small = window.innerWidth < 700;
+    const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
     let renderer;
-    try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
+    // at high pixel ratios antialiasing on soft points is invisible but costly
+    try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: dpr < 2, powerPreference: "low-power" }); }
     catch (_) { return; }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(dpr);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
     camera.position.z = 14;
@@ -505,7 +457,7 @@
     sg.fillStyle = rg; sg.fillRect(0, 0, 64, 64);
     const tex = new THREE.CanvasTexture(spr);
 
-    const COUNT = window.innerWidth < 700 ? 140 : 320;
+    const COUNT = small ? 140 : 320;
     const pos = new Float32Array(COUNT * 3), speed = new Float32Array(COUNT), drift = new Float32Array(COUNT);
     for (let i = 0; i < COUNT; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 30;
@@ -533,8 +485,11 @@
     const ring2 = ring.clone(); ring2.scale.setScalar(1.18); ring2.material = ring.material.clone(); ring2.material.opacity = 0.25; ringGroup.add(ring2);
     scene.add(ringGroup);
 
+    let lastW = 0, lastH = 0;
     function resize() {
       const w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      lastW = w; lastH = h;
       renderer.setSize(w, h, false);
       camera.aspect = w / h; camera.updateProjectionMatrix();
       // centre the ring behind the portrait (right column on desktop, lower on mobile)
@@ -543,45 +498,61 @@
       const cx = ((visual.left + visual.width / 2 - hero.left) / w) * 2 - 1;
       const cy = -(((visual.top + visual.height * 0.42 - hero.top) / h) * 2 - 1);
       const v = new THREE.Vector3(cx, cy, 0.5).unproject(camera).sub(camera.position).normalize();
-      const t = -camera.position.z / v.z;
-      ringGroup.position.copy(camera.position).add(v.multiplyScalar(t));
+      const tt = -camera.position.z / v.z;
+      ringGroup.position.copy(camera.position).add(v.multiplyScalar(tt));
       // size the ring in pixels relative to the portrait, then convert to world units
       const worldPerPx = (2 * Math.tan((camera.fov * Math.PI) / 360) * camera.position.z) / h;
       ringGroup.scale.setScalar((visual.width * 0.66 * worldPerPx) / 6.2);
+      if (!running) renderer.render(scene, camera);
     }
-    resize(); window.addEventListener("resize", resize);
-    setTimeout(resize, 1700); // re-measure once the intro animation has settled
+    // ignore mobile address-bar height jitter; only react to real size changes, debounced
+    let rt;
+    window.addEventListener("resize", () => {
+      clearTimeout(rt);
+      rt = setTimeout(() => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        if (w !== lastW || Math.abs(h - lastH) > 120) resize();
+      }, 150);
+    });
 
     let mx = 0, my = 0;
     window.addEventListener("pointermove", e => { mx = e.clientX / window.innerWidth - 0.5; my = e.clientY / window.innerHeight - 0.5; }, { passive: true });
 
-    let visible = true;
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
-
     const clock = new THREE.Clock();
+    let running = false, raf = 0, inView = true;
     function frame() {
-      requestAnimationFrame(frame);
-      if (!visible) return;
-      const t = clock.getElapsedTime();
+      raf = requestAnimationFrame(frame);
+      const tt = clock.getElapsedTime();
       const p = geo.attributes.position.array;
       for (let i = 0; i < COUNT; i++) {
         p[i * 3 + 1] += speed[i];
-        p[i * 3] += Math.sin(t * 0.6 + drift[i]) * 0.004;
+        p[i * 3] += Math.sin(tt * 0.6 + drift[i]) * 0.004;
         if (p[i * 3 + 1] > 9) { p[i * 3 + 1] = -9; p[i * 3] = (Math.random() - 0.5) * 30; }
       }
       geo.attributes.position.needsUpdate = true;
-      ringGroup.rotation.z = t * 0.05;
-      ring2.rotation.z = -t * 0.08;
-      mat.opacity = 0.7 + Math.sin(t * 1.3) * 0.15;
+      ringGroup.rotation.z = tt * 0.05;
+      ring2.rotation.z = -tt * 0.08;
+      mat.opacity = 0.7 + Math.sin(tt * 1.3) * 0.15;
       camera.position.x += (mx * 1.2 - camera.position.x) * 0.03;
       camera.position.y += (-my * 0.8 - camera.position.y) * 0.03;
       camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
     }
-    if (reduceMotion) { renderer.render(scene, camera); } else { frame(); }
+    // the loop runs only while the hero is on screen and the tab is visible
+    function update() {
+      const should = !reduceMotion && inView && document.visibilityState === "visible";
+      if (should && !running) { running = true; clock.getDelta(); raf = requestAnimationFrame(frame); }
+      else if (!should && running) { running = false; cancelAnimationFrame(raf); }
+    }
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; update(); }).observe(canvas);
+    document.addEventListener("visibilitychange", update);
+
+    resize();
+    setTimeout(resize, 1700); // re-measure once the intro animation has settled
+    if (reduceMotion) renderer.render(scene, camera); else update();
   }
 
-  /* ---------- GSAP: intro, reveals, counters, parallax ---------- */
+  /* ---------- motion: reveals (IntersectionObserver), GSAP counters + parallax ---------- */
   function initMotion() {
     window.__shdpReady = true; // cancels the head-script failsafe
     if (reduceMotion) return;
@@ -611,6 +582,15 @@
 
     if ($("[data-parallax]")) gsap.to("[data-parallax]", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".vision", start: "top bottom", end: "bottom top", scrub: true } });
   }
+
+  /* ---------- service worker (offline shell + installable app) ---------- */
+  safe("service worker", () => {
+    if (!("serviceWorker" in navigator)) return;
+    if (location.protocol !== "https:" && location.hostname !== "localhost") return;
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(err => console.warn("[shdp] service worker not registered:", err.message));
+    });
+  });
 
   // scripts are deferred, so CDN libraries are ready by now (or failed, and we skip)
   safe("hero 3d", initHero3D);

@@ -6,25 +6,49 @@
   <title>Sri Haritha Dharma Parishad | Dharma, explained for every generation</title>
   <meta name="description" content="Sri Haritha Dharma Parishad (SHDP), Hyderabad: 25 years of Bhagavad Gita classes, Pravachanalu, Bala Chaitanya Deepika and Goshala seva under the guidance of Dr. G.V. Ramakrishna Murthy.">
   <meta name="theme-color" content="#0b2014">
+  <!-- Production URL is the current Netlify address.
+       TODO(custom domain): when a custom domain is connected, update canonical, og:url, og:image,
+       the JSON-LD below, robots.txt, sitemap.xml and links.website_url in data/site.json. -->
+  <link rel="canonical" href="https://effortless-otter-f49e77.netlify.app/">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <!-- TODO(production domain): social previews (WhatsApp, Facebook) need ABSOLUTE URLs.
-       Once the domain is known, set og:url / canonical and prefix og:image, e.g.
-       https://YOUR-DOMAIN/assets/img/guruji-hero.webp  (see README "Before launch"). -->
+  <link rel="manifest" href="manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Sri Haritha Dharma Parishad">
   <meta property="og:title" content="Sri Haritha Dharma Parishad">
   <meta property="og:description" content="Dharma, explained scientifically, for every generation.">
-  <meta property="og:image" content="assets/img/guruji-hero.webp">
-  <meta property="og:image:width" content="2000">
-  <meta property="og:image:height" content="1500">
+  <meta property="og:url" content="https://effortless-otter-f49e77.netlify.app/">
+  <meta property="og:image" content="https://effortless-otter-f49e77.netlify.app/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Dr. G.V. Ramakrishna Murthy, founding mentor of Sri Haritha Dharma Parishad">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:locale:alternate" content="te_IN">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://effortless-otter-f49e77.netlify.app/assets/img/og-image.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sri Haritha Dharma Parishad",
+    "alternateName": ["SHDP", "శ్రీ హరిత ధర్మ పరిషత్"],
+    "url": "https://effortless-otter-f49e77.netlify.app/",
+    "logo": "https://effortless-otter-f49e77.netlify.app/assets/img/icon-512.png",
+    "description": "A registered trust carrying Dharma to the next generation through discourse, youth mentorship and seva. Hyderabad, since 2001.",
+    "foundingDate": "2001",
+    "email": "sriharithadharmaparishad@gmail.com",
+    "areaServed": "Hyderabad, India",
+    "sameAs": [
+      "https://www.youtube.com/@GVRamakrishnaMurthyOfficial",
+      "https://www.instagram.com/sriharithadharmaparishad"
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mukta:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/guruji-hero.webp">
+  <link rel="preload" as="image" href="assets/img/guruji-hero.webp" imagesrcset="assets/img/guruji-hero-1000.jpg 1000w, assets/img/guruji-hero.webp 2000w" imagesizes="(max-width: 700px) 84vw, 470px">
   <link rel="stylesheet" href="css/styles.css">
   <script>
     // enable entrance motion before first paint; if main.js never runs, drop it so nothing stays hidden
@@ -48,7 +72,7 @@
     <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
     <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/></symbol>
-    <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.870 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></symbol>
     <symbol id="i-tv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="m17 2-5 5-5-5"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></symbol>
     <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
@@ -58,11 +82,17 @@
     <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
-    <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.42-9.44 9.42Zm8.03-17.46A11.27 11.27 0 0 0 12.05.72C5.8.72.7 5.8.7 12.06c0 2 .52 3.95 1.52 5.67L.6 23.65l6.06-1.59a11.32 11.32 0 0 0 5.4 1.38c6.25 0 11.34-5.09 11.34-11.34 0-3.03-1.18-5.88-3.32-8.03Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.870.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.43-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.23 9.42-9.44 9.42Zm8.03-17.46A11.27 11.27 0 0 0 12.05.72C5.8.72.7 5.8.7 12.06c0 2 .52 3.95 1.52 5.67L.6 23.65l6.06-1.59a11.320 11.32 0 0 0 5.4 1.38c6.25 0 11.34-5.09 11.34-11.34 0-3.03-1.18-5.88-3.32-8.03Z"/></symbol>
     <symbol id="i-youtube" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></symbol>
     <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
     <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2C16.7 2.1 15.7 2 14.6 2 12.2 2 10.6 3.5 10.6 6.2v2.3H8v3.6h2.6V22H14v-9.9h2.7l.4-3.6Z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.9Z"/></symbol>
   </defs>
 </svg>
 
@@ -73,18 +103,18 @@
   <div class="topline">
     <div class="wrap">
       <span class="motto" lang="sa">संस्कृतेः रक्षा · राष्ट्रस्य सेवा</span>
-      <!-- TODO: Facebook links below are a search URL placeholder; replace with the official page URL (also in footer) -->
       <nav class="socials" aria-label="Social media">
         <a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" data-site-href="social.youtube.url" target="_blank" rel="noopener" aria-label="YouTube"><svg class="icon"><use href="#i-youtube"/></svg></a>
         <a href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon"><use href="#i-instagram"/></svg></a>
-        <a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" data-site-href="social.facebook.url" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
+        <!-- shown only when data/site.json has the official Facebook page URL -->
+        <a href="#" data-site-href="social.facebook.url" data-site-optional hidden aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
       </nav>
     </div>
   </div>
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Sri Haritha Dharma Parishad, home">
-      <img src="assets/img/logo.jpg" alt="" width="72" height="72">
-      <span class="brand-name">Sri Haritha Dharma Parishad<span class="brand-sub">శ్రీ హరిత ధర్మ పరిషత్</span></span>
+      <img src="assets/img/logo.jpg" alt="" width="72" height="72" decoding="async">
+      <span class="brand-name">Sri Haritha Dharma Parishad<span class="brand-sub" lang="te">శ్రీ హరిత ధర్మ పరిషత్</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#mentor" data-i18n="nav.about">About</a></li>
@@ -95,20 +125,21 @@
       <li><a href="#join" data-i18n="nav.join">Join / Seva</a></li>
     </ul>
     <div class="nav-actions">
+      <button class="icon-btn search-btn" type="button" data-search-open aria-label="Search" data-i18n-attr="aria-label:nav.search"><svg class="icon"><use href="#i-search"/></svg></button>
       <div class="lang-toggle" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="te" aria-pressed="false" aria-label="తెలుగు"><span class="long">తెలుగు</span><span class="short">తె</span></button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="te" lang="te" aria-pressed="false" aria-label="తెలుగు"><span class="long">తెలుగు</span><span class="short">తె</span></button>
       </div>
       <a class="btn btn-gold" href="#join"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="cta.community">Join community</span></a>
-      <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg class="icon"><use href="#i-menu"/></svg></button>
+      <button class="menu-btn" type="button" aria-label="Open menu" data-i18n-attr="aria-label:nav.menu" aria-expanded="false" aria-controls="drawer"><svg class="icon"><use href="#i-menu"/></svg></button>
     </div>
   </div>
 </header>
 
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
   <div class="drawer-head">
-    <span class="brand"><img src="assets/img/logo.jpg" alt="" width="56" height="56"><span class="brand-name">SHDP</span></span>
-    <button class="menu-btn" type="button" data-close aria-label="Close menu" style="display:inline-flex"><svg class="icon"><use href="#i-x"/></svg></button>
+    <span class="brand"><img src="assets/img/logo.jpg" alt="" width="56" height="56" decoding="async"><span class="brand-name">SHDP</span></span>
+    <button class="menu-btn" type="button" data-close aria-label="Close menu" data-i18n-attr="aria-label:dialog.close" style="display:inline-flex"><svg class="icon"><use href="#i-x"/></svg></button>
   </div>
   <ul>
     <li><a href="#mentor" data-i18n="nav.about">About</a></li>
@@ -116,9 +147,14 @@
     <li><a href="#events" data-i18n="nav.events">Events</a></li>
     <li><a href="#videos" data-i18n="nav.videos">Videos</a></li>
     <li><a href="#legacy" data-i18n="nav.legacy">Our Journey</a></li>
+    <li><a href="#books" data-i18n="nav.books">Books</a></li>
+    <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
     <li><a href="#join" data-i18n="nav.join">Join / Seva</a></li>
   </ul>
-  <a class="btn btn-gold" href="#join" style="align-self:flex-start"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="cta.community">Join community</span></a>
+  <div class="drawer-actions">
+    <button class="btn btn-ghost-light" type="button" data-search-open><svg class="icon"><use href="#i-search"/></svg><span data-i18n="nav.search">Search</span></button>
+    <a class="btn btn-gold" href="#join"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="cta.community">Join community</span></a>
+  </div>
 </div>
 
 <main id="main">
@@ -140,14 +176,14 @@
     <figure class="hero-visual" data-hero-visual>
       <div class="arch-outline"></div>
       <div class="arch">
-        <img src="assets/img/guruji-hero.webp" alt="Dr. G.V. Ramakrishna Murthy, founding mentor of SHDP, wearing rudraksha malas and a yellow angavastram" width="2000" height="1500" fetchpriority="high">
+        <img src="assets/img/guruji-hero.webp" srcset="assets/img/guruji-hero-1000.jpg 1000w, assets/img/guruji-hero.webp 2000w" sizes="(max-width: 700px) 84vw, 470px" alt="Dr. G.V. Ramakrishna Murthy, founding mentor of SHDP, wearing rudraksha malas and a yellow angavastram" width="2000" height="1500" fetchpriority="high" decoding="async">
       </div>
-      <div class="hero-seal" role="img" aria-label="25 years of service, registered trust">
+      <div class="hero-seal" role="img" aria-label="25 years of service, registered trust" data-i18n-attr="aria-label:hero.sealLabel">
         <svg class="seal-ring" viewBox="0 0 120 120" aria-hidden="true">
           <defs><path id="seal-path" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
-          <text><textPath href="#seal-path">25 YEARS OF SERVICE · REGISTERED TRUST ·</textPath></text>
+          <text><textPath href="#seal-path" data-i18n="hero.sealring">25 YEARS OF SERVICE · REGISTERED TRUST ·</textPath></text>
         </svg>
-        <span class="seal-core"><strong>25</strong><small data-i18n="hero.sealyrs">Years</small></span>
+        <span class="seal-core" aria-hidden="true"><strong>25</strong><small data-i18n="hero.sealyrs">Years</small></span>
       </div>
       <figcaption class="hero-caption">
         <b data-i18n="mentor.name">Dr. G.V. Ramakrishna Murthy</b>
@@ -158,10 +194,10 @@
   <a class="scroll-cue" href="#shloka" aria-label="Scroll to content"><i></i></a>
 </section>
 
-<!-- ============ Shloka of the day ============ -->
+<!-- ============ Shloka of the day (data/quotes.json; this text is the built-in fallback) ============ -->
 <section class="shloka" id="shloka" aria-labelledby="shloka-title">
   <div class="wrap">
-    <p class="shloka-label" id="shloka-title" data-i18n="shloka.label">Shloka of the day</p>
+    <h2 class="shloka-label" id="shloka-title" data-i18n="shloka.label">Shloka of the day</h2>
     <div data-reveal>
       <p class="shloka-text" lang="sa" id="shloka-text">विद्या विनयेन शोभते</p>
       <p class="shloka-translit" id="shloka-translit">Vidyā vinayena śobhate</p>
@@ -169,13 +205,17 @@
       <p class="shloka-source" id="shloka-source" hidden></p>
     </div>
     <div class="shloka-actions" data-reveal>
-      <a class="btn btn-green" id="share-shloka" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="shloka.share">Share on WhatsApp</span></a>
+      <a class="btn btn-green" id="share-shloka" href="https://wa.me/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="shloka.share">Share on WhatsApp</span></a>
       <button class="btn btn-outline" type="button" id="download-card"><svg class="icon"><use href="#i-download"/></svg><span data-i18n="shloka.download">Download status card</span></button>
+      <div class="shloka-mini">
+        <button class="icon-btn" type="button" id="share-shloka-native" aria-label="Share" data-i18n-attr="aria-label:shloka.shareNative"><svg class="icon"><use href="#i-share"/></svg></button>
+        <button class="icon-btn" type="button" id="copy-shloka" aria-label="Copy shloka" data-i18n-attr="aria-label:shloka.copy"><svg class="icon"><use href="#i-copy"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ This week ============ -->
+<!-- ============ This week (data/events.json) ============ -->
 <section class="section" id="events" aria-labelledby="events-title">
   <div class="wrap">
     <div class="section-head" data-reveal>
@@ -184,71 +224,22 @@
         <h2 class="section-title" id="events-title" data-i18n="events.title">This week at the Parishad</h2>
         <p class="lede" data-i18n="events.lede">Every class is free. Join online from anywhere, or in person in Hyderabad.</p>
       </div>
-      <a class="link-arrow" href="#events"><span data-i18n="events.all">Full calendar</span><svg class="icon"><use href="#i-arrow"/></svg></a>
     </div>
+    <div class="toolbar" id="event-toolbar" hidden></div>
 
     <div class="week-grid">
-      <ul class="events">
-        <li class="event" data-reveal>
-          <div class="event-date"><small data-next-sunday-dow>Sun</small><b data-next-sunday-day>--</b><small data-next-sunday-mon></small></div>
-          <div>
-            <h3>Bala Chaitanya Deepika</h3>
-            <p class="event-meta">
-              <span><svg class="icon"><use href="#i-clock"/></svg>10:00 AM IST</span>
-              <span><svg class="icon"><use href="#i-video"/></svg>Zoom</span>
-              <span><svg class="icon"><use href="#i-users"/></svg><span data-i18n="events.bala.for">Children 8 to 16</span></span>
-            </p>
-          </div>
-          <a class="btn btn-green" href="#join" data-i18n="events.register">Register free</a>
-        </li>
-        <li class="event" data-reveal>
-          <div class="event-date is-daily"><small data-i18n="events.daily">Daily</small><b>Mon–Sat</b></div>
-          <div>
-            <h3>Dharma Chaitanya Vedika</h3>
-            <p class="event-meta">
-              <span><svg class="icon"><use href="#i-clock"/></svg><span data-i18n="events.vedika.time">Morning &amp; evening batches</span></span>
-              <span><svg class="icon"><use href="#i-video"/></svg>Online</span>
-              <span><svg class="icon"><use href="#i-book"/></svg><span data-i18n="events.vedika.for">Ancient literature</span></span>
-            </p>
-          </div>
-          <a class="btn btn-outline" href="#join" data-i18n="events.batch">Join a batch</a>
-        </li>
-        <li class="event" data-reveal>
-          <div class="event-date is-daily"><small data-i18n="events.weekly">Weekly</small><b>Gita</b></div>
-          <div>
-            <h3 data-i18n="events.gita.title">Bhagavad Gita classes</h3>
-            <p class="event-meta">
-              <span><svg class="icon"><use href="#i-video"/></svg>Online</span>
-              <span><svg class="icon"><use href="#i-users"/></svg><span data-i18n="events.gita.for">Led by Guruji's disciples</span></span>
-            </p>
-          </div>
-          <a class="btn btn-outline" href="#join" data-i18n="events.batch">Join a batch</a>
-        </li>
-        <li class="event" data-reveal>
-          <div class="event-date is-daily"><small data-i18n="events.seva">Seva</small><b>Gau</b></div>
-          <div>
-            <h3 data-i18n="events.goshala.title">Rythu Bazar Goshala drive</h3>
-            <p class="event-meta">
-              <span><svg class="icon"><use href="#i-pin"/></svg>Hyderabad</span>
-              <span><svg class="icon"><use href="#i-leaf"/></svg><span data-i18n="events.goshala.for">Volunteers welcome, early mornings</span></span>
-            </p>
-          </div>
-          <a class="btn btn-outline" href="#join" data-i18n="events.help">Help out</a>
-        </li>
-      </ul>
+      <div data-reveal>
+        <ul class="events" id="event-list"></ul>
+        <p class="empty-state" id="event-empty" hidden></p>
+      </div>
 
       <article class="yatra-card" data-reveal>
-        <div class="media"><img src="assets/img/sunrise-himalaya.webp" alt="Sunrise over Himalayan peaks and a river valley" loading="lazy"></div>
+        <div class="media"><img src="assets/img/sunrise-himalaya.webp" alt="Sunrise over Himalayan peaks and a river valley" loading="lazy" decoding="async" width="1195" height="896"></div>
         <div class="yatra-body">
           <p class="eyebrow" style="color:var(--gold-300)" data-i18n="yatra.eyebrow">Teertha Yatra</p>
           <h3 data-i18n="yatra.title">Sacred pilgrimages, every year</h3>
           <p data-i18n="yatra.body">Each yatra is a journey of parayanam and pravachanam at the great kshetras of Bharat.</p>
-          <ul class="yatra-list">
-            <li><time>Sep 2026</time><span><b>Arunachalam &amp; Srirangam</b><br>Giri Pradakshina, Mukundamala Parayanam</span></li>
-            <li><time>Nov 2025</time><span><b>Guruvayur</b><br>7-day Narayaneeyam Parayanam</span></li>
-            <li><time>Nov 2024</time><span><b>Varanasi</b><br>15-day Kashi Khandam Pravachanam</span></li>
-            <li><time>Nov 2023</time><span><b>Naimisharanya</b><br>10-day Bhagavatha Saptaham</span></li>
-          </ul>
+          <ul class="yatra-list" id="yatra-list"></ul>
           <a class="btn btn-gold" href="#join"><span data-i18n="yatra.cta">Get notified of the next yatra</span><svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
@@ -277,7 +268,7 @@
   <div class="wrap">
     <div class="mentor-grid">
       <div class="mentor-media" data-reveal>
-        <div class="frame"><img src="assets/img/guruji-seated.webp" alt="Dr. G.V. Ramakrishna Murthy seated on a hilltop at sunrise, a small temple behind him" loading="lazy" width="1195" height="896"></div>
+        <div class="frame"><img src="assets/img/guruji-seated.webp" alt="Dr. G.V. Ramakrishna Murthy seated on a hilltop at sunrise, a small temple behind him" loading="lazy" decoding="async" width="1195" height="896"></div>
         <p class="tag"><b data-i18n="mentor.title">Bhakti Jnana Prabodhanacharya</b><span data-i18n="mentor.titlenote">Title conferred in 2011 by Saptaswara Samskrutika Samstha</span></p>
       </div>
       <div data-reveal>
@@ -286,12 +277,11 @@
         <p class="honorific" data-i18n="mentor.role">Founding Mentor · Scientist turned spiritual teacher</p>
         <p class="lede" data-i18n="mentor.bio">As a child he learnt the Bala Ramayanam, Shabda Manjari and Bhagavad Gita from his father. As an engineer he spent his career at the Nuclear Fuel Complex, Department of Atomic Energy. Today he explains idol worship, daily ritual and scripture through scientific reasoning that students, homemakers and seniors can all follow.</p>
         <ul class="facts">
-          <li><svg class="icon"><use href="#i-atom"/></svg><span><b data-i18n="mentor.f1a">Nuclear Fuel Complex, DAE</b><span data-i18n="mentor.f1b">Senior Manager, Equipment Development &amp; Automation</span></span></li>
-          <li><svg class="icon"><use href="#i-award"/></svg><span><b data-i18n="mentor.f2a">Best Scientist, twice</b><span data-i18n="mentor.f2b">Awarded at NFC in 2001 and 2010</span></span></li>
-          <li><svg class="icon"><use href="#i-tv"/></svg><span><b data-i18n="mentor.f3a">On air for over a decade</b><span data-i18n="mentor.f3b">Gitaamrutham, Bhagavatha Kathalu, Mana Dharmam and more</span></span></li>
-          <li><svg class="icon"><use href="#i-pen"/></svg><span><b data-i18n="mentor.f4a">Writer &amp; scholar</b><span data-i18n="mentor.f4b">M.A. Telugu; story collaborator on Viswa Rahasyam</span></span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-atom"/></svg><span><b data-i18n="mentor.f1a">Nuclear Fuel Complex, DAE</b><span data-i18n="mentor.f1b">Senior Manager, Equipment Development &amp; Automation</span></span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg><span><b data-i18n="mentor.f2a">Best Scientist, twice</b><span data-i18n="mentor.f2b">Awarded at NFC in 2001 and 2010</span></span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-tv"/></svg><span><b data-i18n="mentor.f3a">On air for over a decade</b><span data-i18n="mentor.f3b">Gitaamrutham, Bhagavatha Kathalu, Mana Dharmam and more</span></span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg><span><b data-i18n="mentor.f4a">Writer &amp; scholar</b><span data-i18n="mentor.f4b">M.A. Telugu; story collaborator on Viswa Rahasyam</span></span></li>
         </ul>
-        <a class="link-arrow" href="#mentor"><span data-i18n="mentor.cta">Read his full profile</span><svg class="icon"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
 
@@ -311,7 +301,7 @@
   </div>
 </section>
 
-<!-- ============ Programmes ============ -->
+<!-- ============ Programmes (data/programmes.json) ============ -->
 <section class="section programmes" id="programmes" aria-labelledby="prog-title">
   <div class="wrap">
     <div class="section-head" data-reveal>
@@ -320,44 +310,36 @@
         <h2 class="section-title" id="prog-title" data-i18n="prog.title">Many doors, one Dharma</h2>
         <p class="lede" data-i18n="prog.lede">In person and online, for children, youth, homemakers and elders. Pick a programme to see who it is for and how to join.</p>
       </div>
+      <div class="toolbar" id="prog-filter" hidden></div>
     </div>
     <div class="prog-layout">
       <ul class="prog-list" role="tablist" aria-label="Programmes" id="prog-list"></ul>
       <div class="prog-stage" data-reveal>
         <div class="media" id="prog-media"></div>
-        <div class="prog-panel" id="prog-panel" role="tabpanel" aria-live="polite"></div>
+        <div class="prog-panel" id="prog-panel" role="tabpanel" tabindex="0"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ Legacy timeline ============ -->
+<!-- ============ Journey timeline (data/timeline.json) ============ -->
 <section class="section" id="legacy" aria-labelledby="legacy-title">
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
         <p class="eyebrow" data-i18n="legacy.eyebrow">Since 2005</p>
         <h2 class="section-title" id="legacy-title" data-i18n="legacy.title">A legacy of initiatives</h2>
-        <div class="legend"><span><i></i><span data-i18n="legacy.l1">Initiative</span></span><span><i class="y"></i><span data-i18n="legacy.l2">Teertha Yatra</span></span></div>
+        <div class="legend" aria-hidden="true"><span><i></i><span data-i18n="legacy.l1">Initiative</span></span><span><i class="y"></i><span data-i18n="legacy.l2">Teertha Yatra</span></span></div>
       </div>
       <div class="timeline-controls">
         <button class="round-btn" type="button" data-scroll="-1" aria-label="Scroll timeline back"><svg class="icon"><use href="#i-left"/></svg></button>
         <button class="round-btn" type="button" data-scroll="1" aria-label="Scroll timeline forward"><svg class="icon"><use href="#i-right"/></svg></button>
       </div>
     </div>
+    <div class="toolbar" id="timeline-filter" hidden></div>
     <div class="timeline-wrap">
-      <ol class="timeline" id="timeline" tabindex="0" aria-label="Timeline, scroll sideways">
-        <li class="milestone"><time>2005</time><h3>Bhagavad Gita classes</h3><p>"Bhagavad Gita Nerchukundam" began for children at Bhakta Sanjeevani Devalayam, NFC, with free Gitas for every child.</p></li>
-        <li class="milestone"><time>2006</time><h3>Ashtanga Yoga &amp; Surya Namaskaras</h3><p>Free dawn sessions across Dr. A.S. Rao Nagar and ECIL, with a mass gathering every International Yoga Day.</p></li>
-        <li class="milestone"><time>2006 – 2013</time><h3>Educational institutions</h3><p>Secretary of Saraswathi Sishu Mandir, Kushaiguda, and leadership at Sri Sharada Institute and Sri Vidya Vihar.</p></li>
-        <li class="milestone"><time>2011</time><h3>Bhakti Jnana Prabodhanacharya</h3><p>Honoured with the title for a decade of making Dharma understandable.</p></li>
-        <li class="milestone"><time>2019</time><h3>Dharma Chaitanya Vedika</h3><p>An online platform with daily classes, Monday to Saturday, for homemakers and seekers across India.</p></li>
-        <li class="milestone is-yatra"><time>Nov 2023</time><h3>Naimisharanya</h3><p>10-day Bhagavatha Saptaham.</p></li>
-        <li class="milestone is-yatra"><time>Nov 2024</time><h3>Varanasi</h3><p>15-day Kashi Khandam Pravachanam.</p></li>
-        <li class="milestone is-yatra"><time>Nov 2025</time><h3>Guruvayur</h3><p>7-day Narayaneeyam Parayanam, with Thiruvananthapuram and Kanyakumari.</p></li>
-        <li class="milestone is-yatra"><time>Sep 2026</time><h3>Arunachalam &amp; Srirangam</h3><p>5-day Giri Pradakshina and Mukundamala Parayanam.</p></li>
-        <li class="milestone"><time>Ongoing</time><h3>Goshala &amp; cow protection</h3><p>Rythu Bazar drives feed cows across Hyderabad; the vision is a dedicated Goshala.</p></li>
-      </ol>
+      <ol class="timeline" id="timeline" tabindex="0" aria-label="Timeline, scroll sideways"></ol>
+      <p class="empty-state" id="timeline-empty" hidden></p>
     </div>
   </div>
 </section>
@@ -366,7 +348,7 @@
 <section class="section guidance" id="guidance" aria-labelledby="guidance-title">
   <div class="wrap">
     <figure class="guru-photo" data-reveal>
-      <img src="assets/img/jagadguru.jpg" alt="Jagadguru Shankaracharya Sri Sri Swayamprakasha Sachidananda Saraswathi Mahaswamiji, seated in saffron robes, raising his right hand in blessing" width="460" height="616" loading="lazy">
+      <img src="assets/img/jagadguru.jpg" alt="Jagadguru Shankaracharya Sri Sri Swayamprakasha Sachidananda Saraswathi Mahaswamiji, seated in saffron robes, raising his right hand in blessing" width="460" height="616" loading="lazy" decoding="async">
     </figure>
     <div data-reveal>
       <p class="eyebrow" style="color:var(--gold-300)" data-i18n="guide.eyebrow">Under the guidance of</p>
@@ -395,7 +377,7 @@
   </div>
 </section>
 
-<!-- ============ Videos ============ -->
+<!-- ============ Videos (data/videos.json; click-to-load YouTube) ============ -->
 <section class="section" id="videos" aria-labelledby="videos-title">
   <div class="wrap">
     <div class="section-head" data-reveal>
@@ -405,34 +387,59 @@
       </div>
       <a class="btn btn-green" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1" data-site-href="links.youtube_subscribe" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.sub">Subscribe on YouTube</span></a>
     </div>
-    <div class="video-grid">
-      <!-- REPLACE hrefs + thumbnails with real YouTube video IDs (thumbnail: https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg) -->
-      <a class="video is-lead" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
-        <div class="thumb"><img src="assets/img/guruji-portrait.webp" alt="" loading="lazy" style="object-position:50% 30%"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">12:04</span></div>
-        <h3>Gita Chapter 2: why act without attachment</h3>
-        <p class="theme">Bhagavad Gita</p>
-      </a>
-      <div class="video-side">
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
-          <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">4:10</span></div>
-          <div><h3>Why we light a deepam: the science</h3><p class="theme">Traditions explained</p></div>
-        </a>
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
-          <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">28:30</span></div>
-          <div><h3>Mana Dharmam: students ask</h3><p class="theme">Youth &amp; doubts</p></div>
-        </a>
-        <a class="video" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-reveal>
-          <div class="thumb ph"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span><span class="dur">45:12</span></div>
-          <div><h3>Sundara Kanda, part 3</h3><p class="theme">Ramayana series</p></div>
-        </a>
+    <div class="toolbar" id="video-toolbar" hidden></div>
+    <div class="video-uploads" id="video-uploads" hidden></div>
+    <div class="video-layout">
+      <div id="video-featured"></div>
+      <div class="video-list" id="video-grid"></div>
+    </div>
+    <p class="empty-state" id="video-noresults" hidden></p>
+    <!-- shown until real videos are added to data/videos.json -->
+    <div class="video-empty" id="video-empty" data-reveal>
+      <div class="video-empty-media"><img src="assets/img/guruji-portrait.webp" alt="" loading="lazy" decoding="async" width="1195" height="896"></div>
+      <div class="video-empty-body">
+        <h3 data-i18n="videos.emptyTitle">Pravachanalu on YouTube</h3>
+        <p data-i18n="videos.emptyBody">All of Guruji's discourses are on the YouTube channel. Selected videos will also appear here soon.</p>
+        <a class="btn btn-gold" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.onYoutube">Watch on YouTube</span></a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ============ Books (data/books.json) ============ -->
+<section class="section books" id="books" aria-labelledby="books-title">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="eyebrow" data-i18n="books.eyebrow">Publications</p>
+        <h2 class="section-title" id="books-title" data-i18n="books.title">Books</h2>
+        <p class="lede" data-i18n="books.lede">Publications from the Parishad, with links to read or buy.</p>
+      </div>
+    </div>
+    <div class="toolbar" id="book-toolbar" hidden></div>
+    <div class="book-grid" id="book-grid" hidden></div>
+    <p class="empty-state" id="book-noresults" hidden></p>
+    <p class="empty-state is-panel" id="book-empty" data-i18n="books.empty">A list of published books will appear here soon.</p>
+  </div>
+</section>
+
+<!-- ============ Gallery (data/gallery.json) ============ -->
+<section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="eyebrow" data-i18n="gallery.eyebrow">Gallery</p>
+        <h2 class="section-title" id="gallery-title" data-i18n="gallery.title">Moments from our events</h2>
+      </div>
+    </div>
+    <div class="album-grid" id="gallery-grid" hidden></div>
+    <p class="empty-state is-panel" id="gallery-empty" data-i18n="gallery.empty">Photo albums from events and yatras will appear here soon.</p>
+  </div>
+</section>
+
 <!-- ============ Ashram vision ============ -->
 <section class="vision" aria-labelledby="vision-title">
-  <div class="bg" data-parallax><img src="assets/img/ashram-vision.jpg" alt="Illustration of the envisioned ashram: discourses under a banyan tree, yoga on the lawn, a goshala and a children's play area" loading="lazy"></div>
+  <div class="bg" data-parallax><img src="assets/img/ashram-vision.jpg" srcset="assets/img/ashram-vision-900.jpg 900w, assets/img/ashram-vision.jpg 1400w" sizes="100vw" alt="Illustration of the envisioned ashram: discourses under a banyan tree, yoga on the lawn, a goshala and a children's play area" loading="lazy" decoding="async" width="1400" height="950"></div>
   <div class="wrap" data-reveal>
     <p class="eyebrow" data-i18n="vision.eyebrow">The vision</p>
     <h2 id="vision-title" data-i18n="vision.title">An ashram where the Indian way of life is lived, not just taught.</h2>
@@ -440,7 +447,7 @@
   </div>
 </section>
 
-<!-- ============ Join / Seva ============ -->
+<!-- ============ Join / Seva (actions from data/site.json; nothing is stored) ============ -->
 <section class="section" id="join" aria-labelledby="join-title">
   <div class="wrap join-grid">
     <div data-reveal>
@@ -448,24 +455,27 @@
       <h2 class="section-title" id="join-title" data-i18n="join.title">Be part of the next 25 years</h2>
       <p class="lede" style="margin-top:14px" data-i18n="join.lede">Give an hour, a meal, or a skill. Anything helps.</p>
       <ul class="seva-list">
-        <li><span class="ico"><svg class="icon"><use href="#i-book"/></svg></span><div><h3 data-i18n="join.s1">Teaching support</h3><p data-i18n="join.s1b">Help run Gita classes and youth sessions.</p></div></li>
-        <li><span class="ico"><svg class="icon"><use href="#i-bowl"/></svg></span><div><h3 data-i18n="join.s2">Annadana seva</h3><p data-i18n="join.s2b">Serve meals at festivals and yatras.</p></div></li>
-        <li><span class="ico"><svg class="icon"><use href="#i-leaf"/></svg></span><div><h3 data-i18n="join.s3">Goshala drives</h3><p data-i18n="join.s3b">Rythu Bazar collection, early mornings.</p></div></li>
-        <li><span class="ico"><svg class="icon"><use href="#i-camera"/></svg></span><div><h3 data-i18n="join.s4">Media &amp; design</h3><p data-i18n="join.s4b">Edit reels, make shloka cards, post daily.</p></div></li>
+        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span><div><h3 data-i18n="join.s1">Teaching support</h3><p data-i18n="join.s1b">Help run Gita classes and youth sessions.</p></div></li>
+        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-bowl"/></svg></span><div><h3 data-i18n="join.s2">Annadana seva</h3><p data-i18n="join.s2b">Serve meals at festivals and yatras.</p></div></li>
+        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span><div><h3 data-i18n="join.s3">Goshala drives</h3><p data-i18n="join.s3b">Rythu Bazar collection, early mornings.</p></div></li>
+        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></span><div><h3 data-i18n="join.s4">Media &amp; design</h3><p data-i18n="join.s4b">Edit reels, make shloka cards, post daily.</p></div></li>
       </ul>
     </div>
 
     <aside class="join-panel" data-reveal>
       <h3 data-i18n="join.panel">Join a WhatsApp community</h3>
       <p data-i18n="join.panelb">Daily shloka, class reminders and event links. Moderated groups, no forwards.</p>
-      <!-- REPLACE: each href with the real WhatsApp group invite link -->
-      <ul class="groups">
-        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.parents.url"><span><b data-i18n="join.g1">Parents &amp; Bala Chaitanya</b><small data-i18n="join.g1b">Sunday class links for children</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
-        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.youth.url"><span><b data-i18n="join.g2">Youth</b><small data-i18n="join.g2b">Students and young professionals</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
-        <li><a href="#" data-wa-group data-site-href="whatsapp.groups.hyderabad_seva.url"><span><b data-i18n="join.g3">Hyderabad seva</b><small data-i18n="join.g3b">Goshala drives and local events</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+      <ul class="groups" id="wa-groups" hidden>
+        <li data-wa-group-id="parents" hidden><a href="#"><span><b data-i18n="join.g1">Parents &amp; Bala Chaitanya</b><small data-i18n="join.g1b">Sunday class links for children</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+        <li data-wa-group-id="youth" hidden><a href="#"><span><b data-i18n="join.g2">Youth</b><small data-i18n="join.g2b">Students and young professionals</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
+        <li data-wa-group-id="hyderabad_seva" hidden><a href="#"><span><b data-i18n="join.g3">Hyderabad seva</b><small data-i18n="join.g3b">Goshala drives and local events</small></span><svg class="icon"><use href="#i-arrow"/></svg></a></li>
       </ul>
-      <a class="btn btn-gold" href="#" data-wa-group data-site-href="whatsapp.volunteer_url"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="join.volunteer">Volunteer with us</span></a>
-      <p class="give-note" data-i18n-html="join.give">Prefer to give? Bank details and UPI QR are on the <a href="#join">Support page</a>. No gateway, no processing fee.</p>
+      <div class="groups-fallback" id="wa-groups-fallback">
+        <p data-i18n="join.groupsSoon">WhatsApp group links will be shared here soon. Write to us and we'll add you to a group.</p>
+        <a class="link-arrow on-dark" id="join-email-link" href="mailto:sriharithadharmaparishad@gmail.com"><span data-i18n="join.emailToJoin">Email us to join a group</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <a class="btn btn-gold" id="volunteer-link" href="mailto:sriharithadharmaparishad@gmail.com"><svg class="icon"><use href="#i-mail"/></svg><span data-i18n="join.volunteer">Volunteer with us</span></a>
+      <p class="give-note"><span data-i18n="join.give">Prefer to give? Write to us for bank / UPI details.</span> <a id="give-link" href="mailto:sriharithadharmaparishad@gmail.com" data-i18n="join.giveLink">Ask for donation details</a></p>
     </aside>
   </div>
 </section>
@@ -477,33 +487,36 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="#top"><img src="assets/img/logo.jpg" alt="" width="88" height="88"><span class="brand-name">Sri Haritha Dharma Parishad<span class="brand-sub">శ్రీ హరిత ధర్మ పరిషత్</span></span></a>
+        <a class="brand" href="#top"><img src="assets/img/logo.jpg" alt="" width="88" height="88" loading="lazy" decoding="async"><span class="brand-name">Sri Haritha Dharma Parishad<span class="brand-sub" lang="te">శ్రీ హరిత ధర్మ పరిషత్</span></span></a>
         <p data-i18n="footer.about">A registered trust carrying Dharma to the next generation through discourse, youth mentorship and seva. Hyderabad, since 2001.</p>
       </div>
-      <div>
-        <h4 data-i18n="footer.explore">Explore</h4>
+      <nav aria-labelledby="footer-explore">
+        <h2 class="footer-h" id="footer-explore" data-i18n="footer.explore">Explore</h2>
         <ul>
           <li><a href="#mentor" data-i18n="nav.about">About</a></li>
           <li><a href="#programmes" data-i18n="nav.programmes">Programmes</a></li>
           <li><a href="#events" data-i18n="nav.events">Events</a></li>
           <li><a href="#videos" data-i18n="nav.videos">Videos</a></li>
+          <li><a href="#legacy" data-i18n="nav.legacy">Our Journey</a></li>
+          <li><a href="#books" data-i18n="nav.books">Books</a></li>
+          <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
           <li><a href="#join" data-i18n="nav.join">Join / Seva</a></li>
         </ul>
-      </div>
+      </nav>
       <div>
-        <h4 data-i18n="footer.follow">Follow</h4>
+        <h2 class="footer-h" data-i18n="footer.follow">Follow</h2>
         <ul>
           <li><a href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" data-site-href="social.youtube.url" target="_blank" rel="noopener">YouTube</a></li>
           <li><a href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://www.facebook.com/search/top?q=Sri%20Haritha%20Dharma%20Parishad" data-site-href="social.facebook.url" target="_blank" rel="noopener">Facebook</a></li>
+          <li data-site-show="social.facebook.url" hidden><a href="#" data-site-href="social.facebook.url" data-site-optional hidden>Facebook</a></li>
         </ul>
       </div>
       <div>
-        <h4 data-i18n="footer.contact">Contact</h4>
+        <h2 class="footer-h" data-i18n="footer.contact">Contact</h2>
         <ul>
           <li><a href="mailto:sriharithadharmaparishad@gmail.com" data-site-href="contact.email" data-site-prefix="mailto:" data-site-text="contact.email">sriharithadharmaparishad@gmail.com</a></li>
-          <li><span class="todo" data-site-text="contact.phone">[ Phone number ]</span></li>
-          <li><span class="todo" data-site-text="contact.address">[ Trust address, Hyderabad ]</span></li>
+          <li data-site-show="contact.phone" hidden><a href="#" data-contact-phone></a></li>
+          <li data-site-show="contact.address" hidden><a href="#" data-contact-address></a></li>
         </ul>
       </div>
     </div>
@@ -514,14 +527,60 @@
   </div>
 </footer>
 
-<a class="fab" href="#join" aria-label="Chat with us on WhatsApp" data-wa-group data-site-href="whatsapp.community_url"><svg class="icon"><use href="#i-whatsapp"/></svg></a>
+<a class="fab" href="#join" aria-label="Join a WhatsApp community" data-i18n-attr="aria-label:join.panel"><svg class="icon"><use href="#i-whatsapp"/></svg></a>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ Dialogs (native <dialog>; Escape closes) ============ -->
+<dialog class="modal" id="modal" aria-labelledby="modal-title">
+  <div class="modal-inner">
+    <button class="modal-close icon-btn" type="button" data-dialog-close aria-label="Close" data-i18n-attr="aria-label:dialog.close"><svg class="icon"><use href="#i-x"/></svg></button>
+    <div class="dialog-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal modal-sm" id="share-dialog" aria-labelledby="share-dialog-title">
+  <div class="modal-inner">
+    <button class="modal-close icon-btn" type="button" data-dialog-close aria-label="Close" data-i18n-attr="aria-label:dialog.close"><svg class="icon"><use href="#i-x"/></svg></button>
+    <div class="dialog-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal modal-search" id="search-dialog" aria-labelledby="search-title">
+  <div class="modal-inner">
+    <button class="modal-close icon-btn" type="button" data-dialog-close aria-label="Close" data-i18n-attr="aria-label:dialog.close"><svg class="icon"><use href="#i-x"/></svg></button>
+    <h2 class="dialog-title" id="search-title" data-i18n="search.title">Search</h2>
+    <div class="search-field">
+      <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="sr-only" for="search-input" data-i18n="search.title">Search</label>
+      <input id="search-input" type="search" autocomplete="off" placeholder="Programmes, discourses, shlokas…" data-i18n-attr="placeholder:search.placeholder">
+      <button class="icon-btn" type="button" data-search-clear aria-label="Clear" data-i18n-attr="aria-label:search.clear"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="search-results" id="search-results" aria-live="polite"></div>
+  </div>
+</dialog>
+
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <button class="modal-close icon-btn" type="button" data-dialog-close aria-label="Close" data-i18n-attr="aria-label:dialog.close"><svg class="icon"><use href="#i-x"/></svg></button>
+  <button class="lb-nav lb-prev icon-btn" type="button" data-lb-prev aria-label="Previous photo" data-i18n-attr="aria-label:lightbox.prev"><svg class="icon"><use href="#i-left"/></svg></button>
+  <figure class="lb-figure"><img class="lb-img" alt="" decoding="async"><figcaption class="lb-caption"></figcaption></figure>
+  <button class="lb-nav lb-next icon-btn" type="button" data-lb-next aria-label="Next photo" data-i18n-attr="aria-label:lightbox.next"><svg class="icon"><use href="#i-right"/></svg></button>
+  <p class="lb-count" aria-live="polite"></p>
+</dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="js/i18n.js" defer></script>
 <script src="js/data.js" defer></script>
+<script src="js/core.js" defer></script>
+<script src="js/share.js" defer></script>
+<script src="js/calendar.js" defer></script>
+<script src="js/events.js" defer></script>
+<script src="js/programmes.js" defer></script>
+<script src="js/timeline.js" defer></script>
+<script src="js/media.js" defer></script>
+<script src="js/books.js" defer></script>
+<script src="js/search.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

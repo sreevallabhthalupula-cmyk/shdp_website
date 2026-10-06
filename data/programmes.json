@@ -1,3 +1,125 @@
 {
-  "programmes": []
+  "_comment": "Programmes (the switcher on the home page). mode: online | in-person | hybrid. registration_url / whatsapp_url: null hides the button.",
+  "programmes": [
+    {
+      "id": "pravachanalu",
+      "status": "published",
+      "category": "discourse",
+      "mode": "hybrid",
+      "title": { "en": "Pravachanalu", "te": "ప్రవచనాలు" },
+      "schedule": { "en": "Weekly", "te": "వారానికి" },
+      "description": {
+        "en": "Scripture discourses on the Vedas, Puranas and Itihasas: Ramayana, Mahabharata, Bhagavad Gita and Srimad Bhagavatam, explained with logic and everyday examples.",
+        "te": "వేదాలు, పురాణాలు, ఇతిహాసాలపై ప్రవచనాలు: రామాయణం, మహాభారతం, భగవద్గీత, శ్రీమద్భాగవతం, తర్కంతో, నిత్య జీవిత ఉదాహరణలతో."
+      },
+      "audience": { "en": "All ages", "te": "అన్ని వయసుల వారు" },
+      "location": { "en": "In person + YouTube", "te": "ప్రత్యక్షంగా + యూట్యూబ్" },
+      "fee": { "en": "Free", "te": "ఉచితం" },
+      "image": "assets/img/prog-pravachanalu.jpg",
+      "image_position": "50% 70%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": null
+    },
+    {
+      "id": "bala-chaitanya-deepika",
+      "status": "published",
+      "category": "children",
+      "mode": "online",
+      "title": { "en": "Bala Chaitanya Deepika", "te": "బాల చైతన్య దీపిక" },
+      "schedule": { "en": "Every Sunday, 10 AM", "te": "ప్రతి ఆదివారం, ఉదయం 10" },
+      "description": {
+        "en": "A live, interactive Zoom programme where children ask their doubts and grow spiritually and mentally, mentored directly by Guruji.",
+        "te": "పిల్లలు తమ సందేహాలు అడిగి, ఆధ్యాత్మికంగా, మానసికంగా ఎదిగే ప్రత్యక్ష జూమ్ కార్యక్రమం, గురువుగారి మార్గదర్శనంలో."
+      },
+      "audience": { "en": "Children 8 to 16", "te": "8 నుండి 16 ఏళ్ల పిల్లలు" },
+      "location": { "en": "Zoom", "te": "జూమ్" },
+      "fee": { "en": "Free", "te": "ఉచితం" },
+      "image": "assets/img/prog-bala.jpg",
+      "image_position": "50% 60%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": "bala-chaitanya-deepika"
+    },
+    {
+      "id": "dharma-chaitanya-vedika",
+      "status": "published",
+      "category": "class",
+      "mode": "online",
+      "title": { "en": "Dharma Chaitanya Vedika", "te": "ధర్మ చైతన్య వేదిక" },
+      "schedule": { "en": "Mon to Sat, since 2019", "te": "సోమ నుండి శని, 2019 నుండి" },
+      "description": {
+        "en": "Daily online classes on ancient literature for homemakers and seekers across India, in morning and evening batches.",
+        "te": "దేశవ్యాప్తంగా గృహిణులు, జిజ్ఞాసువుల కోసం ప్రాచీన సాహిత్యంపై రోజువారీ ఆన్‌లైన్ తరగతులు, ఉదయం, సాయంత్రం బ్యాచ్‌లలో."
+      },
+      "audience": { "en": "Homemakers, seekers", "te": "గృహిణులు, జిజ్ఞాసువులు" },
+      "location": { "en": "Online", "te": "ఆన్‌లైన్" },
+      "fee": { "en": "Free", "te": "ఉచితం" },
+      "image": "assets/img/prog-bhajan.jpg",
+      "image_position": "50% 82%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": "dharma-chaitanya-vedika"
+    },
+    {
+      "id": "bhagavad-gita-classes",
+      "status": "published",
+      "category": "class",
+      "mode": "online",
+      "title": { "en": "Bhagavad Gita classes", "te": "భగవద్గీత తరగతులు" },
+      "schedule": { "en": "Since 2005", "te": "2005 నుండి" },
+      "description": {
+        "en": "Started for children at Bhakta Sanjeevani Devalayam, NFC, expanded to elders at the Ayyappa Swamy Temple, ECIL, and now run weekly online by Guruji's disciples.",
+        "te": "NFC భక్త సంజీవని దేవాలయంలో పిల్లల కోసం ప్రారంభమై, ECIL అయ్యప్ప స్వామి ఆలయంలో పెద్దలకు విస్తరించి, ఇప్పుడు గురువుగారి శిష్యులచే వారానికొకసారి ఆన్‌లైన్‌లో."
+      },
+      "audience": { "en": "Children & elders", "te": "పిల్లలు & పెద్దలు" },
+      "location": { "en": "Online", "te": "ఆన్‌లైన్" },
+      "fee": { "en": "Free", "te": "ఉచితం" },
+      "image": "assets/img/ashram-vision.jpg",
+      "image_position": "78% 45%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": "bhagavad-gita-classes"
+    },
+    {
+      "id": "yoga-surya-namaskaras",
+      "status": "published",
+      "category": "wellness",
+      "mode": "in-person",
+      "title": { "en": "Yoga & Surya Namaskaras", "te": "యోగ & సూర్య నమస్కారాలు" },
+      "schedule": { "en": "Since 2006", "te": "2006 నుండి" },
+      "description": {
+        "en": "Dawn sessions of Ashtanga Yoga, Surya Namaskaras and Pranayama across Dr. A.S. Rao Nagar and ECIL, with a mass gathering every 21 June.",
+        "te": "డా. ఎ.ఎస్. రావు నగర్, ECILలో తెల్లవారుజామున అష్టాంగ యోగ, సూర్య నమస్కారాలు, ప్రాణాయామం; ప్రతి జూన్ 21న సామూహిక యోగా."
+      },
+      "audience": { "en": "Everyone", "te": "అందరూ" },
+      "location": { "en": "Hyderabad", "te": "హైదరాబాద్" },
+      "fee": { "en": "Free", "te": "ఉచితం" },
+      "image": "assets/img/prog-yoga.jpg",
+      "image_position": "50% 70%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": null
+    },
+    {
+      "id": "goshala-cow-protection",
+      "status": "published",
+      "category": "seva",
+      "mode": "in-person",
+      "title": { "en": "Goshala & cow protection", "te": "గోశాల & గో సంరక్షణ" },
+      "schedule": { "en": "Ongoing seva", "te": "నిరంతర సేవ" },
+      "description": {
+        "en": "Rythu Bazar drives collect surplus vegetables to feed cows across Hyderabad, and Gopashtami campaigns share Gomatha's ecological importance.",
+        "te": "రైతు బజార్ల నుండి మిగులు కూరగాయలు సేకరించి హైదరాబాద్‌లో గోవులకు ఆహారం; గోపాష్టమి నాడు గోమాత పర్యావరణ ప్రాముఖ్యతపై అవగాహన."
+      },
+      "audience": { "en": "Volunteers", "te": "స్వచ్ఛంద సేవకులు" },
+      "location": { "en": "Hyderabad", "te": "హైదరాబాద్" },
+      "fee": null,
+      "image": "assets/img/prog-goshala.jpg",
+      "image_position": "50% 50%",
+      "registration_url": null,
+      "whatsapp_url": null,
+      "event_id": "rythu-bazar-goshala-drive"
+    }
+  ]
 }

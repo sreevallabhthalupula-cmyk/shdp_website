@@ -1,0 +1,4 @@
+{
+  "_comment": "Photo albums. Fields: id, status, title {en,te}, date (YYYY-MM-DD), event_id, cover, tags [], images [{ src, width, height, caption {en,te} }]. Use real event photos only.",
+  "albums": []
+}

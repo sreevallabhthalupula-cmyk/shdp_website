@@ -1,3 +1,117 @@
 {
-  "events": []
+  "_comment": "Events. One-time events: set date (YYYY-MM-DD). Recurring: set recurrence.frequency = weekly (days: MO..SU) or ongoing. Times are HH:MM in the given timezone. Calendar buttons only appear when date/recurring day, start_time AND end_time are all known. null = unknown (never guess).",
+  "events": [
+    {
+      "id": "bala-chaitanya-deepika",
+      "status": "published",
+      "featured": true,
+      "type": "class",
+      "mode": "online",
+      "title": { "en": "Bala Chaitanya Deepika", "te": "బాల చైతన్య దీపిక" },
+      "description": {
+        "en": "A live, interactive Zoom programme where children ask their doubts and grow spiritually and mentally, mentored directly by Guruji.",
+        "te": "పిల్లలు తమ సందేహాలు అడిగి, ఆధ్యాత్మికంగా, మానసికంగా ఎదిగే ప్రత్యక్ష జూమ్ కార్యక్రమం, గురువుగారి మార్గదర్శనంలో."
+      },
+      "audience": { "en": "Children 8 to 16", "te": "8 నుండి 16 ఏళ్ల పిల్లలు" },
+      "date": null,
+      "start_time": "10:00",
+      "end_time": null,
+      "timezone": "Asia/Kolkata",
+      "recurrence": { "frequency": "weekly", "days": ["SU"] },
+      "schedule": { "en": "Every Sunday", "te": "ప్రతి ఆదివారం" },
+      "venue": { "en": "Zoom", "te": "జూమ్" },
+      "location": null,
+      "map_url": null,
+      "cover_image": "assets/img/prog-bala.jpg",
+      "gallery": [],
+      "registration_url": null,
+      "whatsapp_url": null,
+      "calendar": true,
+      "programme_id": "bala-chaitanya-deepika"
+    },
+    {
+      "id": "dharma-chaitanya-vedika",
+      "status": "published",
+      "featured": false,
+      "type": "class",
+      "mode": "online",
+      "title": { "en": "Dharma Chaitanya Vedika", "te": "ధర్మ చైతన్య వేదిక" },
+      "description": {
+        "en": "Daily online classes on ancient literature for homemakers and seekers across India, in morning and evening batches.",
+        "te": "దేశవ్యాప్తంగా గృహిణులు, జిజ్ఞాసువుల కోసం ప్రాచీన సాహిత్యంపై రోజువారీ ఆన్‌లైన్ తరగతులు, ఉదయం, సాయంత్రం బ్యాచ్‌లలో."
+      },
+      "audience": { "en": "Ancient literature", "te": "ప్రాచీన సాహిత్యం" },
+      "date": null,
+      "start_time": null,
+      "end_time": null,
+      "timezone": "Asia/Kolkata",
+      "recurrence": { "frequency": "weekly", "days": ["MO", "TU", "WE", "TH", "FR", "SA"] },
+      "schedule": { "en": "Morning & evening batches", "te": "ఉదయం & సాయంత్రం బ్యాచ్‌లు" },
+      "venue": { "en": "Online", "te": "ఆన్‌లైన్" },
+      "location": null,
+      "map_url": null,
+      "cover_image": "assets/img/prog-bhajan.jpg",
+      "gallery": [],
+      "registration_url": null,
+      "whatsapp_url": null,
+      "calendar": true,
+      "programme_id": "dharma-chaitanya-vedika"
+    },
+    {
+      "id": "bhagavad-gita-classes",
+      "status": "published",
+      "featured": false,
+      "type": "class",
+      "mode": "online",
+      "title": { "en": "Bhagavad Gita classes", "te": "భగవద్గీత తరగతులు" },
+      "description": {
+        "en": "Started for children at Bhakta Sanjeevani Devalayam, NFC, expanded to elders at the Ayyappa Swamy Temple, ECIL, and now run weekly online by Guruji's disciples.",
+        "te": "NFC భక్త సంజీవని దేవాలయంలో పిల్లల కోసం ప్రారంభమై, ECIL అయ్యప్ప స్వామి ఆలయంలో పెద్దలకు విస్తరించి, ఇప్పుడు గురువుగారి శిష్యులచే వారానికొకసారి ఆన్‌లైన్‌లో."
+      },
+      "audience": { "en": "Led by Guruji's disciples", "te": "గురువుగారి శిష్యుల నేతృత్వంలో" },
+      "date": null,
+      "start_time": null,
+      "end_time": null,
+      "timezone": "Asia/Kolkata",
+      "recurrence": { "frequency": "weekly", "days": null },
+      "schedule": { "en": "Weekly", "te": "వారానికి" },
+      "venue": { "en": "Online", "te": "ఆన్‌లైన్" },
+      "location": null,
+      "map_url": null,
+      "cover_image": "assets/img/ashram-vision.jpg",
+      "gallery": [],
+      "registration_url": null,
+      "whatsapp_url": null,
+      "calendar": true,
+      "programme_id": "bhagavad-gita-classes"
+    },
+    {
+      "id": "rythu-bazar-goshala-drive",
+      "status": "published",
+      "featured": false,
+      "type": "seva",
+      "mode": "in-person",
+      "title": { "en": "Rythu Bazar Goshala drive", "te": "రైతు బజార్ గోశాల సేవ" },
+      "description": {
+        "en": "Rythu Bazar drives collect surplus vegetables to feed cows across Hyderabad, and Gopashtami campaigns share Gomatha's ecological importance.",
+        "te": "రైతు బజార్ల నుండి మిగులు కూరగాయలు సేకరించి హైదరాబాద్‌లో గోవులకు ఆహారం; గోపాష్టమి నాడు గోమాత పర్యావరణ ప్రాముఖ్యతపై అవగాహన."
+      },
+      "audience": { "en": "Volunteers welcome, early mornings", "te": "స్వచ్ఛంద సేవకులకు స్వాగతం, తెల్లవారుజామున" },
+      "date": null,
+      "start_time": null,
+      "end_time": null,
+      "timezone": "Asia/Kolkata",
+      "recurrence": { "frequency": "ongoing", "days": null },
+      "schedule": { "en": "Ongoing seva", "te": "నిరంతర సేవ" },
+      "venue": { "en": "Hyderabad", "te": "హైదరాబాద్" },
+      "location": null,
+      "map_url": null,
+      "cover_image": "assets/img/prog-goshala.jpg",
+      "gallery": [],
+      "registration_url": null,
+      "whatsapp_url": null,
+      "calendar": false,
+      "programme_id": "goshala-cow-protection"
+    }
+  ]
 }

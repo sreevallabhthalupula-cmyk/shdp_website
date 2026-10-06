@@ -1,3 +1,4 @@
 {
+  "_comment": "Pravachanalu videos. Add only real YouTube videos: youtube_id is the 11-character ID from the video URL. Thumbnails load automatically from YouTube when thumbnail is null. The player loads only after a visitor presses play.",
   "videos": []
 }

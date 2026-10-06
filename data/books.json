@@ -1,0 +1,4 @@
+{
+  "_comment": "Books published. Fields: id, status (published|draft), featured, title {en,te}, author {en,te}, language (te|en|sa|...), category, description {en,te}, cover (image path), buy_url, pdf_url. Missing links hide their buttons.",
+  "books": []
+}

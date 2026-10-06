@@ -2,7 +2,7 @@
    Every part of the site reads content through these functions only, so the source
    can later change (local JSON today, Supabase tomorrow) without touching the UI code.
    All functions return Promises and never throw: on failure they resolve to null
-   and log a console error, so callers can keep their built-in fallback content. */
+   and log one console error, so callers can keep their built-in fallback content. */
 (() => {
   const cache = new Map();
 
@@ -14,8 +14,8 @@
           return res.json();
         })
         .catch(err => {
+          // logged once per file: every module asking for the same file shares this result
           console.error(`[shdp] Could not load ${path}: ${err.message}. Using built-in fallback content.`);
-          cache.delete(path); // allow a later retry
           return null;
         }));
     }
@@ -23,7 +23,7 @@
   }
 
   // Today's date in India time as YYYY-MM-DD (the trust's calendar day for every visitor).
-  // `?quoteDate=YYYY-MM-DD` in the page URL overrides it, for previewing scheduled quotes.
+  // `?quoteDate=YYYY-MM-DD` in the page URL overrides it, for previewing scheduled content.
   function todayISO() {
     const override = new URLSearchParams(location.search).get("quoteDate");
     if (override && /^\d{4}-\d{2}-\d{2}$/.test(override)) return override;
@@ -47,12 +47,34 @@
     return pool[((dayNumber % pool.length) + pool.length) % pool.length];
   }
 
+  // Read one collection: drop records without an id, drop drafts, warn about duplicate ids.
+  function collection(path, key, { publishedOnly = true } = {}) {
+    return loadJSON(path).then(d => {
+      if (!d) return null;
+      const list = Array.isArray(d[key]) ? d[key] : null;
+      if (!list) { console.error(`[shdp] ${path}: expected an array "${key}".`); return null; }
+      const seen = new Set();
+      return list.filter(item => {
+        if (!item || typeof item !== "object" || !item.id) { console.warn(`[shdp] ${path}: skipped an entry without an id.`); return false; }
+        if (seen.has(item.id)) { console.warn(`[shdp] ${path}: duplicate id "${item.id}" skipped.`); return false; }
+        seen.add(item.id);
+        return !publishedOnly || !item.status || item.status === "published";
+      });
+    });
+  }
+
   window.SHDP_DATA = {
     loadJSON,
     todayISO,
     pickQuote,
     getSite: () => loadJSON("data/site.json"),
     getQuotes: () => loadJSON("data/quotes.json").then(d => (d && Array.isArray(d.quotes) ? d.quotes : null)),
-    getQuoteForDate: date => window.SHDP_DATA.getQuotes().then(qs => (qs ? pickQuote(qs, date || todayISO()) : null))
+    getQuoteForDate: date => window.SHDP_DATA.getQuotes().then(qs => (qs ? pickQuote(qs, date || todayISO()) : null)),
+    getEvents: () => collection("data/events.json", "events"),
+    getProgrammes: () => collection("data/programmes.json", "programmes"),
+    getVideos: () => collection("data/videos.json", "videos"),
+    getBooks: () => collection("data/books.json", "books"),
+    getTimeline: () => collection("data/timeline.json", "timeline"),
+    getGallery: () => collection("data/gallery.json", "albums")
   };
 })();
