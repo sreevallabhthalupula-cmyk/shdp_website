@@ -140,9 +140,9 @@ main section.shloka { scroll-margin-top: 96px; }
 .topline .socials a { display: inline-flex; color: var(--on-dark-2); transition: color 0.2s; padding: 15px 8px; margin: -15px -8px; } /* ~31x45 hit area, same look */
 .topline .socials a:hover { color: var(--gold-300); }
 
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--on-dark); }
-.brand img { width: 52px; height: 52px; border-radius: 50%; background: #fff; padding: 2px; box-shadow: 0 0 0 1.5px var(--gold-500); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 84px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--on-dark); }
+.brand img { width: 72px; height: 72px; flex: none; border-radius: 50%; background: #fff; padding: 2px; box-shadow: 0 0 0 1.5px var(--gold-500); }
 .brand-name { font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.1; letter-spacing: 0.02em; }
 .brand-sub { display: block; font-family: var(--font-te); font-size: 0.8125rem; color: var(--gold-300); letter-spacing: 0; }
 
@@ -173,7 +173,7 @@ main section.shloka { scroll-margin-top: 96px; }
   .brand { gap: 10px; min-width: 0; }
   .brand-name { font-size: 0.95rem; white-space: normal; max-width: 9.5em; }
   .brand-sub { display: none; }
-  .brand img { width: 44px; height: 44px; flex: none; }
+  .brand img { width: 54px; height: 54px; flex: none; }
   .nav-actions { gap: 8px; }
   .lang-toggle button { padding: 6px 10px; }
   .lang-toggle .long { display: none; }
@@ -184,6 +184,7 @@ main section.shloka { scroll-margin-top: 96px; }
 .drawer { position: fixed; inset: 0; z-index: calc(var(--z-header) + 1); background: var(--green-950); color: var(--on-dark); padding: 24px var(--gutter); display: flex; flex-direction: column; gap: 24px; transform: translateX(100%); transition: transform 0.5s var(--ease-out); visibility: hidden; }
 .drawer.is-open { transform: none; visibility: visible; }
 .drawer-head { display: flex; justify-content: space-between; align-items: center; }
+.drawer-head .brand img { width: 56px; height: 56px; }
 .drawer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .drawer ul a { display: block; font-family: var(--font-display); font-size: 1.75rem; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(226, 183, 100, 0.14); }
 html[lang="te"] .drawer ul a { font-family: var(--font-te); font-size: 1.4rem; }
@@ -565,6 +566,7 @@ html[lang="te"] .seva-list h3 { font-family: var(--font-te); }
 .site-footer a:hover { color: var(--gold-300); }
 .footer-brand p { margin-top: 16px; max-width: 38ch; }
 .footer-brand .brand { color: var(--on-dark); }
+.footer-brand .brand img { width: 88px; height: 88px; }
 .footer-bottom { margin-top: 56px; padding-top: 22px; border-top: 1px solid rgba(226, 183, 100, 0.15); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 0.875rem; }
 .footer-bottom .sacred { font-family: var(--font-sacred); color: var(--gold-300); }
 .todo { background: rgba(233, 133, 44, 0.18); color: #f3c58f; border-radius: 4px; padding: 0 4px; }
