@@ -1256,3 +1256,20 @@ a.follow-item:hover .follow-go { transform: translateX(4px); }
 .follow-item.is-soon .follow-text small { color: #a9b6a6; }
 .site-footer { border-top-color: transparent; }
 @media (prefers-reduced-motion: reduce) { .follow-item, .follow-go { transition: none; } a.follow-item:hover { transform: none; } }
+
+/* ---------- header fit + brand lockup (2026-10-08c) ----------
+   The header gets a slightly wider frame than page content so logo, six links and
+   actions sit on one line without overlapping; the link column never shrinks below
+   its links (the drawer takes over below 1181px). */
+.site-header .wrap { max-width: 1400px; }
+.nav { grid-template-columns: auto minmax(max-content, 1fr) auto; }
+.topline .wrap { justify-content: flex-end; }
+
+.brand-name { display: block; }
+.brand-sub { margin-top: 9px; line-height: 1.35; }
+.brand-motto { display: block; margin-top: 5px; font-family: var(--font-sacred); font-size: 0.875rem; line-height: 1.35; letter-spacing: 0.01em; color: rgba(226, 183, 100, 0.82); transition: opacity 0.3s; }
+/* compact bar stays slim: the Sanskrit line rests until you return to the top */
+.site-header.is-compact .brand-motto { display: none; }
+.site-header.is-compact .brand-sub { margin-top: 5px; }
+@media (max-width: 1360px) and (min-width: 1181px) { .brand-motto { font-size: 0.8125rem; } }
+@media (max-width: 560px) { .brand-motto { display: none; } }
