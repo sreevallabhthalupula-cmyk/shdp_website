@@ -75,7 +75,6 @@
     getVideos: () => collection("data/videos.json", "videos"),
     // Pravachanalu categories (Students, Youth, ...) live beside the videos they group
     getVideoCategories: () => loadJSON("data/videos.json").then(d => (d && Array.isArray(d.categories) ? d.categories.filter(c => c && c.id) : [])),
-    getCommunityOptions: () => loadJSON("data/community.json"),
     getBooks: () => collection("data/books.json", "books"),
     getTimeline: () => collection("data/timeline.json", "timeline"),
     getGallery: () => collection("data/gallery.json", "albums")

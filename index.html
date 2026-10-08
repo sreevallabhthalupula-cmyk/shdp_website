@@ -485,9 +485,8 @@
   </div>
 </section>
 
-<!-- ============ Serve & Connect (Volunteer / Express interest)
-     Options come from data/community.json. Submissions go to the protected Supabase
-     function configured in js/supabase-config.js; nothing personal is stored in the browser. ============ -->
+<!-- ============ Serve & Connect: short form for volunteers and members (Netlify Forms).
+     Submissions are private to the Netlify dashboard; nothing personal is stored in the browser. ============ -->
 <section class="section serve act act-seva" id="join" aria-labelledby="join-title">
   <div class="act-mark" data-reveal aria-hidden="true"><span></span></div>
   <div class="wrap">
@@ -500,132 +499,62 @@
     </div>
 
     <div class="serve-grid">
-      <form class="serve-form" id="serve-form" novalidate data-reveal aria-labelledby="join-title">
+      <!-- Netlify Forms: submissions are stored privately in the Netlify dashboard (Forms > serve-connect)
+           and can be downloaded as CSV for Excel. Field names below become the CSV column headings. -->
+      <form class="serve-form" id="serve-form" name="serve-connect" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" novalidate data-reveal aria-labelledby="join-title">
+        <input type="hidden" name="form-name" value="serve-connect">
+        <input type="hidden" name="language" value="English">
+        <p class="hp" aria-hidden="true"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
         <fieldset class="serve-mode">
-          <legend class="sr-only" data-i18n="serve.modeLegend">How would you like to take part?</legend>
+          <legend class="serve-legend" data-i18n="serve.modeLegend">I would like to join as</legend>
           <label class="mode-opt">
-            <input type="radio" name="type" value="volunteer" checked>
+            <input type="radio" name="interested_as" value="Volunteer" checked>
             <span class="mode-card">
               <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>
               <span><b data-i18n="serve.volunteer">Volunteer</b><small data-i18n="serve.volunteerSub">Offer your time and skills in seva</small></span>
             </span>
           </label>
           <label class="mode-opt">
-            <input type="radio" name="type" value="interest">
+            <input type="radio" name="interested_as" value="Member interested in participating">
             <span class="mode-card">
               <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
-              <span><b data-i18n="serve.interest">Express interest</b><small data-i18n="serve.interestSub">Stay connected with classes and yatras</small></span>
+              <span><b data-i18n="serve.interest">Member</b><small data-i18n="serve.interestSub">Take part in classes, events and yatras</small></span>
             </span>
           </label>
         </fieldset>
 
-        <p class="serve-closed" id="serve-closed" hidden>
-          <span data-i18n="serve.closed">Online registration opens shortly. Until then, write to us and we will add you personally.</span>
-          <a class="btn-text" id="serve-closed-email" href="mailto:sriharithadharmaparishad@gmail.com" data-i18n="serve.closedLink">Email the Parishad</a>
-        </p>
-
         <div class="serve-body" id="serve-body">
-          <fieldset class="serve-group">
-            <legend data-i18n="serve.aboutYou">About you</legend>
-            <div class="field-grid">
-              <div class="field">
-                <label for="sf-name"><span data-i18n="serve.name">Full name</span> <span class="req" aria-hidden="true">*</span></label>
-                <input id="sf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="sf-name-err">
-                <p class="field-err" id="sf-name-err" hidden></p>
-              </div>
-              <div class="field">
-                <label for="sf-phone"><span data-i18n="serve.phone">Phone / WhatsApp</span> <span class="req" aria-hidden="true">*</span></label>
-                <input id="sf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="+91 98xxx xxxxx" aria-describedby="sf-phone-hint sf-phone-err">
-                <p class="field-hint" id="sf-phone-hint" data-i18n="serve.phoneHint">Indian numbers can skip +91. Others, please add the country code.</p>
-                <p class="field-err" id="sf-phone-err" hidden></p>
-              </div>
-              <div class="field">
-                <label for="sf-email"><span data-i18n="serve.email">Email</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
-                <input id="sf-email" name="email" type="email" autocomplete="email" maxlength="254" aria-describedby="sf-email-err">
-                <p class="field-err" id="sf-email-err" hidden></p>
-              </div>
-              <div class="field">
-                <label for="sf-location"><span data-i18n="serve.location">City / area</span> <span class="req" data-for="volunteer" aria-hidden="true">*</span><span class="opt" data-for="interest" data-i18n="serve.optional">(optional)</span></label>
-                <input id="sf-location" name="location" type="text" autocomplete="address-level2" maxlength="160" aria-describedby="sf-location-err">
-                <p class="field-err" id="sf-location-err" hidden></p>
-              </div>
-              <div class="field">
-                <label for="sf-age"><span data-i18n="serve.age">Age group</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
-                <select id="sf-age" name="age_group" data-options="age_groups"><option value="" data-i18n="serve.choose">Choose…</option></select>
-                <p class="field-hint" id="sf-age-note" data-i18n="serve.minorNote" hidden>Under 18? Please ask a parent or guardian to fill this in with you.</p>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset class="serve-group" data-for="volunteer">
-            <legend data-i18n="serve.howServe">How you would like to serve</legend>
-            <div class="choice-block">
-              <p class="choice-label" id="sf-seva-label" data-i18n="serve.sevaArea">Preferred area of seva</p>
-              <div class="seva-tiles" role="group" aria-labelledby="sf-seva-label" data-options="seva_areas" data-name="seva_areas"></div>
-            </div>
-            <div class="choice-block">
-              <p class="choice-label" id="sf-skills-label" data-i18n="serve.skills">Skills you can bring</p>
-              <div class="chips" role="group" aria-labelledby="sf-skills-label" data-options="skills" data-name="skills"></div>
-              <div class="field field-other" id="sf-skills-other-wrap" hidden>
-                <label for="sf-skills-other" data-i18n="serve.skillsOther">Tell us the other skill</label>
-                <input id="sf-skills-other" name="skills_other" type="text" maxlength="200">
-              </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="sf-name"><span data-i18n="serve.name">Full name</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="sf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="sf-name-err">
+              <p class="field-err" id="sf-name-err" hidden></p>
             </div>
             <div class="field">
-              <label for="sf-contribution" data-i18n="serve.contribution">What can you offer?</label>
-              <textarea id="sf-contribution" name="contribution" rows="3" maxlength="2000" data-i18n-attr="placeholder:serve.contributionPh" placeholder="For example: I can teach slokas to children on Sundays, or design posters for events."></textarea>
+              <label for="sf-phone"><span data-i18n="serve.phone">Phone / WhatsApp</span> <span class="req" aria-hidden="true">*</span></label>
+              <input id="sf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="98xxx xxxxx" aria-describedby="sf-phone-hint sf-phone-err">
+              <p class="field-hint" id="sf-phone-hint" data-i18n="serve.phoneHint">Indian numbers can skip +91. Others, please add the country code.</p>
+              <p class="field-err" id="sf-phone-err" hidden></p>
             </div>
-            <div class="choice-block">
-              <p class="choice-label" id="sf-avail-label" data-i18n="serve.availability">When are you usually free?</p>
-              <div class="chips" role="group" aria-labelledby="sf-avail-label" data-options="availability" data-name="availability"></div>
-            </div>
-            <div class="field">
-              <label for="sf-experience"><span data-i18n="serve.experience">Any earlier seva or volunteering experience?</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
-              <textarea id="sf-experience" name="experience" rows="2" maxlength="2000"></textarea>
-            </div>
-          </fieldset>
-
-          <fieldset class="serve-group" data-for="interest" hidden>
-            <legend data-i18n="serve.whatDraws">What draws you</legend>
-            <div class="choice-block">
-              <p class="choice-label" id="sf-interest-label" data-i18n="serve.interestArea">Areas of interest</p>
-              <div class="chips" role="group" aria-labelledby="sf-interest-label" data-options="interest_areas" data-name="interest_area"></div>
-            </div>
-            <div class="choice-block">
-              <p class="choice-label" id="sf-contact-label" data-i18n="serve.contactPref">How would you like to stay connected?</p>
-              <div class="chips" role="group" aria-labelledby="sf-contact-label" data-options="contact_preference" data-name="contact_preference"></div>
-            </div>
-          </fieldset>
-
-          <fieldset class="serve-group">
-            <legend data-i18n="serve.anythingElse">Anything else</legend>
-            <div class="field">
-              <label for="sf-message"><span data-i18n="serve.message">Message</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
-              <textarea id="sf-message" name="message" rows="3" maxlength="2000"></textarea>
-            </div>
-          </fieldset>
-
-          <!-- spam trap: hidden from people and assistive tech; bots tend to fill it -->
-          <div class="hp" aria-hidden="true"><label for="sf-website">Website</label><input id="sf-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-
-          <div class="serve-consent field">
-            <label class="check">
-              <input type="checkbox" name="consent" id="sf-consent" required aria-describedby="sf-consent-err">
-              <span data-i18n="serve.consent">I agree that Sri Haritha Dharma Parishad may contact me about this request using the details above.</span>
-            </label>
-            <p class="field-err" id="sf-consent-err" hidden></p>
+          </div>
+          <div class="field serve-service">
+            <label for="sf-service"><span data-i18n="serve.service">How would you like to help or take part?</span> <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="sf-service" name="service" rows="3" required maxlength="1000" data-i18n-attr="placeholder:serve.servicePh" placeholder="For example: teaching slokas to children, annadana seva, photography, attending Gita classes" aria-describedby="sf-service-err"></textarea>
+            <p class="field-err" id="sf-service-err" hidden></p>
           </div>
 
           <div class="serve-submit">
             <button class="btn btn-gold" type="submit" id="serve-submit"><span class="btn-label" data-i18n="serve.submit">Send my details</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
             <p class="serve-status" id="serve-status" role="status" aria-live="polite"></p>
           </div>
+          <p class="serve-fineprint" data-i18n="serve.fineprint">By sending, you agree that the Parishad may contact you on this number.</p>
         </div>
 
         <div class="serve-done" id="serve-done" tabindex="-1" hidden>
           <svg class="serve-done-glyph" aria-hidden="true"><use href="#i-mandala"/></svg>
           <h3 data-i18n="serve.thanksTitle">Thank you. Your details have reached us.</h3>
-          <p data-i18n="serve.thanksBody">Someone from the Parishad will contact you if there is a suitable opportunity. Your details are not shown publicly.</p>
+          <p data-i18n="serve.thanksBody">Someone from the Parishad will contact you soon. Your details are not shown publicly.</p>
           <button class="btn-text" type="button" id="serve-again" data-i18n="serve.again">Send another response</button>
         </div>
       </form>
@@ -785,7 +714,6 @@
 <script src="js/books.js" defer></script>
 <script src="js/search.js" defer></script>
 <script src="js/atmosphere.js" defer></script>
-<script src="js/supabase-config.js" defer></script>
 <script src="js/community.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>

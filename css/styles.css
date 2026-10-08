@@ -1164,19 +1164,12 @@ html[lang="te"] .mode-card small { line-height: 1.6; }
 .mode-opt input:focus-visible + .mode-card { outline: 3px solid var(--gold-300); outline-offset: 3px; }
 @media (max-width: 520px) { .serve-mode { grid-template-columns: 1fr; } .mode-card { padding: 14px 16px; } }
 
-.serve-group { border: 0; margin: 0; padding: 30px 0 0; min-width: 0; }
-.serve-group + .serve-group { margin-top: 30px; border-top: 1px solid var(--line); }
-.serve-group legend { float: left; width: 100%; margin-bottom: 18px; padding: 0; font-family: var(--font-title); font-weight: 600; font-size: clamp(1.55rem, 2.4vw, 1.9rem); line-height: 1.15; color: var(--green-800); }
-.serve-group legend + * { clear: both; }
-html[lang="te"] .serve-group legend { font-family: var(--font-title-te); font-size: 1.35rem; line-height: 1.5; }
 
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 20px; }
 @media (max-width: 640px) { .field-grid { grid-template-columns: 1fr; gap: 16px; } }
 .field { display: grid; gap: 6px; align-content: start; }
-.serve-group > .field, .choice-block { margin-top: 22px; }
-.serve-group > .field:first-of-type, .serve-group > .choice-block:first-of-type { margin-top: 0; }
-.field label, .choice-label { font-size: 0.9375rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
-html[lang="te"] .field label, html[lang="te"] .choice-label { line-height: 1.6; }
+.field label { font-size: 0.9375rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
+html[lang="te"] .field label { line-height: 1.6; }
 .req { color: var(--gold-700); }
 .opt { font-weight: 400; color: var(--ink-2); font-size: 0.875rem; }
 .field input, .field select, .field textarea {
@@ -1185,7 +1178,6 @@ html[lang="te"] .field label, html[lang="te"] .choice-label { line-height: 1.6; 
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .field textarea { min-height: 96px; resize: vertical; line-height: 1.6; }
-.field select { appearance: none; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231f4d2b' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 16px center; padding-right: 40px; }
 .field input::placeholder, .field textarea::placeholder { color: #6b776e; }
 .field input:hover, .field select:hover, .field textarea:hover { border-color: #aab5a6; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(184, 134, 43, 0.22); }
@@ -1194,41 +1186,9 @@ html[lang="te"] .field label, html[lang="te"] .choice-label { line-height: 1.6; 
 .field-err { font-size: 0.875rem; font-weight: 600; color: var(--danger); line-height: 1.5; }
 .field-err::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 8px; vertical-align: 2px; background: currentColor; transform: rotate(45deg); }
 
-.choice-label { margin: 0 0 10px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { position: relative; display: inline-flex; cursor: pointer; }
-.chip input, .tile input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-.chip span {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px;
-  border: 1px solid var(--field-border); border-radius: 8px; background: #fff;
-  font-size: 0.9375rem; font-weight: 500; line-height: 1.3; color: var(--ink);
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-}
-html[lang="te"] .chip span { line-height: 1.55; }
-.chip span::before { content: ""; width: 7px; height: 7px; flex: none; border: 1px solid var(--gold-500); transform: rotate(45deg); transition: background-color 0.2s, border-color 0.2s; }
-.chip:hover span { border-color: var(--gold-500); }
-.chip input:checked + span { background: var(--green-800); border-color: var(--green-800); color: #fbf6e8; }
-.chip input:checked + span::before { background: var(--gold-300); border-color: var(--gold-300); }
-.chip input:focus-visible + span { outline: 3px solid var(--gold-300); outline-offset: 2px; }
-.field-other { margin-top: 12px; max-width: 420px; }
 
-.seva-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-@media (max-width: 520px) { .seva-tiles { grid-template-columns: 1fr; } }
-.tile { position: relative; display: block; cursor: pointer; }
-.tile-face { display: flex; gap: 12px; align-items: flex-start; height: 100%; padding: 14px 16px; border: 1px solid var(--field-border); border-radius: 12px; background: #fff; transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s; }
-.tile-face .icon { width: 22px; height: 22px; margin-top: 2px; color: var(--gold-700); }
-.tile-face b { display: block; font-weight: 600; color: var(--green-900); line-height: 1.35; }
-.tile-face small { display: block; margin-top: 2px; font-size: 0.875rem; color: var(--ink-2); line-height: 1.45; }
-html[lang="te"] .tile-face b, html[lang="te"] .tile-face small { line-height: 1.6; }
-.tile:hover .tile-face { border-color: var(--gold-500); }
-.tile input:checked + .tile-face { border-color: var(--gold-500); background: #fdf8ec; box-shadow: inset 0 0 0 1px var(--gold-500); }
-.tile input:checked + .tile-face .icon { color: var(--green-700); }
-.tile input:focus-visible + .tile-face { outline: 3px solid var(--gold-300); outline-offset: 2px; }
 
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-.serve-consent { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
-.check { display: flex; gap: 12px; align-items: flex-start; font-weight: 500 !important; cursor: pointer; }
-.check input { width: 22px; height: 22px; min-height: 0; flex: none; margin: 1px 0 0; accent-color: var(--green-700); }
 .serve-submit { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 22px; }
 .serve-submit .btn { min-height: 54px; padding-inline: 1.6em; font-size: 1.0625rem; }
 .serve-submit .btn:disabled { cursor: progress; opacity: 0.85; transform: none; }
@@ -1237,8 +1197,6 @@ html[lang="te"] .tile-face b, html[lang="te"] .tile-face small { line-height: 1.
 .serve-status { flex: 1 1 220px; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); }
 .serve-status.is-error { color: var(--danger); font-weight: 600; }
 
-.serve-closed { display: grid; gap: 8px; margin: 18px 0 0; padding: 22px 24px; border: 1px dashed rgba(184, 134, 43, 0.55); border-radius: 12px; background: #fdf8ec; color: var(--ink); line-height: 1.6; }
-.serve-form.is-closed { padding-block: clamp(22px, 3vw, 32px); }
 
 .serve-done { text-align: center; padding: clamp(24px, 6vw, 56px) 8px; outline: 0; }
 .serve-done-glyph { width: 92px; height: 92px; color: var(--gold-500); opacity: 0.8; margin: 0 auto 18px; display: block; }
@@ -1259,6 +1217,14 @@ html[lang="te"] .serve-done h3 { font-family: var(--font-title-te); font-size: 1
 html[lang="te"] .privacy-note h3 { font-family: var(--font-te); font-weight: 600; font-size: 1.1rem; line-height: 1.5; }
 .privacy-note p { margin-top: 8px; font-size: 0.9375rem; color: var(--ink-2); line-height: 1.6; }
 .serve .join-panel h3 { font-size: clamp(1.5rem, 2.2vw, 1.85rem); }
+
+/* short form (Netlify Forms) */
+.serve-legend { grid-column: 1 / -1; padding: 0; margin: 0 0 2px; font-size: 0.9375rem; font-weight: 600; color: var(--ink); }
+.serve-mode { margin-bottom: 0; }
+.serve-body { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--line); }
+.serve-service { margin-top: 18px; }
+.serve-fineprint { margin-top: 12px; font-size: 0.8125rem; color: var(--ink-2); line-height: 1.5; }
+html[lang="te"] .serve-fineprint { line-height: 1.7; }
 
 /* ---------- Follow the Parishad ---------- */
 .follow { position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(64px, 8vw, 104px); background: var(--green-950); color: var(--on-dark); border-top: 1px solid rgba(226, 183, 100, 0.2); }

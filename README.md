@@ -2,7 +2,7 @@
 
 Static, bilingual (English / Telugu) website for Sri Haritha Dharma Parishad (SHDP), Hyderabad.
 Plain HTML, CSS and JavaScript, with Three.js and GSAP from cdnjs. No framework and no packages.
-The only backend is Supabase, used solely for the Serve & Connect form and the operator dashboard (`/admin/`); see `supabase/README.md`.
+No backend: the Serve & Connect form is collected by Netlify Forms (see "Volunteer & member registrations" below).
 Deployed on Netlify from the `main` branch: https://effortless-otter-f49e77.netlify.app/
 
 ## Run locally
@@ -23,7 +23,6 @@ Use `null` for anything not known yet: the related button or line is hidden auto
 | `data/programmes.json` | The programme switcher |
 | `data/timeline.json` | Our Journey timeline; `category: "yatra"` items also fill the Teertha Yatra card |
 | `data/videos.json` | Pravachanalu: add real YouTube videos (`youtube_id` = the 11 characters after `v=`). `categories` (Students, Youth, ...) drive the selector; set a video's `category` to a category id to place it |
-| `data/community.json` | Options in the Serve & Connect form: seva areas, skills, availability, interests, age groups. Public: never put submissions here |
 | `data/books.json` | Books with optional `buy_url` / `pdf_url` |
 | `data/gallery.json` | Photo albums (real event photos only) |
 
@@ -53,12 +52,18 @@ Preview a scheduled quote with `?quoteDate=YYYY-MM-DD` on the URL.
 - Telugu translations for timeline / yatra descriptions (currently English)
 - Custom domain: when connected, update `canonical`, `og:*`, JSON-LD in `index.html`, `robots.txt`, `sitemap.xml` and `links.website_url`
 
-## Registrations (Supabase)
-Volunteer / Express interest submissions go to Supabase through a protected database function; they are
-never stored in this repository, in the browser or in public files. Setup, operator accounts, Netlify
-environment variables and the security checks are in `supabase/README.md`. Operator dashboard: `/admin/`.
+## Volunteer & member registrations (Netlify Forms)
+The "Serve & Connect" form (name, phone, how they would like to help, volunteer or member) is collected by
+Netlify Forms. Nothing is stored in this repository or in the browser.
 
-## Later: more Supabase
+- **First time only:** Netlify dashboard → your site → **Forms** → **Enable form detection**, then redeploy.
+  The form appears as **serve-connect** after the next deploy.
+- **See submissions:** Forms → serve-connect. Only members of the Netlify team can see them.
+- **Excel:** on that page choose **Download as CSV**, then open the file in Excel (or Google Sheets).
+- **Email alerts (optional):** Forms → Form notifications → Add notification → Email notification.
+- Spam is filtered by a hidden honeypot field plus Netlify's built-in spam filtering.
+
+## Later: Supabase
 The UI only talks to `window.SHDP_DATA` (`js/data.js`). To move to Supabase, re-implement those functions
 (`getEvents`, `getProgrammes`, `getQuotes`, ...) to query tables with the same field names and keep returning
 the same shapes. Things that still need a backend later: an admin content editor,

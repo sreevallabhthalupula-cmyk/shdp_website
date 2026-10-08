@@ -1,8 +1,7 @@
-# Static site: no framework, no packages. The build step only writes js/supabase-config.js
-# from the SUPABASE_URL / SUPABASE_ANON_KEY environment variables (Site settings > Environment variables).
+# Static site: no build step. Netlify Forms collects the "serve-connect" form
+# (Netlify dashboard > Forms; download as CSV to open in Excel).
 [build]
   publish = "."
-  command = "sh scripts/netlify-config.sh"
 
 [[headers]]
   for = "/*"
@@ -10,17 +9,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-# Operator dashboard: never indexed, never cached, never framed, scripts only from here + jsDelivr.
-[[headers]]
-  for = "/admin/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow, noarchive"
-    Cache-Control = "no-store"
-    X-Frame-Options = "DENY"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
-
-[[headers]]
-  for = "/js/supabase-config.js"
-  [headers.values]
-    Cache-Control = "no-cache"

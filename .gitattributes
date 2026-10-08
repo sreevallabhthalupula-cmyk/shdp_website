@@ -1,5 +1,2 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-
-# shell scripts run on Netlify's Linux build image: always LF
-*.sh text eol=lf
