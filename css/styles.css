@@ -970,3 +970,5 @@ html[lang="te"] .empty-title { font-family: var(--font-te); font-weight: 600; fo
 .guru-photo { width: min(100%, 520px); padding: 14px; }
 @media (max-width: 900px) { .guru-photo { max-width: 400px; } }
 @media (max-width: 760px) { .guru-photo { max-width: min(100%, 380px); } }
+/* hero caption: longer name (with honorific) wraps evenly instead of leaving one word alone */
+.hero-caption b, .hero-caption span { text-wrap: balance; }
