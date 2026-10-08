@@ -583,6 +583,20 @@
     if ($("[data-parallax]")) gsap.to("[data-parallax]", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".vision", start: "top bottom", end: "bottom top", scrub: true } });
   }
 
+  /* ---------- anchor links (#books, #guidance...): re-settle once data-driven sections above have rendered ---------- */
+  safe("hash settle", () => {
+    const id = location.hash.slice(1);
+    if (!id || !/^[\w-]+$/.test(id) || /^(event|programme|milestone|book|video|album)-/.test(id) || !window.SHDP_DATA) return;
+    let moved = false;
+    const mark = () => { moved = true; };
+    ["wheel", "touchstart", "keydown"].forEach(ev => window.addEventListener(ev, mark, { passive: true, once: true }));
+    const D = SHDP_DATA;
+    Promise.all([D.getEvents(), D.getProgrammes(), D.getTimeline(), D.getVideos(), D.getBooks(), D.getGallery()]).then(() => setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!moved && el) el.scrollIntoView({ block: "start" });
+    }, 120));
+  });
+
   /* ---------- service worker (offline shell + installable app) ---------- */
   safe("service worker", () => {
     if (!("serviceWorker" in navigator)) return;

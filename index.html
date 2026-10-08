@@ -92,6 +92,17 @@
     <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
     <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2C16.7 2.1 15.7 2 14.6 2 12.2 2 10.6 3.5 10.6 6.2v2.3H8v3.6h2.6V22H14v-9.9h2.7l.4-3.6Z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+    <!-- sacred geometry used as faint decoration (rotates slowly when visible) -->
+    <symbol id="i-mandala" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.8">
+      <circle cx="100" cy="100" r="96"/><circle cx="100" cy="100" r="88"/><circle cx="100" cy="100" r="62"/><circle cx="100" cy="100" r="34"/><circle cx="100" cy="100" r="8"/>
+      <g id="mandala-petal"><path d="M100 12c10 18 10 32 0 50c-10-18-10-32 0-50Z"/><path d="M100 38c6 10 6 18 0 28c-6-10-6-18 0-28Z"/></g>
+      <use href="#mandala-petal" transform="rotate(22.5 100 100)"/><use href="#mandala-petal" transform="rotate(45 100 100)"/><use href="#mandala-petal" transform="rotate(67.5 100 100)"/>
+      <use href="#mandala-petal" transform="rotate(90 100 100)"/><use href="#mandala-petal" transform="rotate(112.5 100 100)"/><use href="#mandala-petal" transform="rotate(135 100 100)"/>
+      <use href="#mandala-petal" transform="rotate(157.5 100 100)"/><use href="#mandala-petal" transform="rotate(180 100 100)"/><use href="#mandala-petal" transform="rotate(202.5 100 100)"/>
+      <use href="#mandala-petal" transform="rotate(225 100 100)"/><use href="#mandala-petal" transform="rotate(247.5 100 100)"/><use href="#mandala-petal" transform="rotate(270 100 100)"/>
+      <use href="#mandala-petal" transform="rotate(292.5 100 100)"/><use href="#mandala-petal" transform="rotate(315 100 100)"/><use href="#mandala-petal" transform="rotate(337.5 100 100)"/>
+      <rect x="56" y="56" width="88" height="88" transform="rotate(45 100 100)"/><rect x="56" y="56" width="88" height="88"/>
+    </symbol>
     <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.9Z"/></symbol>
   </defs>
 </svg>
@@ -196,6 +207,7 @@
 
 <!-- ============ Shloka of the day (data/quotes.json; this text is the built-in fallback) ============ -->
 <section class="shloka" id="shloka" aria-labelledby="shloka-title">
+  <svg class="mandala mandala-shloka" aria-hidden="true"><use href="#i-mandala"/></svg>
   <div class="wrap">
     <h2 class="shloka-label" id="shloka-title" data-i18n="shloka.label">Shloka of the day</h2>
     <div data-reveal>
@@ -216,7 +228,8 @@
 </section>
 
 <!-- ============ This week (data/events.json) ============ -->
-<section class="section" id="events" aria-labelledby="events-title">
+<section class="section act act-experience" id="events" aria-labelledby="events-title">
+  <div class="act-mark" data-reveal aria-hidden="true"><span></span></div>
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
@@ -226,29 +239,32 @@
       </div>
     </div>
     <div class="toolbar" id="event-toolbar" hidden></div>
-
-    <div class="week-grid">
-      <div data-reveal>
-        <ul class="events" id="event-list"></ul>
-        <p class="empty-state" id="event-empty" hidden></p>
-      </div>
-
-      <article class="yatra-card" data-reveal>
-        <div class="media"><img src="assets/img/sunrise-himalaya.webp" alt="Sunrise over Himalayan peaks and a river valley" loading="lazy" decoding="async" width="1195" height="896"></div>
-        <div class="yatra-body">
-          <p class="eyebrow" style="color:var(--gold-300)" data-i18n="yatra.eyebrow">Teertha Yatra</p>
-          <h3 data-i18n="yatra.title">Sacred pilgrimages, every year</h3>
-          <p data-i18n="yatra.body">Each yatra is a journey of parayanam and pravachanam at the great kshetras of Bharat.</p>
-          <ul class="yatra-list" id="yatra-list"></ul>
-          <a class="btn btn-gold" href="#join"><span data-i18n="yatra.cta">Get notified of the next yatra</span><svg class="icon"><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
+    <div data-reveal>
+      <ul class="event-grid" id="event-list"></ul>
+      <p class="empty-state" id="event-empty" hidden></p>
     </div>
   </div>
 </section>
 
+<!-- ============ Teertha Yatra route (data/timeline.json, category "yatra") ============ -->
+<section class="yatra" id="yatra" aria-labelledby="yatra-title">
+  <div class="yatra-bg" aria-hidden="true"><img src="assets/img/sunrise-himalaya.webp" alt="" loading="lazy" decoding="async" width="1195" height="896" data-depth="5"></div>
+  <svg class="mandala mandala-yatra" aria-hidden="true"><use href="#i-mandala"/></svg>
+  <div class="wrap yatra-inner">
+    <div class="yatra-intro" data-reveal>
+      <p class="eyebrow on-dark" data-i18n="yatra.eyebrow">Teertha Yatra</p>
+      <h2 class="section-title on-dark" id="yatra-title" data-i18n="yatra.title">Sacred pilgrimages, every year</h2>
+      <p data-i18n="yatra.body">Each yatra is a journey of parayanam and pravachanam at the great kshetras of Bharat.</p>
+      <a class="btn btn-gold" href="#join"><span data-i18n="yatra.cta">Get notified of the next yatra</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ol class="yatra-route" id="yatra-list" data-reveal aria-label="Recent Teertha Yatras"></ol>
+  </div>
+</section>
+
 <!-- ============ Impact ============ -->
-<section class="impact section" aria-labelledby="impact-title">
+<section class="impact section act act-legacy" aria-labelledby="impact-title">
+  <canvas class="atmo" data-atmo="dark" aria-hidden="true"></canvas>
+  <div class="act-mark on-dark" data-reveal aria-hidden="true"><span></span></div>
   <div class="wrap">
     <div data-reveal>
       <h2 id="impact-title" data-i18n="impact.title">Two decades of teaching, counted in lives.</h2>
@@ -268,7 +284,7 @@
   <div class="wrap">
     <div class="mentor-grid">
       <div class="mentor-media" data-reveal>
-        <div class="frame"><img src="assets/img/guruji-seated.webp" alt="Dr. G.V. Ramakrishna Murthy seated on a hilltop at sunrise, a small temple behind him" loading="lazy" decoding="async" width="1195" height="896"></div>
+        <div class="frame"><img src="assets/img/guruji-seated.webp" alt="Dr. G.V. Ramakrishna Murthy seated on a hilltop at sunrise, a small temple behind him" loading="lazy" decoding="async" width="1195" height="896" data-depth="3"></div>
         <p class="tag"><b data-i18n="mentor.title">Bhakti Jnana Prabodhanacharya</b><span data-i18n="mentor.titlenote">Title conferred in 2011 by Saptaswara Samskrutika Samstha</span></p>
       </div>
       <div data-reveal>
@@ -323,7 +339,8 @@
 </section>
 
 <!-- ============ Journey timeline (data/timeline.json) ============ -->
-<section class="section" id="legacy" aria-labelledby="legacy-title">
+<section class="section act act-wisdom" id="legacy" aria-labelledby="legacy-title">
+  <div class="act-mark" data-reveal aria-hidden="true"><span></span></div>
   <div class="wrap">
     <div class="section-head" data-reveal>
       <div>
@@ -339,6 +356,7 @@
     <div class="toolbar" id="timeline-filter" hidden></div>
     <div class="timeline-wrap">
       <ol class="timeline" id="timeline" tabindex="0" aria-label="Timeline, scroll sideways"></ol>
+      <div class="timeline-progress" aria-hidden="true"><span></span></div>
       <p class="empty-state" id="timeline-empty" hidden></p>
     </div>
   </div>
@@ -346,6 +364,8 @@
 
 <!-- ============ Guidance ============ -->
 <section class="section guidance" id="guidance" aria-labelledby="guidance-title">
+  <canvas class="atmo" data-atmo="dark" aria-hidden="true"></canvas>
+  <svg class="mandala mandala-guidance" aria-hidden="true"><use href="#i-mandala"/></svg>
   <div class="wrap">
     <figure class="guru-photo" data-reveal>
       <img src="assets/img/jagadguru.jpg" alt="Jagadguru Shankaracharya Sri Sri Swayamprakasha Sachidananda Saraswathi Mahaswamiji, seated in saffron robes, raising his right hand in blessing" width="460" height="616" loading="lazy" decoding="async">
@@ -388,12 +408,9 @@
       <a class="btn btn-green" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1" data-site-href="links.youtube_subscribe" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.sub">Subscribe on YouTube</span></a>
     </div>
     <div class="toolbar" id="video-toolbar" hidden></div>
-    <div class="video-uploads" id="video-uploads" hidden></div>
-    <div class="video-layout">
-      <div id="video-featured"></div>
-      <div class="video-list" id="video-grid"></div>
-    </div>
+    <div class="video-grid" id="video-grid"></div>
     <p class="empty-state" id="video-noresults" hidden></p>
+    <div class="video-more-wrap"><button class="btn btn-outline" type="button" id="video-more" hidden>Show more videos</button></div>
     <!-- shown until real videos are added to data/videos.json -->
     <div class="video-empty" id="video-empty" data-reveal>
       <div class="video-empty-media"><img src="assets/img/guruji-portrait.webp" alt="" loading="lazy" decoding="async" width="1195" height="896"></div>
@@ -419,7 +436,13 @@
     <div class="toolbar" id="book-toolbar" hidden></div>
     <div class="book-grid" id="book-grid" hidden></div>
     <p class="empty-state" id="book-noresults" hidden></p>
-    <p class="empty-state is-panel" id="book-empty" data-i18n="books.empty">A list of published books will appear here soon.</p>
+    <div class="empty-panel" id="book-empty">
+      <svg class="empty-glyph" aria-hidden="true"><use href="#i-mandala"/></svg>
+      <div>
+        <p class="empty-title" data-i18n="books.empty">A list of published books will appear here soon.</p>
+        <a class="btn-text" href="mailto:sriharithadharmaparishad@gmail.com?subject=Books%20by%20SHDP" data-i18n="books.ask">Ask us about books</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -433,12 +456,18 @@
       </div>
     </div>
     <div class="album-grid" id="gallery-grid" hidden></div>
-    <p class="empty-state is-panel" id="gallery-empty" data-i18n="gallery.empty">Photo albums from events and yatras will appear here soon.</p>
+    <div class="empty-panel" id="gallery-empty">
+      <svg class="empty-glyph" aria-hidden="true"><use href="#i-mandala"/></svg>
+      <div>
+        <p class="empty-title" data-i18n="gallery.empty">Photo albums from events and yatras will appear here soon.</p>
+        <a class="btn-text" href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener" data-i18n="gallery.instagram">See recent photos on Instagram</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ============ Ashram vision ============ -->
-<section class="vision" aria-labelledby="vision-title">
+<section class="vision act act-vision" aria-labelledby="vision-title">
   <div class="bg" data-parallax><img src="assets/img/ashram-vision.jpg" srcset="assets/img/ashram-vision-900.jpg 900w, assets/img/ashram-vision.jpg 1400w" sizes="100vw" alt="Illustration of the envisioned ashram: discourses under a banyan tree, yoga on the lawn, a goshala and a children's play area" loading="lazy" decoding="async" width="1400" height="950"></div>
   <div class="wrap" data-reveal>
     <p class="eyebrow" data-i18n="vision.eyebrow">The vision</p>
@@ -463,6 +492,7 @@
     </div>
 
     <aside class="join-panel" data-reveal>
+      <svg class="mandala mandala-join" aria-hidden="true"><use href="#i-mandala"/></svg>
       <h3 data-i18n="join.panel">Join a WhatsApp community</h3>
       <p data-i18n="join.panelb">Daily shloka, class reminders and event links. Moderated groups, no forwards.</p>
       <ul class="groups" id="wa-groups" hidden>
@@ -581,6 +611,7 @@
 <script src="js/media.js" defer></script>
 <script src="js/books.js" defer></script>
 <script src="js/search.js" defer></script>
+<script src="js/atmosphere.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

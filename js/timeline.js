@@ -68,8 +68,32 @@
       </li>`;
     }).join("");
     if (emptyEl) { emptyEl.hidden = list.length > 0; emptyEl.textContent = t("timeline.empty", "No milestones match this filter."); }
-    requestAnimationFrame(sizeTrack);
+    sizeTrack(); updateProgress();
   }
+
+  /* progress + active milestone: the one nearest the start of the scroll area glows gold */
+  const wrap = ol.closest(".timeline-wrap");
+  function updateProgress() {
+    const max = ol.scrollWidth - ol.clientWidth;
+    const p = max > 0 ? ol.scrollLeft / max : 1;
+    if (wrap) wrap.style.setProperty("--tl-progress", p.toFixed(3));
+    const items = $$(".milestone", ol);
+    if (!items.length) return;
+    const left = ol.getBoundingClientRect().left + parseFloat(getComputedStyle(ol).paddingLeft || 0);
+    let best = items[0], bestD = Infinity;
+    // at the very end of the scroll, the last milestone is the active one
+    if (max > 0 && ol.scrollLeft >= max - 2) best = items[items.length - 1];
+    else items.forEach(li => { const d = Math.abs(li.getBoundingClientRect().left - left); if (d < bestD) { bestD = d; best = li; } });
+    items.forEach(li => li.classList.toggle("is-active", li === best));
+  }
+  // light throttle (~30/s) with a trailing update so the final position always registers
+  let lastRun = 0, trail;
+  ol.addEventListener("scroll", () => {
+    const now = performance.now();
+    clearTimeout(trail);
+    if (now - lastRun > 32) { lastRun = now; updateProgress(); }
+    trail = setTimeout(updateProgress, 60);
+  }, { passive: true });
 
   ol.addEventListener("click", e => {
     const tg = e.target.closest(".milestone-toggle");
@@ -91,7 +115,7 @@
   $$("[data-scroll]").forEach(b => b.addEventListener("click", () => {
     ol.scrollBy({ left: +b.dataset.scroll * (ol.clientWidth * 0.8), behavior: S.reduceMotion ? "auto" : "smooth" });
   }));
-  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(sizeTrack, 150); });
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { sizeTrack(); updateProgress(); }, 150); });
 
   function routeFromHash() {
     const m = /^#milestone-([\w-]+)$/.exec(location.hash);

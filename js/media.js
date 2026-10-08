@@ -48,19 +48,24 @@
   S.lightbox = { open: lbOpen };
 
   /* =============== videos =============== */
-  const vGrid = $("#video-grid"), vFeatured = $("#video-featured"), vEmpty = $("#video-empty"), vToolbar = $("#video-toolbar"), vNone = $("#video-noresults");
+  const vGrid = $("#video-grid"), vEmpty = $("#video-empty"), vToolbar = $("#video-toolbar"), vNone = $("#video-noresults"), vMore = $("#video-more");
   const YT_ID = /^[\w-]{11}$/;
-  let videos = null;
-  const vState = { q: "", category: "all", series: "all" };
+  const PAGE = 6; // cards shown before "Show more"
+  let videos = null, uploadsList = null, shown = PAGE;
+  const vState = { q: "", category: "all", series: "all", language: "all" };
+  const LANGS = { te: ["Telugu", "తెలుగు"], en: ["English", "ఇంగ్లీష్"], sa: ["Sanskrit", "సంస్కృతం"] };
+  const langName = c => (LANGS[c] ? LANGS[c][S.lang === "te" ? 1 : 0] : c);
 
   const thumbOf = v => S.safeUrl(v.thumbnail) || `https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg`;
   const watchUrl = v => `https://www.youtube.com/watch?v=${v.youtube_id}`;
   const fmtDuration = d => (typeof d === "string" && /^\d{1,2}(:\d{2}){1,2}$/.test(d) ? d : "");
+  // titles on YouTube are often mixed Telugu + English: mark Telugu script so it gets the Telugu font
+  const scriptLang = s => (/[\u0C00-\u0C7F]/.test(s || "") ? "te" : "en");
 
-  function card(v, lead) {
+  function card(v) {
     const title = pick(v.title) || "";
-    const meta = [pick(v.category), pick(v.series), v.published_date && S.isISODate(v.published_date) ? S.formatDate(v.published_date) : ""].filter(Boolean).join(" · ");
-    return `<article class="vcard${lead ? " is-lead" : ""}" id="video-${esc(v.id)}">
+    const meta = [pick(v.series) || pick(v.category), v.language ? langName(v.language) : "", v.published_date && S.isISODate(v.published_date) ? S.formatDate(v.published_date) : ""].filter(Boolean).join(" · ");
+    return `<article class="vcard" id="video-${esc(v.id)}">
       <div class="vthumb">
         <button type="button" class="vplay" data-video-play="${esc(v.id)}" aria-label="${esc(t("videos.play", "Play"))}: ${esc(title)}">
           <img src="${esc(thumbOf(v))}" alt="" loading="lazy" decoding="async" width="480" height="360" onerror="this.remove()">
@@ -68,70 +73,91 @@
           ${fmtDuration(v.duration) ? `<span class="dur">${esc(v.duration)}</span>` : ""}
         </button>
       </div>
-      <h3 lang="${esc(S.pickLangCode(v.title))}">${esc(title)}</h3>
-      ${meta ? `<p class="theme">${esc(meta)}</p>` : ""}
-      <div class="vactions">
-        <a class="link-arrow" href="${esc(watchUrl(v))}" target="_blank" rel="noopener">${esc(t("videos.onYoutube", "Watch on YouTube"))}</a>
-        ${S.share ? `<button type="button" class="icon-btn" data-share data-share-title="${esc(title)}" data-share-url="${esc(watchUrl(v))}" aria-label="${esc(t("share.label", "Share"))}: ${esc(title)}"><svg class="icon"><use href="#i-share"/></svg></button>` : ""}
+      <div class="vbody">
+        ${meta ? `<p class="vmeta">${esc(meta)}</p>` : ""}
+        <h3 lang="${scriptLang(title)}">${esc(title)}</h3>
+        <div class="vactions">
+          <a class="btn-text" href="${esc(watchUrl(v))}" target="_blank" rel="noopener">${esc(t("videos.onYoutube", "Watch on YouTube"))}</a>
+          ${S.share ? `<button type="button" class="icon-btn" data-share data-share-title="${esc(title)}" data-share-url="${esc(watchUrl(v))}" aria-label="${esc(t("share.label", "Share"))}: ${esc(title)}"><svg class="icon"><use href="#i-share"/></svg></button>` : ""}
+        </div>
       </div>
     </article>`;
   }
 
+  // Player opens in the shared dialog; the iframe is created only now and removed on close.
+  function openPlayer(src, title, opener, extra) {
+    const dlg = $("#modal"), body = dlg && $(".dialog-body", dlg);
+    if (!body) { window.open(src.replace("youtube-nocookie.com/embed/", "youtube.com/watch?v="), "_blank", "noopener"); return; }
+    S.wireDialog(dlg);
+    dlg.dataset.owner = "video";
+    dlg.classList.add("is-player");
+    body.innerHTML = `<div class="player-frame"><iframe src="${esc(src)}" title="${esc(title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"></iframe></div>
+      <h2 class="dialog-title" id="modal-title" lang="${scriptLang(title)}">${esc(title)}</h2>${extra || ""}`;
+    if (!dlg._playerCleanup) {
+      dlg._playerCleanup = true;
+      dlg.addEventListener("close", () => { if (dlg.classList.contains("is-player")) { dlg.classList.remove("is-player"); const b = $(".dialog-body", dlg); if (b) b.innerHTML = ""; } });
+    }
+    S.openDialog(dlg, opener);
+  }
+
   function play(btn, id) {
     const v = (videos || []).find(x => x.id === id);
-    const box = btn.closest(".vthumb");
-    if (!v || !box) return;
-    const src = v.youtube_id ? `https://www.youtube-nocookie.com/embed/${v.youtube_id}?autoplay=1&rel=0` : v.embed_src;
-    box.innerHTML = `<iframe src="${esc(src)}" title="${esc(pick(v.title) || "YouTube video")}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
-    const f = $("iframe", box); if (f) f.focus();
+    if (!v) return;
+    const title = pick(v.title) || "YouTube video";
+    const extra = `<div class="dialog-actions">
+        <a class="btn btn-outline" href="${esc(watchUrl(v))}" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span>${esc(t("videos.onYoutube", "Watch on YouTube"))}</span></a>
+        ${S.share ? S.share.button({ title, url: watchUrl(v), cls: "btn btn-outline" }) : ""}
+      </div>`;
+    openPlayer(`https://www.youtube-nocookie.com/embed/${v.youtube_id}?autoplay=1&rel=0`, title, btn, extra);
   }
 
   function renderToolbar() {
     if (!vToolbar || !videos) return;
-    if (videos.length < 2) { vToolbar.hidden = true; return; }
+    if (videos.length < 2 && !uploadsList) { vToolbar.hidden = true; return; }
     const cats = [...new Set(videos.map(v => pick(v.category)).filter(Boolean))];
     const series = [...new Set(videos.map(v => pick(v.series)).filter(Boolean))];
-    const sel = (name, lbl, vals) => vals.length < 2 ? "" : `<label class="filter"><span>${esc(lbl)}</span><select data-vfilter="${name}"><option value="all">${esc(t("filter.all", "All"))}</option>${vals.map(x => `<option${vState[name] === x ? " selected" : ""}>${esc(x)}</option>`).join("")}</select></label>`;
-    vToolbar.innerHTML = `<label class="filter filter-search"><span class="sr-only">${esc(t("videos.search", "Search videos"))}</span>
-        <input type="search" data-vsearch value="${esc(vState.q)}" placeholder="${esc(t("videos.search", "Search videos"))}"></label>
-      ${sel("category", t("videos.category", "Category"), cats)}${sel("series", t("videos.series", "Series"), series)}`;
+    const langs = [...new Set(videos.map(v => v.language).filter(Boolean))];
+    const sel = (name, lbl, vals, fmt = x => x) => vals.length < 2 ? "" : `<label class="filter"><span>${esc(lbl)}</span><select data-vfilter="${name}"><option value="all">${esc(t("filter.all", "All"))}</option>${vals.map(x => `<option value="${esc(x)}"${vState[name] === x ? " selected" : ""}>${esc(fmt(x))}</option>`).join("")}</select></label>`;
+    vToolbar.innerHTML = `${videos.length > 1 ? `<label class="filter filter-search"><span class="sr-only">${esc(t("videos.search", "Search videos"))}</span>
+        <input type="search" data-vsearch value="${esc(vState.q)}" placeholder="${esc(t("videos.search", "Search videos"))}"></label>` : ""}
+      ${sel("category", t("videos.category", "Category"), cats)}${sel("series", t("videos.series", "Series"), series)}${sel("language", t("books.language", "Language"), langs, langName)}
+      ${uploadsList ? `<button type="button" class="btn btn-outline btn-sm toolbar-end" data-playlist="${esc(uploadsList)}"><svg class="icon"><use href="#i-play"/></svg><span>${esc(t("videos.uploads", "Play latest uploads"))}</span></button>` : ""}`;
     vToolbar.hidden = false;
   }
 
   function renderVideos() {
     if (!vGrid || !videos) return;
     const q = vState.q.trim().toLowerCase();
-    const sorted = videos.slice().sort((a, b) => String(b.published_date || "").localeCompare(String(a.published_date || "")));
+    const sorted = videos.slice().sort((a, b) => (b.featured === true) - (a.featured === true) || String(b.published_date || "").localeCompare(String(a.published_date || "")));
     const match = sorted.filter(v => (vState.category === "all" || pick(v.category) === vState.category)
       && (vState.series === "all" || pick(v.series) === vState.series)
+      && (vState.language === "all" || v.language === vState.language)
       && (!q || [pick(v.title), pick(v.description), pick(v.category), pick(v.series), ...(v.tags || [])].join(" ").toLowerCase().includes(q)));
-    const filtering = q || vState.category !== "all" || vState.series !== "all";
-    const lead = !filtering ? (sorted.find(v => v.featured) || sorted[0]) : null;
-    if (vFeatured) vFeatured.innerHTML = lead ? card(lead, true) : "";
-    vGrid.innerHTML = match.filter(v => v !== lead).map(v => card(v)).join("");
+    const filtering = q || vState.category !== "all" || vState.series !== "all" || vState.language !== "all";
+    const list = filtering ? match : match.slice(0, shown);
+    vGrid.innerHTML = list.map(card).join("");
+    vGrid.classList.toggle("is-single", list.length === 1);
+    if (vMore) {
+      const rest = match.length - list.length;
+      vMore.hidden = filtering || rest <= 0;
+      vMore.textContent = `${t("videos.more", "Show more videos")} (${rest})`;
+    }
     if (vNone) { vNone.hidden = match.length > 0; vNone.textContent = t("search.none", "No results. Try another word."); }
-  }
-
-  function renderUploads(site) {
-    // automatic "latest uploads" playlist when a real channel ID (UC...) is configured
-    const box = $("#video-uploads");
-    const id = S.getPath(site || {}, "social.youtube.channel_id");
-    if (!box || typeof id !== "string" || !/^UC[\w-]{22}$/.test(id)) return;
-    const list = "UU" + id.slice(2);
-    box.innerHTML = `<div class="vthumb"><button type="button" class="vplay" data-playlist="${esc(list)}" aria-label="${esc(t("videos.uploads", "Play latest uploads"))}">
-      <img src="assets/img/guruji-portrait.webp" alt="" loading="lazy" decoding="async"><span class="play"><svg class="icon"><use href="#i-play"/></svg></span></button></div>
-      <p class="theme">${esc(t("videos.uploadsNote", "Latest uploads from the YouTube channel"))}</p>`;
-    box.hidden = false;
   }
 
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-video-play]");
     if (b) { play(b, b.dataset.videoPlay); return; }
     const p = e.target.closest("[data-playlist]");
-    if (p) {
-      const box = p.closest(".vthumb");
-      box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(p.dataset.playlist)}&autoplay=1" title="${esc(t("videos.uploads", "Latest uploads"))}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-    }
+    if (p) openPlayer(`https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(p.dataset.playlist)}&autoplay=1`, t("videos.uploadsNote", "Latest uploads from the YouTube channel"), p);
+  });
+  if (vMore) vMore.addEventListener("click", () => {
+    const before = shown;
+    shown += PAGE * 2;
+    renderVideos();
+    const next = vGrid && vGrid.children[before];
+    const btn = next && $(".vplay", next);
+    if (btn) btn.focus({ preventScroll: true });
   });
   if (vToolbar) {
     vToolbar.addEventListener("input", e => { if (e.target.matches("[data-vsearch]")) { vState.q = e.target.value; renderVideos(); } });
@@ -165,7 +191,11 @@
 
   function routeFromHash() {
     const v = /^#video-([\w-]+)$/.exec(location.hash);
-    if (v && videos) { const el = $("#video-" + CSS.escape(v[1])); if (el) el.scrollIntoView({ block: "center" }); }
+    if (v && videos) {
+      const idx = videos.findIndex(x => x.id === v[1]);
+      if (idx >= shown) { shown = idx + 1; renderVideos(); } // make sure the card is rendered
+      const el = $("#video-" + CSS.escape(v[1])); if (el) el.scrollIntoView({ block: "center" });
+    }
     const a = /^#album-([\w-]+)$/.exec(location.hash);
     if (a && albums) { const al = albums.find(x => x.id === a[1]); if (al) lbOpen(albumImages(al), 0); }
   }
@@ -174,7 +204,9 @@
   S.onLang(() => safe("media (lang)", () => { renderToolbar(); renderVideos(); renderGallery(); }));
 
   Promise.all([SHDP_DATA.getVideos(), S.siteReady]).then(([vs, site]) => {
-    safe("uploads playlist", () => renderUploads(site));
+    // automatic "latest uploads" playlist only from a real channel ID (UC + 22 chars)
+    const ch = S.getPath(site || {}, "social.youtube.channel_id");
+    if (typeof ch === "string" && /^UC[\w-]{22}$/.test(ch)) uploadsList = "UU" + ch.slice(2);
     if (!vs) return; // keep the static "watch on YouTube" panel
     videos = vs.filter(v => {
       const ok = v.youtube_id && YT_ID.test(v.youtube_id);

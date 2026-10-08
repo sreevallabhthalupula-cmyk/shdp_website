@@ -163,6 +163,11 @@ window.SHDP_TE = {
   "timeline.loadError": "మా ప్రయాణం ఇప్పుడు లోడ్ కాలేదు. దయచేసి కొద్దిసేపటి తర్వాత చూడండి.",
 
   "videos.play": "ప్లే చేయండి",
+  "videos.more": "మరిన్ని వీడియోలు చూపించు",
+  "events.recap": "సమీక్ష",
+  "yatra.latest": "ఇటీవలిది",
+  "books.ask": "పుస్తకాల గురించి మమ్మల్ని అడగండి",
+  "gallery.instagram": "ఇటీవలి ఫోటోలు ఇన్‌స్టాగ్రామ్‌లో చూడండి",
   "videos.onYoutube": "యూట్యూబ్‌లో చూడండి",
   "videos.search": "వీడియోలు వెతకండి",
   "videos.category": "విభాగం",

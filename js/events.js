@@ -40,22 +40,24 @@
     return S.formatTime(ev.start_time) + end + " IST";
   }
 
-  /* ---------- date badge ---------- */
+  /* ---------- date anchor: the visual centre of each card ---------- */
   function badge(ev) {
-    const occ = occurrence(ev);
+    const occ = occurrence(ev) || (S.isISODate(ev.date) ? ev.date : null);
     const days = C() ? C().weeklyDays(ev) : [];
     if (occ && (S.isISODate(ev.date) || days.length === 1)) {
       const today = occ === S.todayISO();
-      return `<div class="event-date"><small>${esc(today ? t("events.today", "Today") : S.formatDate(occ, { weekday: "short" }))}</small><b>${esc(S.formatDate(occ, { day: "numeric" }))}</b><small>${esc(S.formatDate(occ, { month: "short" }))}</small></div>`;
+      const top = today ? t("events.today", "Today") : S.formatDate(occ, { weekday: "short" });
+      const bottom = isPast(ev) ? S.formatDate(occ, { month: "short", year: "numeric" }) : S.formatDate(occ, { month: "short" });
+      return `<div class="ev-date${today ? " is-today" : ""}"><small>${esc(top)}</small><b>${esc(S.formatDate(occ, { day: "numeric" }))}</b><small>${esc(bottom)}</small></div>`;
     }
     if (days.length > 1) {
       // e.g. Mon–Sat, localised from the first/last weekday codes
       const ref = { SU: "2026-10-04", MO: "2026-10-05", TU: "2026-10-06", WE: "2026-10-07", TH: "2026-10-08", FR: "2026-10-09", SA: "2026-10-10" };
       const range = S.formatDate(ref[days[0]], { weekday: "short" }) + "–" + S.formatDate(ref[days[days.length - 1]], { weekday: "short" });
-      return `<div class="event-date is-daily"><small>${esc(t("events.weekly", "Weekly"))}</small><b>${esc(range)}</b></div>`;
+      return `<div class="ev-date is-range"><small>${esc(t("events.weekly", "Weekly"))}</small><b>${esc(range)}</b></div>`;
     }
     const small = ev.recurrence && ev.recurrence.frequency === "ongoing" ? t("events.ongoing", "Ongoing") : t("events.weekly", "Weekly");
-    return `<div class="event-date is-daily"><small>${esc(small)}</small><b>${esc(typeLabel(ev.type))}</b></div>`;
+    return `<div class="ev-date is-range"><small>${esc(small)}</small><b>${esc(typeLabel(ev.type))}</b></div>`;
   }
 
   /* ---------- list ---------- */
@@ -74,22 +76,22 @@
   }
 
   function row(ev) {
-    const reg = registrationUrl(ev);
+    const reg = registrationUrl(ev), past = isPast(ev);
     const meta = [
-      timeText(ev) && `<span><svg class="icon"><use href="#i-clock"/></svg>${esc(timeText(ev))}</span>`,
-      pick(ev.venue) && `<span><svg class="icon"><use href="#i-${ev.mode === "in-person" ? "pin" : "video"}"/></svg>${esc(pick(ev.venue))}</span>`,
-      pick(ev.audience) && `<span><svg class="icon"><use href="#i-users"/></svg>${esc(pick(ev.audience))}</span>`
+      timeText(ev) && `<span><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>${esc(timeText(ev))}</span>`,
+      pick(ev.venue) && `<span><svg class="icon" aria-hidden="true"><use href="#i-${ev.mode === "in-person" ? "pin" : "video"}"/></svg>${esc(pick(ev.venue))}</span>`
     ].filter(Boolean).join("");
-    return `<li class="event" id="event-${esc(ev.id)}">
+    return `<li class="ev-card${past ? " is-past" : ""} type-${esc(ev.type || "other")}" id="event-${esc(ev.id)}">
       ${badge(ev)}
-      <div>
+      <div class="ev-body">
+        <p class="ev-type"><span class="ev-dot" aria-hidden="true"></span>${esc(typeLabel(ev.type))} · ${esc(modeLabel(ev.mode))}</p>
         <h3 lang="${esc(S.pickLangCode(ev.title))}">${esc(pick(ev.title))}</h3>
-        <p class="event-meta">${meta}</p>
-        ${pick(ev.schedule) ? `<p class="event-sched">${esc(pick(ev.schedule))} · <span class="mode-chip mode-${esc(ev.mode || "")}">${esc(modeLabel(ev.mode))}</span></p>` : ""}
-      </div>
-      <div class="event-actions">
-        ${reg ? `<a class="btn btn-green" href="${esc(reg)}" target="_blank" rel="noopener">${esc(t("events.register", "Register free"))}</a>` : ""}
-        <button class="btn btn-outline" type="button" data-event-open="${esc(ev.id)}">${esc(t("events.details", "Details"))}</button>
+        ${meta ? `<p class="ev-meta">${meta}</p>` : ""}
+        ${pick(ev.schedule) || pick(ev.audience) ? `<p class="ev-sub">${esc([pick(ev.schedule), pick(ev.audience)].filter(Boolean).join(" · "))}</p>` : ""}
+        <div class="ev-actions">
+          ${reg && !past ? `<a class="btn btn-green btn-sm" href="${esc(reg)}" target="_blank" rel="noopener">${esc(t("events.register", "Register free"))}</a>` : ""}
+          <button class="btn btn-outline btn-sm" type="button" data-event-open="${esc(ev.id)}">${esc(past ? t("events.recap", "Recap") : t("events.details", "Details"))}</button>
+        </div>
       </div>
     </li>`;
   }
@@ -175,14 +177,23 @@
     }));
   }
 
-  /* ---------- yatra card from the timeline ---------- */
+  /* ---------- yatra route from the timeline ----------
+     The four most recent yatras, oldest to newest, as stations on one path.
+     Purely symbolic: nodes are evenly spaced, not placed on a map. */
   function renderYatras(timeline) {
     const ul = $("#yatra-list");
     if (!ul) return;
     const yatras = (timeline || []).filter(m => m.category === "yatra" && m.period && m.period.start)
-      .sort((a, b) => String(b.period.start).localeCompare(String(a.period.start))).slice(0, 4);
+      .sort((a, b) => String(b.period.start).localeCompare(String(a.period.start))).slice(0, 4).reverse();
     if (!yatras.length) { ul.innerHTML = `<li class="yatra-empty">${esc(t("yatra.empty", "Yatra details will appear here."))}</li>`; return; }
-    ul.innerHTML = yatras.map(m => `<li><time datetime="${esc(m.period.start)}">${esc(S.formatDate(m.period.start))}</time><span><b lang="${esc(S.pickLangCode(m.title))}">${esc(pick(m.title))}</b><br><span lang="${esc(S.pickLangCode(m.description))}">${esc(pick(m.description) || "")}</span></span></li>`).join("");
+    const last = yatras.length - 1;
+    ul.innerHTML = yatras.map((m, i) => `<li class="yatra-stop${i === last ? " is-latest" : ""}" style="--i:${i}">
+        <span class="yatra-node" aria-hidden="true"></span>
+        <time datetime="${esc(m.period.start)}">${esc(S.formatDate(m.period.start))}</time>
+        <b lang="${esc(S.pickLangCode(m.title))}">${esc(pick(m.title))}</b>
+        <span class="yatra-desc" lang="${esc(S.pickLangCode(m.description))}">${esc(pick(m.description) || "")}</span>
+        ${i === last ? `<span class="yatra-latest">${esc(t("yatra.latest", "Most recent"))}</span>` : ""}
+      </li>`).join("");
   }
 
   /* ---------- wiring ---------- */
