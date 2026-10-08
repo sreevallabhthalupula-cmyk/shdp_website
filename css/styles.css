@@ -965,3 +965,8 @@ html[lang="te"] .empty-title { font-family: var(--font-te); font-weight: 600; fo
   .prog-panel { flex: 1; display: flex; flex-direction: column; }
   .prog-actions { margin-top: auto; padding-top: 22px; }
 }
+/* ---------- guidance: larger Jagadguru portrait (2026-10-08 follow-up) ---------- */
+@media (min-width: 761px) { .guidance .wrap { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); } }
+.guru-photo { width: min(100%, 520px); padding: 14px; }
+@media (max-width: 900px) { .guru-photo { max-width: 400px; } }
+@media (max-width: 760px) { .guru-photo { max-width: min(100%, 380px); } }
