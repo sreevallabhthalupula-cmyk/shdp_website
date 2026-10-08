@@ -54,18 +54,24 @@
     });
   });
 
-  /* ---------- header: solid after hero, hide on scroll down ---------- */
+  /* ---------- header: two states, never hidden ----------
+     top of page: tall, airy, transparent over the hero
+     after scrolling: compact, solid, still fully usable. A little hysteresis
+     (on at 48px, off below 16px) keeps it from flickering at the threshold. */
   safe("header", () => {
     const header = $("#header");
     if (!header) return;
-    let lastY = 0;
-    window.addEventListener("scroll", () => {
+    let compact = null;
+    const update = () => {
       const y = window.scrollY;
-      header.classList.toggle("is-solid", y > 40);
-      // CSS keeps it visible while it has keyboard focus (.site-header:focus-within)
-      header.classList.toggle("is-hidden", y > 600 && y > lastY && !isDrawerOpen());
-      lastY = y;
-    }, { passive: true });
+      const next = compact ? y > 16 : y > 48;
+      if (next === compact) return;
+      compact = next;
+      header.classList.toggle("is-compact", next);
+      header.classList.toggle("is-solid", next);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
   });
 
   /* ---------- nav: mark the section in view (aria-current) ---------- */
@@ -128,6 +134,19 @@
     if (groupsList) groupsList.hidden = !anyGroup;
     if (groupsFallback) groupsFallback.hidden = anyGroup;
 
+    // Follow section: a channel marked "coming soon" becomes a real link only when its official URL is configured
+    $$("[data-follow]").forEach(li => safe("follow", () => {
+      const url = S.safeUrl(get(li.dataset.follow), { allowRelative: false });
+      const soon = $(".follow-item.is-soon", li);
+      if (!url || !soon) return;
+      const a = document.createElement("a");
+      a.className = "follow-item"; a.href = url; a.target = "_blank"; a.rel = "noopener";
+      a.innerHTML = soon.innerHTML;
+      const small = $("small", a); if (small) { small.removeAttribute("data-i18n"); small.textContent = t("follow.official", "Official channel"); }
+      a.insertAdjacentHTML("beforeend", `<svg class="icon follow-go" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only">${esc(t("follow.newTab", "(opens in a new tab)"))}</span>`);
+      soon.replaceWith(a);
+    }));
+
     // FAB: WhatsApp community if configured, else the Join section
     const fab = $(".fab"), community = S.safeUrl(get("whatsapp.community_url"));
     if (fab && community) { fab.href = community; fab.target = "_blank"; fab.rel = "noopener"; }
@@ -165,7 +184,7 @@
   /* ---------- floating WhatsApp button: tuck away where it would duplicate or cover CTAs ---------- */
   safe("fab", () => {
     const fab = $(".fab");
-    const targets = [$("#join .join-panel"), $(".site-footer")].filter(Boolean);
+    const targets = [$("#serve-form"), $("#join .join-panel"), $(".site-footer")].filter(Boolean);
     if (!fab || !targets.length || !("IntersectionObserver" in window)) return;
     const showing = new Set();
     const io = new IntersectionObserver(entries => {

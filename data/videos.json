@@ -1,5 +1,10 @@
 {
   "_comment": "Pravachanalu videos. Source: the official channel's public YouTube feed (youtube.com/feeds/videos.xml?channel_id=UC8RKuNJqNNabQmF7yNzzkeA), read 2026-10-08. Titles, IDs and dates are exactly as published; duration, category, series and language are null because the feed does not provide them. Fill them in from YouTube Studio if wanted. The player loads only after a visitor presses play.",
+  "_categories_comment": "Pravachanalu categories shown as the selector above the videos. To place a video in one, set its \"category\" to the category id (for example \"students\"). Add more categories here; no code change is needed. A category with no videos shows a gentle 'coming soon' panel.",
+  "categories": [
+    { "id": "students", "label": { "en": "Students", "te": "విద్యార్థులు" }, "description": { "en": "Pravachanalu chosen for school and college students.", "te": "పాఠశాల, కళాశాల విద్యార్థుల కోసం ఎంపిక చేసిన ప్రవచనాలు." } },
+    { "id": "youth", "label": { "en": "Youth", "te": "యువత" }, "description": { "en": "Pravachanalu chosen for young adults and working professionals.", "te": "యువతకు, ఉద్యోగస్తులకు ఎంపిక చేసిన ప్రవచనాలు." } }
+  ],
   "videos": [
     { "id": "yt-A1tbGQCzqNc", "status": "published", "youtube_id": "A1tbGQCzqNc", "title": "GVRK RASI PHALLU 2025", "description": null, "category": null, "series": null, "speaker": null, "duration": null, "published_date": "2025-03-31", "thumbnail": null, "featured": false, "language": null, "tags": [] },
     { "id": "yt-D7grOsis8eA", "status": "published", "youtube_id": "D7grOsis8eA", "title": "Shiva Panchakshari Stotram by Sri GV.Ramakrishna Murthy", "description": null, "category": null, "series": null, "speaker": null, "duration": null, "published_date": "2024-11-27", "thumbnail": null, "featured": false, "language": null, "tags": [] },

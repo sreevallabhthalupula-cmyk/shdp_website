@@ -1,7 +1,8 @@
 # Sri Haritha Dharma Parishad: website
 
 Static, bilingual (English / Telugu) website for Sri Haritha Dharma Parishad (SHDP), Hyderabad.
-No build step and no backend: plain HTML, CSS and JavaScript, with Three.js and GSAP from cdnjs.
+Plain HTML, CSS and JavaScript, with Three.js and GSAP from cdnjs. No framework and no packages.
+The only backend is Supabase, used solely for the Serve & Connect form and the operator dashboard (`/admin/`); see `supabase/README.md`.
 Deployed on Netlify from the `main` branch: https://effortless-otter-f49e77.netlify.app/
 
 ## Run locally
@@ -21,7 +22,8 @@ Use `null` for anything not known yet: the related button or line is hidden auto
 | `data/events.json` | Events: one-time (`date`) or recurring (`recurrence.weekly`). Calendar buttons appear only when date/day, `start_time` and `end_time` are all known |
 | `data/programmes.json` | The programme switcher |
 | `data/timeline.json` | Our Journey timeline; `category: "yatra"` items also fill the Teertha Yatra card |
-| `data/videos.json` | Pravachanalu: add real YouTube videos (`youtube_id` = the 11 characters after `v=`) |
+| `data/videos.json` | Pravachanalu: add real YouTube videos (`youtube_id` = the 11 characters after `v=`). `categories` (Students, Youth, ...) drive the selector; set a video's `category` to a category id to place it |
+| `data/community.json` | Options in the Serve & Connect form: seva areas, skills, availability, interests, age groups. Public: never put submissions here |
 | `data/books.json` | Books with optional `buy_url` / `pdf_url` |
 | `data/gallery.json` | Photo albums (real event photos only) |
 
@@ -51,8 +53,13 @@ Preview a scheduled quote with `?quoteDate=YYYY-MM-DD` on the URL.
 - Telugu translations for timeline / yatra descriptions (currently English)
 - Custom domain: when connected, update `canonical`, `og:*`, JSON-LD in `index.html`, `robots.txt`, `sitemap.xml` and `links.website_url`
 
-## Later: Supabase
+## Registrations (Supabase)
+Volunteer / Express interest submissions go to Supabase through a protected database function; they are
+never stored in this repository, in the browser or in public files. Setup, operator accounts, Netlify
+environment variables and the security checks are in `supabase/README.md`. Operator dashboard: `/admin/`.
+
+## Later: more Supabase
 The UI only talks to `window.SHDP_DATA` (`js/data.js`). To move to Supabase, re-implement those functions
 (`getEvents`, `getProgrammes`, `getQuotes`, ...) to query tables with the same field names and keep returning
-the same shapes. Things that need a backend then: volunteer / registration submissions, an admin editor,
+the same shapes. Things that still need a backend later: an admin content editor,
 photo uploads, automatic YouTube sync and WhatsApp messaging.
