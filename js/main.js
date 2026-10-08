@@ -447,9 +447,13 @@
     $$("[data-i18n]").forEach(el => enText.set(el, el.textContent));
     $$("[data-i18n-html]").forEach(el => enText.set(el, el.innerHTML));
     $$(".lang-toggle button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+    // ?lang=te (or ?lang=en) in a shared link wins over the visitor's saved choice
+    const fromUrl = new URLSearchParams(location.search).get("lang");
     let saved = null;
     try { saved = localStorage.getItem("shdp-lang"); } catch (_) {}
-    if (saved === "te") setLang("te");
+    const want = fromUrl === "te" || fromUrl === "en" ? fromUrl : saved;
+    if (want === "te") setLang("te");
+    else if (fromUrl === "en" && saved === "te") setLang("en");
   });
 
   /* ---------- Three.js: rising diya embers + a slow sacred ring ---------- */
@@ -625,8 +629,26 @@
     });
   });
 
-  // scripts are deferred, so CDN libraries are ready by now (or failed, and we skip)
-  safe("hero 3d", initHero3D);
+  // Three.js (118 KB) is fetched only after first paint, and not at all where the embers would
+  // cost more than they give: reduced motion, data saver, or very low-memory devices.
+  // The hero's CSS background carries the look on its own.
+  safe("hero 3d", () => {
+    const conn = navigator.connection || {};
+    const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 2;
+    if (reduceMotion || conn.saveData || lowMemory || !$("#hero-canvas")) return;
+    const load = () => {
+      if (window.THREE) { safe("hero 3d", initHero3D); return; }
+      const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+      s.async = true;
+      s.onload = () => safe("hero 3d", initHero3D);
+      s.onerror = () => console.warn("[shdp] Three.js unavailable; hero stays static.");
+      document.head.appendChild(s);
+    };
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 600));
+    if (document.readyState === "complete") idle(load, { timeout: 2500 });
+    else window.addEventListener("load", () => idle(load, { timeout: 2500 }), { once: true });
+  });
   safe("motion", () => {
     try { initMotion(); }
     catch (err) {

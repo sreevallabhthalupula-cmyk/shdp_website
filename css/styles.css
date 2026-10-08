@@ -1273,3 +1273,27 @@ a.follow-item:hover .follow-go { transform: translateX(4px); }
 .site-header.is-compact .brand-sub { margin-top: 5px; }
 @media (max-width: 1360px) and (min-width: 1181px) { .brand-motto { font-size: 0.8125rem; } }
 @media (max-width: 560px) { .brand-motto { display: none; } }
+
+/* ---------- accessibility pass (2026-10-08d) ---------- */
+/* small gold text on light grounds uses the darker gold so it reads at 4.5:1 or better */
+.shloka-label, .mentor .honorific { color: var(--gold-700); }
+/* programme panel accent: a hairline, not a stripe */
+.prog-stage::before { height: 1px; }
+/* no-JavaScript success page for the Serve & Connect form (thanks.html) */
+.thanks-page { min-height: 100svh; display: grid; place-items: center; background: var(--green-950); color: var(--on-dark); padding: 24px; }
+.thanks { max-width: 34rem; text-align: center; display: grid; justify-items: center; gap: 14px; }
+.thanks > img { border-radius: 50%; background: #fff; padding: 3px; box-shadow: 0 0 0 1.5px var(--gold-500); }
+.thanks-glyph { width: 64px; height: 64px; color: var(--gold-300); opacity: 0.7; }
+.thanks h1 { font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.1; color: #fbf6e8; }
+.thanks p { color: var(--on-dark-2); line-height: 1.7; }
+.thanks p[lang="te"] { font-family: var(--font-te); line-height: 1.9; }
+.thanks .btn { margin-top: 8px; }
+
+/* ---------- polish (2026-10-08d) ---------- */
+/* the top bar only carries two social icons now: keep it on desktop, give phones and tablets the space back
+   (the Follow section and footer carry the same links) */
+@media (max-width: 1180px) {
+  .topline { display: none; }
+  :root { --header-top: 104px; }
+}
+@media (max-width: 560px) { :root { --header-top: 80px; } }

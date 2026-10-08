@@ -9,3 +9,11 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Images rarely change: keep them a week, and refresh quietly in the background after that.
+# (File names are not fingerprinted, so no "immutable". HTML/CSS/JS/JSON keep Netlify's
+#  default revalidation so every deploy is seen immediately.)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=2592000"

@@ -3,13 +3,13 @@
      falling back to the cached copy only when offline.
    - Images: cached, refreshed in the background (stale-while-revalidate).
    Bump VERSION when the list of core files changes. The site works normally without this file. */
-const VERSION = "shdp-2026-10-08-3";
+const VERSION = "shdp-2026-10-08-4";
 const CORE = [
   "./",
   "index.html",
   "css/styles.css",
   "js/i18n.js", "js/data.js", "js/core.js", "js/share.js", "js/calendar.js", "js/events.js",
-  "js/programmes.js", "js/timeline.js", "js/media.js", "js/books.js", "js/search.js", "js/atmosphere.js", "js/community.js", "js/main.js",
+  "js/programmes.js", "js/timeline.js", "js/media.js", "js/seo.js", "js/books.js", "js/search.js", "js/atmosphere.js", "js/community.js", "js/main.js",
   "data/site.json", "data/quotes.json", "data/events.json", "data/programmes.json",
   "data/timeline.json", "data/videos.json", "data/books.json", "data/gallery.json",
   "manifest.webmanifest",
