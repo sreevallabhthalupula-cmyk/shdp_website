@@ -6,7 +6,7 @@
       "category": "initiative",
       "period": { "start": "2005", "end": null, "ongoing": false },
       "title": { "en": "Bhagavad Gita classes", "te": "భగవద్గీత తరగతులు" },
-      "description": { "en": "\"Bhagavad Gita Nerchukundam\" began for children at Bhakta Sanjeevani Devalayam, NFC, with free Gitas for every child.", "te": null },
+      "description": { "en": "\"Bhagavad Gita Nerchukundam\" began for children at Bhakta Sanjeevani Devalayam, NFC, with free Gitas for every child.", "te": "ఎన్‌ఎఫ్‌సీ భక్త సంజీవని దేవాలయంలో పిల్లల కోసం \"భగవద్గీత నేర్చుకుందాం\" ప్రారంభమైంది, ప్రతి చిన్నారికీ ఉచిత గీతా ప్రతులతో." },
       "image": null,
       "featured": true,
       "related": { "event_id": "bhagavad-gita-classes", "programme_id": "bhagavad-gita-classes", "video_id": null }
@@ -16,7 +16,7 @@
       "category": "initiative",
       "period": { "start": "2006", "end": null, "ongoing": false },
       "title": { "en": "Ashtanga Yoga & Surya Namaskaras", "te": "అష్టాంగ యోగ & సూర్య నమస్కారాలు" },
-      "description": { "en": "Free dawn sessions across Dr. A.S. Rao Nagar and ECIL, with a mass gathering every International Yoga Day.", "te": null },
+      "description": { "en": "Free dawn sessions across Dr. A.S. Rao Nagar and ECIL, with a mass gathering every International Yoga Day.", "te": "డా. ఏ.ఎస్. రావు నగర్, ఈసీఐఎల్ ప్రాంతాల్లో ఉచిత ఉదయ సాధన; ప్రతి అంతర్జాతీయ యోగా దినోత్సవాన సామూహిక కార్యక్రమం." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": "yoga-surya-namaskaras", "video_id": null }
@@ -25,8 +25,8 @@
       "id": "educational-institutions-2006-2013",
       "category": "initiative",
       "period": { "start": "2006", "end": "2013", "ongoing": false },
-      "title": { "en": "Educational institutions", "te": null },
-      "description": { "en": "Secretary of Saraswathi Sishu Mandir, Kushaiguda, and leadership at Sri Sharada Institute and Sri Vidya Vihar.", "te": null },
+      "title": { "en": "Educational institutions", "te": "విద్యా సంస్థలు" },
+      "description": { "en": "Secretary of Saraswathi Sishu Mandir, Kushaiguda, and leadership at Sri Sharada Institute and Sri Vidya Vihar.", "te": "కుషాయిగూడ సరస్వతి శిశు మందిర్ కార్యదర్శిగా, శ్రీ శారదా ఇన్‌స్టిట్యూట్, శ్రీ విద్యా విహార్‌లలో నాయకత్వ బాధ్యతలు." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -36,7 +36,7 @@
       "category": "honour",
       "period": { "start": "2011", "end": null, "ongoing": false },
       "title": { "en": "Bhakti Jnana Prabodhanacharya", "te": "భక్తి జ్ఞాన ప్రబోధనాచార్య" },
-      "description": { "en": "Honoured with the title for a decade of making Dharma understandable.", "te": null },
+      "description": { "en": "Honoured with the title for a decade of making Dharma understandable.", "te": "ధర్మాన్ని అర్థమయ్యేలా చేసిన దశాబ్ద కృషికి ఈ బిరుదుతో సత్కారం." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -46,7 +46,7 @@
       "category": "initiative",
       "period": { "start": "2019", "end": null, "ongoing": false },
       "title": { "en": "Dharma Chaitanya Vedika", "te": "ధర్మ చైతన్య వేదిక" },
-      "description": { "en": "An online platform with daily classes, Monday to Saturday, for homemakers and seekers across India.", "te": null },
+      "description": { "en": "An online platform with daily classes, Monday to Saturday, for homemakers and seekers across India.", "te": "గృహిణులు, జిజ్ఞాసువుల కోసం సోమవారం నుండి శనివారం వరకు నిత్య తరగతులతో దేశవ్యాప్త ఆన్‌లైన్ వేదిక." },
       "image": null,
       "featured": false,
       "related": { "event_id": "dharma-chaitanya-vedika", "programme_id": "dharma-chaitanya-vedika", "video_id": null }
@@ -55,8 +55,8 @@
       "id": "yatra-naimisharanya-2023",
       "category": "yatra",
       "period": { "start": "2023-11", "end": null, "ongoing": false },
-      "title": { "en": "Naimisharanya", "te": null },
-      "description": { "en": "10-day Bhagavatha Saptaham.", "te": null },
+      "title": { "en": "Naimisharanya", "te": "నైమిశారణ్యం" },
+      "description": { "en": "10-day Bhagavatha Saptaham.", "te": "10 రోజుల భాగవత సప్తాహం." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -65,8 +65,8 @@
       "id": "yatra-varanasi-2024",
       "category": "yatra",
       "period": { "start": "2024-11", "end": null, "ongoing": false },
-      "title": { "en": "Varanasi", "te": null },
-      "description": { "en": "15-day Kashi Khandam Pravachanam.", "te": null },
+      "title": { "en": "Varanasi", "te": "వారణాసి" },
+      "description": { "en": "15-day Kashi Khandam Pravachanam.", "te": "15 రోజుల కాశీ ఖండం ప్రవచనం." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -75,8 +75,8 @@
       "id": "yatra-guruvayur-2025",
       "category": "yatra",
       "period": { "start": "2025-11", "end": null, "ongoing": false },
-      "title": { "en": "Guruvayur", "te": null },
-      "description": { "en": "7-day Narayaneeyam Parayanam, with Thiruvananthapuram and Kanyakumari.", "te": null },
+      "title": { "en": "Guruvayur", "te": "గురువాయూర్" },
+      "description": { "en": "7-day Narayaneeyam Parayanam, with Thiruvananthapuram and Kanyakumari.", "te": "7 రోజుల నారాయణీయం పారాయణం, తిరువనంతపురం, కన్యాకుమారి దర్శనంతో." },
       "image": null,
       "featured": false,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -85,8 +85,8 @@
       "id": "yatra-arunachalam-srirangam-2026",
       "category": "yatra",
       "period": { "start": "2026-09", "end": null, "ongoing": false },
-      "title": { "en": "Arunachalam & Srirangam", "te": null },
-      "description": { "en": "5-day Giri Pradakshina and Mukundamala Parayanam.", "te": null },
+      "title": { "en": "Arunachalam & Srirangam", "te": "అరుణాచలం & శ్రీరంగం" },
+      "description": { "en": "5-day Giri Pradakshina and Mukundamala Parayanam.", "te": "5 రోజుల గిరి ప్రదక్షిణ, ముకుందమాల పారాయణం." },
       "image": null,
       "featured": true,
       "related": { "event_id": null, "programme_id": null, "video_id": null }
@@ -96,7 +96,7 @@
       "category": "initiative",
       "period": { "start": null, "end": null, "ongoing": true },
       "title": { "en": "Goshala & cow protection", "te": "గోశాల & గో సంరక్షణ" },
-      "description": { "en": "Rythu Bazar drives feed cows across Hyderabad; the vision is a dedicated Goshala.", "te": null },
+      "description": { "en": "Rythu Bazar drives feed cows across Hyderabad; the vision is a dedicated Goshala.", "te": "రైతు బజార్ సేకరణలతో హైదరాబాద్ అంతటా గోవులకు ఆహారం; ప్రత్యేక గోశాల నిర్మాణమే లక్ష్యం." },
       "image": null,
       "featured": false,
       "related": { "event_id": "rythu-bazar-goshala-drive", "programme_id": "goshala-cow-protection", "video_id": null }

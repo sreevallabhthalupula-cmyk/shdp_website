@@ -1,0 +1,56 @@
+{
+  "_comment": "Options for the Serve & Connect form (Volunteer / Express interest). Edit freely: labels are shown to visitors, ids are what is stored with each submission, so keep an id unchanged once people have used it. These are suggestions, not official SHDP seva categories. Never put submissions, phone numbers or emails in this file: it is public.",
+  "seva_areas": [
+    { "id": "teaching", "icon": "i-book", "label": { "en": "Teaching support", "te": "బోధనలో సహాయం" }, "note": { "en": "Help run Gita classes and youth sessions.", "te": "గీతా తరగతులు, యువత సమావేశాల నిర్వహణలో సహాయం." } },
+    { "id": "annadana", "icon": "i-bowl", "label": { "en": "Annadana seva", "te": "అన్నదాన సేవ" }, "note": { "en": "Serve meals at festivals and yatras.", "te": "పండుగలు, యాత్రలలో భోజనం వడ్డించండి." } },
+    { "id": "goshala", "icon": "i-leaf", "label": { "en": "Goshala drives", "te": "గోశాల సేవ" }, "note": { "en": "Rythu Bazar collection, early mornings.", "te": "రైతు బజార్ సేకరణ, తెల్లవారుజామున." } },
+    { "id": "media", "icon": "i-camera", "label": { "en": "Media & design", "te": "మీడియా & డిజైన్" }, "note": { "en": "Edit reels, make shloka cards, post daily.", "te": "రీల్స్ ఎడిటింగ్, శ్లోక కార్డులు, రోజువారీ పోస్టులు." } }
+  ],
+  "skills": [
+    { "id": "teaching", "label": { "en": "Teaching / Education", "te": "బోధన / విద్య" } },
+    { "id": "student_mentoring", "label": { "en": "Student mentoring", "te": "విద్యార్థులకు మార్గదర్శనం" } },
+    { "id": "youth_activities", "label": { "en": "Youth activities", "te": "యువత కార్యక్రమాలు" } },
+    { "id": "event_support", "label": { "en": "Event support", "te": "కార్యక్రమాల నిర్వహణ" } },
+    { "id": "digital_tech", "label": { "en": "Digital / Technology", "te": "డిజిటల్ / సాంకేతికత" } },
+    { "id": "graphic_design", "label": { "en": "Graphic design", "te": "గ్రాఫిక్ డిజైన్" } },
+    { "id": "video_photo", "label": { "en": "Video / Photography", "te": "వీడియో / ఫోటోగ్రఫీ" } },
+    { "id": "social_media", "label": { "en": "Social media", "te": "సోషల్ మీడియా" } },
+    { "id": "writing", "label": { "en": "Writing", "te": "రచన" } },
+    { "id": "translation", "label": { "en": "Telugu / English translation", "te": "తెలుగు / ఇంగ్లీష్ అనువాదం" } },
+    { "id": "administration", "label": { "en": "Administration", "te": "నిర్వహణ" } },
+    { "id": "fundraising", "label": { "en": "Fundraising support", "te": "నిధుల సేకరణలో సహాయం" } },
+    { "id": "outreach", "label": { "en": "Outreach", "te": "ప్రచారం" } },
+    { "id": "coordination", "label": { "en": "Community coordination", "te": "సమన్వయం" } },
+    { "id": "professional", "label": { "en": "Medical / professional expertise", "te": "వైద్య / వృత్తి నైపుణ్యం" } },
+    { "id": "other", "label": { "en": "Other", "te": "ఇతర" }, "other": true }
+  ],
+  "availability": [
+    { "id": "weekday_mornings", "label": { "en": "Weekday mornings", "te": "వారం రోజుల్లో ఉదయం" } },
+    { "id": "weekday_evenings", "label": { "en": "Weekday evenings", "te": "వారం రోజుల్లో సాయంత్రం" } },
+    { "id": "weekends", "label": { "en": "Weekends", "te": "వారాంతాలు" } },
+    { "id": "festivals_events", "label": { "en": "Festivals & events", "te": "పండుగలు & కార్యక్రమాలు" } },
+    { "id": "online", "label": { "en": "Online, from home", "te": "ఆన్‌లైన్‌లో, ఇంటి నుండి" } }
+  ],
+  "interest_areas": [
+    { "id": "pravachanalu", "label": { "en": "Pravachanalu", "te": "ప్రవచనాలు" } },
+    { "id": "gita_classes", "label": { "en": "Bhagavad Gita classes", "te": "భగవద్గీత తరగతులు" } },
+    { "id": "bala_chaitanya", "label": { "en": "Bala Chaitanya Deepika (children)", "te": "బాల చైతన్య దీపిక (పిల్లలు)" } },
+    { "id": "dharma_chaitanya_vedika", "label": { "en": "Dharma Chaitanya Vedika (online)", "te": "ధర్మ చైతన్య వేదిక (ఆన్‌లైన్)" } },
+    { "id": "youth", "label": { "en": "Youth programmes", "te": "యువత కార్యక్రమాలు" } },
+    { "id": "yoga", "label": { "en": "Yoga & Surya Namaskaras", "te": "యోగ & సూర్య నమస్కారాలు" } },
+    { "id": "yatra", "label": { "en": "Teertha Yatras", "te": "తీర్థ యాత్రలు" } },
+    { "id": "goshala", "label": { "en": "Goshala & cow protection", "te": "గోశాల & గో సంరక్షణ" } }
+  ],
+  "contact_preference": [
+    { "id": "whatsapp", "label": { "en": "WhatsApp", "te": "వాట్సాప్" } },
+    { "id": "phone", "label": { "en": "Phone call", "te": "ఫోన్ కాల్" } },
+    { "id": "email", "label": { "en": "Email", "te": "ఇమెయిల్" } }
+  ],
+  "age_groups": [
+    { "id": "under_18", "label": { "en": "Under 18", "te": "18 లోపు" } },
+    { "id": "18_25", "label": { "en": "18 – 25", "te": "18 – 25" } },
+    { "id": "26_40", "label": { "en": "26 – 40", "te": "26 – 40" } },
+    { "id": "41_60", "label": { "en": "41 – 60", "te": "41 – 60" } },
+    { "id": "60_plus", "label": { "en": "60 and above", "te": "60 పైబడి" } }
+  ]
+}

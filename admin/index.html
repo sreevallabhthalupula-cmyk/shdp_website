@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>SHDP Operators</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Mukta:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="bar-in">
+      <span class="brand"><img src="../assets/img/logo.jpg" alt="" width="40" height="40"><span>SHDP <b>Operators</b></span></span>
+      <div class="bar-actions" id="session-actions" hidden>
+        <span class="who" id="who"></span>
+        <button class="btn btn-quiet" type="button" id="logout">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- configuration missing -->
+    <section class="panel center" id="view-config" hidden>
+      <h1>Backend not configured</h1>
+      <p>Set <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> in Netlify and redeploy. See <code>supabase/README.md</code>.</p>
+    </section>
+
+    <!-- sign in -->
+    <section class="panel center" id="view-login" hidden>
+      <h1>Operator sign-in</h1>
+      <p class="muted">Registrations are visible only to Parishad coordinators.</p>
+      <form id="login-form" class="login" novalidate>
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" autocomplete="username" required>
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" required>
+        <button class="btn btn-gold" type="submit" id="login-submit">Sign in</button>
+        <p class="msg" id="login-msg" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- dashboard -->
+    <section id="view-dash" hidden>
+      <div class="dash-head">
+        <h1>Community registrations</h1>
+        <div class="dash-actions">
+          <button class="btn btn-quiet" type="button" id="refresh">Refresh</button>
+          <button class="btn btn-gold" type="button" id="export">Export CSV</button>
+        </div>
+      </div>
+
+      <ul class="stats" id="stats" aria-label="Totals"></ul>
+
+      <div class="filters" role="search">
+        <label class="f f-search"><span>Search</span><input type="search" id="f-q" placeholder="Name, phone, email, place, message"></label>
+        <label class="f"><span>Type</span>
+          <select id="f-type"><option value="all">All</option><option value="volunteer">Volunteer</option><option value="interest">Interest</option></select></label>
+        <label class="f"><span>Status</span>
+          <select id="f-status"><option value="active">Open (not archived)</option><option value="all">All</option><option value="new">New</option><option value="contacted">Contacted</option><option value="follow_up">Follow-up</option><option value="completed">Completed</option><option value="archived">Archived</option></select></label>
+        <label class="f"><span>Date</span>
+          <select id="f-sort"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></label>
+        <p class="count" id="count" aria-live="polite"></p>
+      </div>
+
+      <div class="table-wrap" tabindex="0" aria-label="Registrations table">
+        <table class="grid" id="grid">
+          <thead><tr>
+            <th scope="col">Date</th><th scope="col">Type</th><th scope="col">Name</th><th scope="col">Phone</th><th scope="col">Email</th>
+            <th scope="col">Location</th><th scope="col">Interest</th><th scope="col">Skills</th><th scope="col">Contribution</th>
+            <th scope="col">Availability</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Details</span></th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="empty" hidden>No registrations match these filters.</p>
+      <p class="msg" id="dash-msg" role="alert"></p>
+    </section>
+  </main>
+
+  <dialog class="detail" id="detail" aria-labelledby="detail-title">
+    <form method="dialog" class="detail-in" id="detail-form">
+      <button class="x" type="submit" value="cancel" aria-label="Close">×</button>
+      <h2 id="detail-title"></h2>
+      <p class="muted" id="detail-sub"></p>
+      <dl class="kv" id="detail-kv"></dl>
+      <div class="detail-edit">
+        <label for="detail-status">Status</label>
+        <select id="detail-status"><option value="new">New</option><option value="contacted">Contacted</option><option value="follow_up">Follow-up</option><option value="completed">Completed</option><option value="archived">Archived</option></select>
+        <label for="detail-notes">Internal notes</label>
+        <textarea id="detail-notes" rows="4" maxlength="4000" placeholder="Visible to operators only"></textarea>
+      </div>
+      <div class="detail-actions">
+        <button class="btn btn-quiet" type="submit" value="cancel">Close</button>
+        <button class="btn btn-gold" type="button" id="detail-save">Save</button>
+      </div>
+      <p class="msg" id="detail-msg" role="alert"></p>
+    </form>
+  </dialog>
+
+  <script src="../js/supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

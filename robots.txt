@@ -1,5 +1,6 @@
 # TODO(custom domain): update the Sitemap URL when a custom domain is connected.
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: https://effortless-otter-f49e77.netlify.app/sitemap.xml

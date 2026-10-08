@@ -47,7 +47,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mukta:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Marcellus&family=Mukta:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@500;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/guruji-hero.webp" imagesrcset="assets/img/guruji-hero-1000.jpg 1000w, assets/img/guruji-hero.webp 2000w" imagesizes="(max-width: 700px) 84vw, 470px">
   <link rel="stylesheet" href="css/styles.css">
   <script>
@@ -124,7 +124,7 @@
   </div>
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Sri Haritha Dharma Parishad, home">
-      <img src="assets/img/logo.jpg" alt="" width="72" height="72" decoding="async">
+      <img src="assets/img/logo.jpg" alt="" width="96" height="96" decoding="async" fetchpriority="high">
       <span class="brand-name">Sri Haritha Dharma Parishad<span class="brand-sub" lang="te">శ్రీ హరిత ధర్మ పరిషత్</span></span>
     </a>
     <ul class="nav-links">
@@ -141,7 +141,7 @@
         <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
         <button type="button" data-lang="te" lang="te" aria-pressed="false" aria-label="తెలుగు"><span class="long">తెలుగు</span><span class="short">తె</span></button>
       </div>
-      <a class="btn btn-gold" href="#join"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="cta.community">Join community</span></a>
+      <a class="btn btn-gold nav-cta" href="#join" data-serve-mode="volunteer"><span data-i18n="cta.volunteer">Volunteer</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <button class="menu-btn" type="button" aria-label="Open menu" data-i18n-attr="aria-label:nav.menu" aria-expanded="false" aria-controls="drawer"><svg class="icon"><use href="#i-menu"/></svg></button>
     </div>
   </div>
@@ -164,7 +164,7 @@
   </ul>
   <div class="drawer-actions">
     <button class="btn btn-ghost-light" type="button" data-search-open><svg class="icon"><use href="#i-search"/></svg><span data-i18n="nav.search">Search</span></button>
-    <a class="btn btn-gold" href="#join"><svg class="icon"><use href="#i-whatsapp"/></svg><span data-i18n="cta.community">Join community</span></a>
+    <a class="btn btn-gold" href="#join" data-serve-mode="volunteer"><span data-i18n="cta.volunteer">Volunteer</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
 </div>
 
@@ -255,7 +255,7 @@
       <p class="eyebrow on-dark" data-i18n="yatra.eyebrow">Teertha Yatra</p>
       <h2 class="section-title on-dark" id="yatra-title" data-i18n="yatra.title">Sacred pilgrimages, every year</h2>
       <p data-i18n="yatra.body">Each yatra is a journey of parayanam and pravachanam at the great kshetras of Bharat.</p>
-      <a class="btn btn-gold" href="#join"><span data-i18n="yatra.cta">Get notified of the next yatra</span><svg class="icon"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-gold" href="#join" data-serve-mode="interest" data-serve-interest="yatra"><span data-i18n="yatra.cta">Get notified of the next yatra</span><svg class="icon"><use href="#i-arrow"/></svg></a>
     </div>
     <ol class="yatra-route" id="yatra-list" data-reveal aria-label="Recent Teertha Yatras"></ol>
   </div>
@@ -372,24 +372,24 @@
     </figure>
     <div data-reveal>
       <p class="eyebrow" style="color:var(--gold-300)" data-i18n="guide.eyebrow">Under the guidance of</p>
-      <h2 id="guidance-title">Jagadguru Shankaracharya Sri Sri Swayamprakasha Sachidananda Saraswathi Mahaswamiji</h2>
-      <p class="peetam">Sri Adi Shankaracharya Sharada Lakshminarasimha Peetam, Hariharapura</p>
+      <h2 id="guidance-title" data-i18n="guide.name">Jagadguru Shankaracharya Sri Sri Swayamprakasha Sachidananda Saraswathi Mahaswamiji</h2>
+      <p class="peetam" data-i18n="guide.peetam">Sri Adi Shankaracharya Sharada Lakshminarasimha Peetam, Hariharapura</p>
       <p class="body" data-i18n="guide.body">Guruji's work continues under the guidance of the Peetam, where rigorous Vedic ritual and progressive community outreach go together. Spiritual awakening and social equality, hand in hand.</p>
       <div class="initiatives">
         <div>
           <h3 data-i18n="guide.h1">Spiritual initiatives</h3>
           <ul>
-            <li><b>Deeksha</b>Mantra deeksha: sacred initiation into the mantra, open to all, irrespective of caste, creed, gender or age.</li>
-            <li><b>Dharma Prachara Yatras</b>Travels across India keeping Advaita Vedanta alive.</li>
-            <li><b>Vedic revival</b>Shankara Jayanti, Sharannavaratri Mahotsava, Brahmotsava.</li>
+            <li data-i18n-html="guide.i1"><b>Deeksha</b>Mantra deeksha: sacred initiation into the mantra, open to all, irrespective of caste, creed, gender or age.</li>
+            <li data-i18n-html="guide.i2"><b>Dharma Prachara Yatras</b>Travels across India keeping Advaita Vedanta alive.</li>
+            <li data-i18n-html="guide.i3"><b>Vedic revival</b>Shankara Jayanti, Sharannavaratri Mahotsava, Brahmotsava.</li>
           </ul>
         </div>
         <div>
           <h3 data-i18n="guide.h2">Social &amp; educational welfare</h3>
           <ul>
-            <li><b>Samana Samskara</b>Workshops on "all are equal, all are divine."</li>
-            <li><b>Youth workshops</b>Value education on the five Rinas: divine, ancestors, sages, fellow beings, nature.</li>
-            <li><b>Annadana</b>Daily free meals at the Mutt for pilgrims and seekers.</li>
+            <li data-i18n-html="guide.i4"><b>Samana Samskara</b>Workshops on "all are equal, all are divine."</li>
+            <li data-i18n-html="guide.i5"><b>Youth workshops</b>Value education on the five Rinas: divine, ancestors, sages, fellow beings, nature.</li>
+            <li data-i18n-html="guide.i6"><b>Annadana</b>Daily free meals at the Mutt for pilgrims and seekers.</li>
           </ul>
         </div>
       </div>
@@ -407,8 +407,17 @@
       </div>
       <a class="btn btn-green" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial?sub_confirmation=1" data-site-href="links.youtube_subscribe" target="_blank" rel="noopener"><svg class="icon"><use href="#i-youtube"/></svg><span data-i18n="videos.sub">Subscribe on YouTube</span></a>
     </div>
+    <nav class="vcats" id="video-cats" aria-label="Pravachanalu categories" data-i18n-attr="aria-label:videos.catsLabel" hidden></nav>
+    <p class="vcat-note" id="video-cat-note" hidden></p>
     <div class="toolbar" id="video-toolbar" hidden></div>
     <div class="video-grid" id="video-grid"></div>
+    <div class="empty-panel vcat-empty" id="video-cat-empty" hidden>
+      <svg class="empty-glyph" aria-hidden="true"><use href="#i-mandala"/></svg>
+      <div>
+        <p class="empty-title" id="video-cat-empty-title"></p>
+        <a class="btn-text" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial/videos" data-site-href="links.youtube_videos" target="_blank" rel="noopener" data-i18n="videos.allOnYoutube">Meanwhile, browse every Pravachanam on YouTube</a>
+      </div>
+    </div>
     <p class="empty-state" id="video-noresults" hidden></p>
     <div class="video-more-wrap"><button class="btn btn-outline" type="button" id="video-more" hidden>Show more videos</button></div>
     <!-- shown until real videos are added to data/videos.json -->
@@ -476,22 +485,158 @@
   </div>
 </section>
 
-<!-- ============ Join / Seva (actions from data/site.json; nothing is stored) ============ -->
-<section class="section" id="join" aria-labelledby="join-title">
-  <div class="wrap join-grid">
-    <div data-reveal>
-      <p class="eyebrow" data-i18n="join.eyebrow">Join the mission</p>
-      <h2 class="section-title" id="join-title" data-i18n="join.title">Be part of the next 25 years</h2>
-      <p class="lede" style="margin-top:14px" data-i18n="join.lede">Give an hour, a meal, or a skill. Anything helps.</p>
-      <ul class="seva-list">
-        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span><div><h3 data-i18n="join.s1">Teaching support</h3><p data-i18n="join.s1b">Help run Gita classes and youth sessions.</p></div></li>
-        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-bowl"/></svg></span><div><h3 data-i18n="join.s2">Annadana seva</h3><p data-i18n="join.s2b">Serve meals at festivals and yatras.</p></div></li>
-        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span><div><h3 data-i18n="join.s3">Goshala drives</h3><p data-i18n="join.s3b">Rythu Bazar collection, early mornings.</p></div></li>
-        <li><span class="ico"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></span><div><h3 data-i18n="join.s4">Media &amp; design</h3><p data-i18n="join.s4b">Edit reels, make shloka cards, post daily.</p></div></li>
-      </ul>
+<!-- ============ Serve & Connect (Volunteer / Express interest)
+     Options come from data/community.json. Submissions go to the protected Supabase
+     function configured in js/supabase-config.js; nothing personal is stored in the browser. ============ -->
+<section class="section serve act act-seva" id="join" aria-labelledby="join-title">
+  <div class="act-mark" data-reveal aria-hidden="true"><span></span></div>
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div>
+        <p class="eyebrow" data-i18n="join.eyebrow">Serve &amp; Connect</p>
+        <h2 class="section-title" id="join-title" data-i18n="join.title">Be part of the next 25 years</h2>
+        <p class="lede" data-i18n="join.lede">Give an hour, a meal, or a skill. Tell us how you would like to take part, and someone from the Parishad will reach out.</p>
+      </div>
     </div>
 
-    <aside class="join-panel" data-reveal>
+    <div class="serve-grid">
+      <form class="serve-form" id="serve-form" novalidate data-reveal aria-labelledby="join-title">
+        <fieldset class="serve-mode">
+          <legend class="sr-only" data-i18n="serve.modeLegend">How would you like to take part?</legend>
+          <label class="mode-opt">
+            <input type="radio" name="type" value="volunteer" checked>
+            <span class="mode-card">
+              <svg class="icon" aria-hidden="true"><use href="#i-users"/></svg>
+              <span><b data-i18n="serve.volunteer">Volunteer</b><small data-i18n="serve.volunteerSub">Offer your time and skills in seva</small></span>
+            </span>
+          </label>
+          <label class="mode-opt">
+            <input type="radio" name="type" value="interest">
+            <span class="mode-card">
+              <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+              <span><b data-i18n="serve.interest">Express interest</b><small data-i18n="serve.interestSub">Stay connected with classes and yatras</small></span>
+            </span>
+          </label>
+        </fieldset>
+
+        <p class="serve-closed" id="serve-closed" hidden>
+          <span data-i18n="serve.closed">Online registration opens shortly. Until then, write to us and we will add you personally.</span>
+          <a class="btn-text" id="serve-closed-email" href="mailto:sriharithadharmaparishad@gmail.com" data-i18n="serve.closedLink">Email the Parishad</a>
+        </p>
+
+        <div class="serve-body" id="serve-body">
+          <fieldset class="serve-group">
+            <legend data-i18n="serve.aboutYou">About you</legend>
+            <div class="field-grid">
+              <div class="field">
+                <label for="sf-name"><span data-i18n="serve.name">Full name</span> <span class="req" aria-hidden="true">*</span></label>
+                <input id="sf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="sf-name-err">
+                <p class="field-err" id="sf-name-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="sf-phone"><span data-i18n="serve.phone">Phone / WhatsApp</span> <span class="req" aria-hidden="true">*</span></label>
+                <input id="sf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="+91 98xxx xxxxx" aria-describedby="sf-phone-hint sf-phone-err">
+                <p class="field-hint" id="sf-phone-hint" data-i18n="serve.phoneHint">Indian numbers can skip +91. Others, please add the country code.</p>
+                <p class="field-err" id="sf-phone-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="sf-email"><span data-i18n="serve.email">Email</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
+                <input id="sf-email" name="email" type="email" autocomplete="email" maxlength="254" aria-describedby="sf-email-err">
+                <p class="field-err" id="sf-email-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="sf-location"><span data-i18n="serve.location">City / area</span> <span class="req" data-for="volunteer" aria-hidden="true">*</span><span class="opt" data-for="interest" data-i18n="serve.optional">(optional)</span></label>
+                <input id="sf-location" name="location" type="text" autocomplete="address-level2" maxlength="160" aria-describedby="sf-location-err">
+                <p class="field-err" id="sf-location-err" hidden></p>
+              </div>
+              <div class="field">
+                <label for="sf-age"><span data-i18n="serve.age">Age group</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
+                <select id="sf-age" name="age_group" data-options="age_groups"><option value="" data-i18n="serve.choose">Choose…</option></select>
+                <p class="field-hint" id="sf-age-note" data-i18n="serve.minorNote" hidden>Under 18? Please ask a parent or guardian to fill this in with you.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="serve-group" data-for="volunteer">
+            <legend data-i18n="serve.howServe">How you would like to serve</legend>
+            <div class="choice-block">
+              <p class="choice-label" id="sf-seva-label" data-i18n="serve.sevaArea">Preferred area of seva</p>
+              <div class="seva-tiles" role="group" aria-labelledby="sf-seva-label" data-options="seva_areas" data-name="seva_areas"></div>
+            </div>
+            <div class="choice-block">
+              <p class="choice-label" id="sf-skills-label" data-i18n="serve.skills">Skills you can bring</p>
+              <div class="chips" role="group" aria-labelledby="sf-skills-label" data-options="skills" data-name="skills"></div>
+              <div class="field field-other" id="sf-skills-other-wrap" hidden>
+                <label for="sf-skills-other" data-i18n="serve.skillsOther">Tell us the other skill</label>
+                <input id="sf-skills-other" name="skills_other" type="text" maxlength="200">
+              </div>
+            </div>
+            <div class="field">
+              <label for="sf-contribution" data-i18n="serve.contribution">What can you offer?</label>
+              <textarea id="sf-contribution" name="contribution" rows="3" maxlength="2000" data-i18n-attr="placeholder:serve.contributionPh" placeholder="For example: I can teach slokas to children on Sundays, or design posters for events."></textarea>
+            </div>
+            <div class="choice-block">
+              <p class="choice-label" id="sf-avail-label" data-i18n="serve.availability">When are you usually free?</p>
+              <div class="chips" role="group" aria-labelledby="sf-avail-label" data-options="availability" data-name="availability"></div>
+            </div>
+            <div class="field">
+              <label for="sf-experience"><span data-i18n="serve.experience">Any earlier seva or volunteering experience?</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
+              <textarea id="sf-experience" name="experience" rows="2" maxlength="2000"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="serve-group" data-for="interest" hidden>
+            <legend data-i18n="serve.whatDraws">What draws you</legend>
+            <div class="choice-block">
+              <p class="choice-label" id="sf-interest-label" data-i18n="serve.interestArea">Areas of interest</p>
+              <div class="chips" role="group" aria-labelledby="sf-interest-label" data-options="interest_areas" data-name="interest_area"></div>
+            </div>
+            <div class="choice-block">
+              <p class="choice-label" id="sf-contact-label" data-i18n="serve.contactPref">How would you like to stay connected?</p>
+              <div class="chips" role="group" aria-labelledby="sf-contact-label" data-options="contact_preference" data-name="contact_preference"></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="serve-group">
+            <legend data-i18n="serve.anythingElse">Anything else</legend>
+            <div class="field">
+              <label for="sf-message"><span data-i18n="serve.message">Message</span> <span class="opt" data-i18n="serve.optional">(optional)</span></label>
+              <textarea id="sf-message" name="message" rows="3" maxlength="2000"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- spam trap: hidden from people and assistive tech; bots tend to fill it -->
+          <div class="hp" aria-hidden="true"><label for="sf-website">Website</label><input id="sf-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+
+          <div class="serve-consent field">
+            <label class="check">
+              <input type="checkbox" name="consent" id="sf-consent" required aria-describedby="sf-consent-err">
+              <span data-i18n="serve.consent">I agree that Sri Haritha Dharma Parishad may contact me about this request using the details above.</span>
+            </label>
+            <p class="field-err" id="sf-consent-err" hidden></p>
+          </div>
+
+          <div class="serve-submit">
+            <button class="btn btn-gold" type="submit" id="serve-submit"><span class="btn-label" data-i18n="serve.submit">Send my details</span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <p class="serve-status" id="serve-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="serve-done" id="serve-done" tabindex="-1" hidden>
+          <svg class="serve-done-glyph" aria-hidden="true"><use href="#i-mandala"/></svg>
+          <h3 data-i18n="serve.thanksTitle">Thank you. Your details have reached us.</h3>
+          <p data-i18n="serve.thanksBody">Someone from the Parishad will contact you if there is a suitable opportunity. Your details are not shown publicly.</p>
+          <button class="btn-text" type="button" id="serve-again" data-i18n="serve.again">Send another response</button>
+        </div>
+      </form>
+
+      <aside class="serve-aside">
+        <div class="privacy-note" data-reveal>
+          <h3 data-i18n="serve.privacyTitle">Your details stay private</h3>
+          <p data-i18n="serve.privacyBody">We use what you share only to respond to your interest in taking part with SHDP. It is never displayed on this website, and only the Parishad's coordinators can see it.</p>
+        </div>
+
+    <div class="join-panel" data-reveal>
       <svg class="mandala mandala-join" aria-hidden="true"><use href="#i-mandala"/></svg>
       <h3 data-i18n="join.panel">Join a WhatsApp community</h3>
       <p data-i18n="join.panelb">Daily shloka, class reminders and event links. Moderated groups, no forwards.</p>
@@ -504,9 +649,37 @@
         <p data-i18n="join.groupsSoon">WhatsApp group links will be shared here soon. Write to us and we'll add you to a group.</p>
         <a class="link-arrow on-dark" id="join-email-link" href="mailto:sriharithadharmaparishad@gmail.com"><span data-i18n="join.emailToJoin">Email us to join a group</span><svg class="icon"><use href="#i-arrow"/></svg></a>
       </div>
-      <a class="btn btn-gold" id="volunteer-link" href="mailto:sriharithadharmaparishad@gmail.com"><svg class="icon"><use href="#i-mail"/></svg><span data-i18n="join.volunteer">Volunteer with us</span></a>
       <p class="give-note"><span data-i18n="join.give">Prefer to give? Write to us for bank / UPI details.</span> <a id="give-link" href="mailto:sriharithadharmaparishad@gmail.com" data-i18n="join.giveLink">Ask for donation details</a></p>
-    </aside>
+    </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Follow the Parishad (official channels from data/site.json; unknown ones say "coming soon") ============ -->
+<section class="follow" id="follow" aria-labelledby="follow-title">
+  <svg class="mandala mandala-follow" aria-hidden="true"><use href="#i-mandala"/></svg>
+  <div class="wrap follow-inner">
+    <div class="follow-intro" data-reveal>
+      <h2 id="follow-title" data-i18n="follow.title">Walk with us between classes</h2>
+      <p data-i18n="follow.body">Daily shlokas, new Pravachanalu and yatra updates, from the Parishad's own channels.</p>
+    </div>
+    <ul class="follow-list" id="follow-list" data-reveal>
+      <li><a class="follow-item" href="https://www.youtube.com/@GVRamakrishnaMurthyOfficial" data-site-href="social.youtube.url" target="_blank" rel="noopener">
+        <span class="follow-ico"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></span>
+        <span class="follow-text"><b>YouTube</b><small data-i18n="follow.youtube">Pravachanalu and discourses</small></span>
+        <svg class="icon follow-go" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only" data-i18n="follow.newTab">(opens in a new tab)</span></a></li>
+      <li><a class="follow-item" href="https://www.instagram.com/sriharithadharmaparishad" data-site-href="social.instagram.url" target="_blank" rel="noopener">
+        <span class="follow-ico"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span>
+        <span class="follow-text"><b>Instagram</b><small data-i18n="follow.instagram">Moments from classes and yatras</small></span>
+        <svg class="icon follow-go" aria-hidden="true"><use href="#i-arrow"/></svg><span class="sr-only" data-i18n="follow.newTab">(opens in a new tab)</span></a></li>
+      <li data-follow="social.facebook.url"><span class="follow-item is-soon">
+        <span class="follow-ico"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></span>
+        <span class="follow-text"><b>Facebook</b><small data-i18n="follow.soon">Official page coming soon</small></span></span></li>
+      <li data-follow="whatsapp.community_url"><span class="follow-item is-soon">
+        <span class="follow-ico"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+        <span class="follow-text"><b data-i18n="follow.whatsapp">WhatsApp community</b><small data-i18n="follow.soonGroup">Invite link coming soon</small></span></span></li>
+    </ul>
   </div>
 </section>
 
@@ -612,6 +785,8 @@
 <script src="js/books.js" defer></script>
 <script src="js/search.js" defer></script>
 <script src="js/atmosphere.js" defer></script>
+<script src="js/supabase-config.js" defer></script>
+<script src="js/community.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

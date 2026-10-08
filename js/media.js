@@ -49,9 +49,14 @@
 
   /* =============== videos =============== */
   const vGrid = $("#video-grid"), vEmpty = $("#video-empty"), vToolbar = $("#video-toolbar"), vNone = $("#video-noresults"), vMore = $("#video-more");
+  const vCats = $("#video-cats"), vCatNote = $("#video-cat-note"), vCatEmpty = $("#video-cat-empty");
   const YT_ID = /^[\w-]{11}$/;
   const PAGE = 6; // cards shown before "Show more"
-  let videos = null, uploadsList = null, shown = PAGE;
+  let videos = null, uploadsList = null, shown = PAGE, categories = [];
+  // a video's category is a category id from data/videos.json "categories" (older free-text values still work)
+  const catId = v => (typeof v.category === "string" ? v.category : pick(v.category)) || null;
+  const catOf = id => categories.find(c => c.id === id) || null;
+  const catLabel = id => { const c = catOf(id); return c ? pick(c.label) || id : id; };
   const vState = { q: "", category: "all", series: "all", language: "all" };
   const LANGS = { te: ["Telugu", "తెలుగు"], en: ["English", "ఇంగ్లీష్"], sa: ["Sanskrit", "సంస్కృతం"] };
   const langName = c => (LANGS[c] ? LANGS[c][S.lang === "te" ? 1 : 0] : c);
@@ -64,7 +69,7 @@
 
   function card(v) {
     const title = pick(v.title) || "";
-    const meta = [pick(v.series) || pick(v.category), v.language ? langName(v.language) : "", v.published_date && S.isISODate(v.published_date) ? S.formatDate(v.published_date) : ""].filter(Boolean).join(" · ");
+    const meta = [pick(v.series) || (catId(v) ? catLabel(catId(v)) : ""), v.language ? langName(v.language) : "", v.published_date && S.isISODate(v.published_date) ? S.formatDate(v.published_date) : ""].filter(Boolean).join(" · ");
     return `<article class="vcard" id="video-${esc(v.id)}">
       <div class="vthumb">
         <button type="button" class="vplay" data-video-play="${esc(v.id)}" aria-label="${esc(t("videos.play", "Play"))}: ${esc(title)}">
@@ -114,7 +119,8 @@
   function renderToolbar() {
     if (!vToolbar || !videos) return;
     if (videos.length < 2 && !uploadsList) { vToolbar.hidden = true; return; }
-    const cats = [...new Set(videos.map(v => pick(v.category)).filter(Boolean))];
+    // categories with a definition get the selector above; only undefined free-text ones stay a dropdown
+    const cats = [...new Set(videos.map(catId).filter(c => c && !catOf(c)))];
     const series = [...new Set(videos.map(v => pick(v.series)).filter(Boolean))];
     const langs = [...new Set(videos.map(v => v.language).filter(Boolean))];
     const sel = (name, lbl, vals, fmt = x => x) => vals.length < 2 ? "" : `<label class="filter"><span>${esc(lbl)}</span><select data-vfilter="${name}"><option value="all">${esc(t("filter.all", "All"))}</option>${vals.map(x => `<option value="${esc(x)}"${vState[name] === x ? " selected" : ""}>${esc(fmt(x))}</option>`).join("")}</select></label>`;
@@ -129,7 +135,7 @@
     if (!vGrid || !videos) return;
     const q = vState.q.trim().toLowerCase();
     const sorted = videos.slice().sort((a, b) => (b.featured === true) - (a.featured === true) || String(b.published_date || "").localeCompare(String(a.published_date || "")));
-    const match = sorted.filter(v => (vState.category === "all" || pick(v.category) === vState.category)
+    const match = sorted.filter(v => (vState.category === "all" || catId(v) === vState.category)
       && (vState.series === "all" || pick(v.series) === vState.series)
       && (vState.language === "all" || v.language === vState.language)
       && (!q || [pick(v.title), pick(v.description), pick(v.category), pick(v.series), ...(v.tags || [])].join(" ").toLowerCase().includes(q)));
@@ -142,8 +148,42 @@
       vMore.hidden = filtering || rest <= 0;
       vMore.textContent = `${t("videos.more", "Show more videos")} (${rest})`;
     }
-    if (vNone) { vNone.hidden = match.length > 0; vNone.textContent = t("search.none", "No results. Try another word."); }
+    // a defined category with nothing in it yet: a calm "being gathered" panel instead of "no results"
+    const catEmpty = !match.length && !!catOf(vState.category) && !q && vState.series === "all" && vState.language === "all";
+    if (vCatEmpty) {
+      vCatEmpty.hidden = !catEmpty;
+      const tt = $("#video-cat-empty-title", vCatEmpty);
+      if (tt) tt.textContent = t("videos.catEmpty", "Pravachanalu for {cat} are being gathered and will appear here soon.").replace("{cat}", catLabel(vState.category));
+    }
+    if (vNone) { vNone.hidden = match.length > 0 || catEmpty; vNone.textContent = t("search.none", "No results. Try another word."); }
   }
+
+  function renderCats() {
+    if (!vCats || !videos) return;
+    if (!categories.length) { vCats.hidden = true; return; }
+    const count = id => videos.filter(v => catId(v) === id).length;
+    const items = [{ id: "all", label: t("videos.catAll", "All Pravachanalu"), n: videos.length }, ...categories.map(c => ({ id: c.id, label: pick(c.label) || c.id, n: count(c.id) }))];
+    vCats.innerHTML = items.map(i => `<button type="button" class="vcat" data-vcat="${esc(i.id)}" aria-pressed="${vState.category === i.id}">
+      <span class="vcat-label">${esc(i.label)}</span><span class="vcat-count" aria-hidden="true">${i.n}</span><span class="sr-only">, ${i.n} ${esc(t("videos.countLabel", "videos"))}</span></button>`).join("");
+    vCats.hidden = false;
+    const c = catOf(vState.category);
+    if (vCatNote) { const d = c && pick(c.description); vCatNote.textContent = d || ""; vCatNote.hidden = !d; }
+  }
+  if (vCats) vCats.addEventListener("click", e => {
+    const b = e.target.closest("[data-vcat]");
+    if (!b || vState.category === b.dataset.vcat) return;
+    vState.category = b.dataset.vcat;
+    shown = PAGE;
+    renderCats(); renderVideos();
+  });
+  // arrow keys move between categories (one tab stop feel, but every button stays reachable)
+  if (vCats) vCats.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+    const bs = $$("[data-vcat]", vCats), i = bs.indexOf(document.activeElement);
+    if (i < 0) return;
+    e.preventDefault();
+    bs[(i + (e.key === "ArrowRight" ? 1 : -1) + bs.length) % bs.length].focus();
+  });
 
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-video-play]");
@@ -201,9 +241,10 @@
   }
   window.addEventListener("hashchange", routeFromHash);
 
-  S.onLang(() => safe("media (lang)", () => { renderToolbar(); renderVideos(); renderGallery(); }));
+  S.onLang(() => safe("media (lang)", () => { renderCats(); renderToolbar(); renderVideos(); renderGallery(); }));
 
-  Promise.all([SHDP_DATA.getVideos(), S.siteReady]).then(([vs, site]) => {
+  Promise.all([SHDP_DATA.getVideos(), S.siteReady, SHDP_DATA.getVideoCategories()]).then(([vs, site, cats]) => {
+    categories = Array.isArray(cats) ? cats : [];
     // automatic "latest uploads" playlist only from a real channel ID (UC + 22 chars)
     const ch = S.getPath(site || {}, "social.youtube.channel_id");
     if (typeof ch === "string" && /^UC[\w-]{22}$/.test(ch)) uploadsList = "UU" + ch.slice(2);
@@ -216,7 +257,7 @@
     if (!videos.length) return; // no real videos yet: the empty state stays
     safe("videos render", () => {
       if (vEmpty) vEmpty.hidden = true;
-      renderToolbar(); renderVideos(); routeFromHash();
+      renderCats(); renderToolbar(); renderVideos(); routeFromHash();
     });
   });
   SHDP_DATA.getGallery().then(as => {
