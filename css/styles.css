@@ -945,3 +945,23 @@ html[lang="te"] .empty-title { font-family: var(--font-te); font-weight: 600; fo
   .mandala { animation: none !important; }
   .ev-card, .ev-card:hover, .prog-btn, .prog-btn:hover, .vcard:hover .vplay img { transition: none; transform: none; }
 }
+/* ---------- programme panel: balanced columns, always-visible actions (2026-10-08 follow-up) ---------- */
+/* <button> gets a grey UA background unless set: keep ghost/outline buttons transparent everywhere */
+.btn-ghost-light, .btn-outline { background-color: transparent; }
+.btn-on-dark { background: rgba(251, 251, 248, 0.06); color: #fbf6e8; border: 1px solid rgba(226, 183, 100, 0.75); }
+.btn-on-dark .icon { color: var(--gold-300); }
+.btn-on-dark:hover, .btn-on-dark:focus-visible { background: var(--gold-300); color: var(--green-950); border-color: var(--gold-300); }
+.btn-on-dark:hover .icon, .btn-on-dark:focus-visible .icon { color: var(--green-950); }
+.prog-actions .btn { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em; }
+.prog-actions { gap: 12px; }
+
+/* both columns end on the same line: rows share the stage's height */
+@media (min-width: 761px) {
+  .prog-layout { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); align-items: stretch; }
+  .prog-list { grid-auto-rows: 1fr; align-content: stretch; }
+  .prog-btn { height: 100%; }
+  .prog-stage { position: relative; top: 0; display: flex; flex-direction: column; }
+  .prog-stage .media { aspect-ratio: 16 / 9; flex: none; }
+  .prog-panel { flex: 1; display: flex; flex-direction: column; }
+  .prog-actions { margin-top: auto; padding-top: 22px; }
+}

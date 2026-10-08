@@ -74,9 +74,9 @@
       ${meta ? `<dl>${meta}</dl>` : ""}
       <div class="prog-actions">
         ${reg ? `<a class="btn btn-gold btn-sm" href="${esc(reg)}" target="_blank" rel="noopener">${esc(t("events.register", "Register free"))}</a>` : ""}
-        ${wa ? `<a class="btn btn-ghost-light btn-sm" href="${esc(wa)}" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg><span>${esc(t("events.whatsappGroup", "WhatsApp group"))}</span></a>` : ""}
-        ${ev ? `<button class="btn btn-ghost-light btn-sm" type="button" data-event-open-global="${esc(ev.id)}"><svg class="icon"><use href="#i-calendar"/></svg><span>${esc(t("prog.schedule", "Schedule & details"))}</span></button>` : ""}
-        ${S.share ? S.share.button({ title: pick(p.title), text: pick(p.schedule) || "", url: "#programme-" + p.id, cls: "btn btn-ghost-light btn-sm" }) : ""}
+        ${wa ? `<a class="btn btn-on-dark btn-sm" href="${esc(wa)}" target="_blank" rel="noopener"><svg class="icon"><use href="#i-whatsapp"/></svg><span>${esc(t("events.whatsappGroup", "WhatsApp group"))}</span></a>` : ""}
+        ${ev ? `<button class="btn btn-gold btn-sm" type="button" data-event-open-global="${esc(ev.id)}"><svg class="icon"><use href="#i-calendar"/></svg><span>${esc(t("prog.schedule", "Schedule & details"))}</span></button>` : ""}
+        ${S.share ? S.share.button({ title: pick(p.title), text: pick(p.schedule) || "", url: "#programme-" + p.id, cls: "btn btn-on-dark btn-sm" }) : ""}
       </div>`;
     if (animate && !S.reduceMotion && window.gsap) gsap.from(panel.children, { y: 14, opacity: 0, duration: 0.5, stagger: 0.06, ease: "expo.out" });
   }
